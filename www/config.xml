@@ -17,6 +17,6 @@
     </author>
 
   
-    <gap:plugin name="org.apache.cordova.core.camera" source="npm" />
+    <gap:plugin name="org.apache.cordova.core.camera" />
     <gap:plugin name="org.apache.cordova.file-transfer"  source="npm"/> 
 </widget>
