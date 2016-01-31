@@ -74,7 +74,7 @@ var app = {
             }
         }
         request.send();
-    }
+    },
     
     scanlan: function(lan, port, cb) {
        
