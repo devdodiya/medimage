@@ -19,5 +19,5 @@
     <preference name="phonegap-version" value="3.0.0" /> 
 
     <gap:plugin name="org.apache.cordova.core.camera" />
-    <gap:plugin name="com.chanthu.evri.gcs-file-transfer" spec="1.0.0" source="pgb" /> 
+    <gap:plugin name="org.apache.cordova.file-transfer" spec="1.0.0" /> 
 </widget>
