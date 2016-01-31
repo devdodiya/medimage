@@ -80,12 +80,12 @@ var app = {
        
        
        for(var cnt= 105; cnt< 110; cnt++){
-          var machine = cnt.toString(); //'1';
+          var machine = cnt.toString(); 
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function() {
               this.foundServer = url;
               cb(url);
-          }
+          });
        }
     }
 };
