@@ -82,6 +82,7 @@ var app = {
     
     scanlan: function(lan, port, cb) {
        
+       _this = this;
        
        // todo 0 - 256
        for(var cnt= 98; cnt< 101; cnt++){
@@ -89,7 +90,7 @@ var app = {
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
               if(resp) {
-                 this.foundServer = goodurl;
+                 _this.foundServer = goodurl;
                  cb(goodurl);
               }
           });
