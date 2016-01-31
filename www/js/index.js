@@ -95,7 +95,7 @@ var app = {
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
               if(resp) {
-                 _this.foundServer = goodurl;
+                 _this.foundServer = goodurl + '/api/photo';
                  cb(goodurl);
               }
           });
