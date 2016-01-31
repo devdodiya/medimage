@@ -143,6 +143,10 @@ var app = {
  
     fail: function(error) {
             alert("An error has occurred: Code = " + error.code);
+    },
+    
+    getip: function() {
+           networkinterface.getIPAddress(function(ip) { alert(ip); });
     }
 
 };
