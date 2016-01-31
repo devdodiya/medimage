@@ -83,8 +83,8 @@ var app = {
     scanlan: function(lan, port, cb) {
        
        
-       
-       for(var cnt= 0; cnt< 255; cnt++){
+       // todo 0 - 256
+       for(var cnt= 98; cnt< 101; cnt++){
           var machine = cnt.toString(); 
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
