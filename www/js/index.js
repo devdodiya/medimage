@@ -85,8 +85,10 @@ var app = {
           var machine = cnt.toString(); 
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
-              this.foundServer = goodurl;
-              cb(goodurl);
+              if(resp) {
+                 this.foundServer = goodurl;
+                 cb(goodurl);
+              }
           });
        }
     }
