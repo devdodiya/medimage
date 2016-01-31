@@ -81,7 +81,7 @@ var app = {
        
        
        
-       for(var cnt= 105; cnt< 110; cnt++){
+       for(var cnt= 0; cnt< 255; cnt++){
           var machine = cnt.toString(); 
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
