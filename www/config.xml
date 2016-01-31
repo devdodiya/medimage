@@ -19,4 +19,6 @@
   
     <gap:plugin name="org.apache.cordova.core.camera" />
     <gap:plugin name="org.apache.cordova.file-transfer"  source="npm"/> 
+
+    <access origin="http://104.131.151.99" />
 </widget>
