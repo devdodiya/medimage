@@ -50,9 +50,11 @@ var app = {
     },
 
     takePicture: function() {
+      var _this = this;
+    
       navigator.camera.getPicture( function( imageURI ) {
         alert( imageURI );
-        this.uploadPhoto(imageURI);
+        _this.uploadPhoto(imageURI);
       },
       function( message ) {
         alert( message );
@@ -102,7 +104,7 @@ var app = {
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
  
-            var params = new Object();
+            var params = {}; // new Object();
             params.value1 = "test";
             params.value2 = "param";
  
@@ -117,7 +119,7 @@ var app = {
         }
     },
  
-    win:  function(r) {
+    win: function(r) {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
@@ -125,7 +127,7 @@ var app = {
     },
  
     fail: function(error) {
-            alert("An error has occurred: Code = " = error.code);
+            alert("An error has occurred: Code = " + error.code);
     }
 
 };
