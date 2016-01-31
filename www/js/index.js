@@ -118,7 +118,8 @@ var app = {
             options.mimeType="image/jpeg";
  
             var params = {}; // new Object();
-            //params.value1 = "test";
+            params.file = "userPhoto";
+            params.submit = "submit";
             //params.value2 = "param";
  
             options.params = params;
