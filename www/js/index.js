@@ -69,9 +69,13 @@ var app = {
    get: function(url, cb) {
         var request = new XMLHttpRequest();
         request.open("GET", url, true);
+        
+        alert('about to get' +url);
         request.onreadystatechange = function() {
             if (request.readyState == 4) {
                 if (request.status == 200 || request.status == 0) {
+                    alert('got' + url);
+                    
                     cb(url, request.responseText);
                     
                     // -> request.responseText <- is a result
