@@ -108,7 +108,7 @@ var app = {
     
         if(_this.foundServer) {
             
-          window.resolveLocalFileSystemURI(imageURI, function(fileEntry) {
+          window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
             
             var imageURI = fileEntry.toURL();
             alert('file now:' + imageURI);
