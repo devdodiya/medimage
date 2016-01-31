@@ -127,7 +127,7 @@ var app = {
             var ft = new FileTransfer();
             alert('Uploading to' + _this.foundServer);
             ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
-          }  
+          } ); 
         } else {
             alert('No server known');
         }
