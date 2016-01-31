@@ -35,7 +35,7 @@
                 </div>
 
                 <button onclick="app.takePicture();">Take Picture</button>
-                <button onclick="app.get('192.168.1.107:5566', function(resp) { alert('connected to server!' + resp);  });">Get LAN</button>
+                <button onclick="alert('about to try'); app.get('http://192.168.1.107:5566', function(resp) { alert('connected to server!' + resp);  });">Get LAN</button>
             
             </div>
         </div>
