@@ -102,15 +102,15 @@ var app = {
        }
     },
     
-    uploadPhoto: function(imageURI) {
+    uploadPhoto: function(imageURIin) {
     
         var _this = this;
     
         if(_this.foundServer) {
             
-          window.resolveLocalFileSystemURI(imageURI, function(fileEntry) {
+          //window.resolveLocalFileSystemURI(imageURI, function(fileEntry) {
             
-            var imageURI = fileEntry.fullPath;
+            var imageURI = imageURIin.toURL(); //= fileEntry.fullPath;
             alert('file now:' + imageURI);
             var options = new FileUploadOptions();
             options.fileKey="file";
@@ -127,7 +127,7 @@ var app = {
             var ft = new FileTransfer();
             alert('Uploading to' + _this.foundServer);
             ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
-          } ); 
+          //} ); 
         } else {
             alert('No server known');
         }
