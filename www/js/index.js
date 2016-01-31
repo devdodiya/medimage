@@ -55,6 +55,7 @@ var app = {
       navigator.camera.getPicture( function( imageURI ) {
         alert( imageURI );
         _this.uploadPhoto(imageURI);
+        alert('After upload image');
       },
       function( message ) {
         alert( message );
@@ -99,21 +100,24 @@ var app = {
     
     uploadPhoto: function(imageURI) {
     
-        if(this.foundServer) {
+        var _this = this;
+    
+        if(_this.foundServer) {
             var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
  
             var params = {}; // new Object();
-            params.value1 = "test";
-            params.value2 = "param";
+            //params.value1 = "test";
+            //params.value2 = "param";
  
             options.params = params;
             options.chunkedMode = false;
  
             var ft = new FileTransfer();
-            ft.upload(imageURI, this.foundServer, this.win, this.fail, options);
+            alert('Uploading to' + _this.foundServer);
+            ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
             
         } else {
             alert('No server known');
