@@ -19,6 +19,8 @@
 var app = {
     // Application Constructor
     initialize: function() {
+    
+     
         this.bindEvents();
     },
     // Bind Event Listeners
@@ -33,7 +35,7 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+          app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -58,5 +60,19 @@ var app = {
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI
       });
+    },
+    
+   get: function(url, cb) {
+        var request = new XMLHttpRequest();
+        request.open("GET", url, true);
+        request.onreadystatechange = function() {
+            if (request.readyState == 4) {
+                if (request.status == 200 || request.status == 0) {
+                    cb(request.responseText);
+                    // -> request.responseText <- is a result
+                }
+            }
+        }
+        request.send();
     }
 };
