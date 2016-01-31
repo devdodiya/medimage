@@ -107,6 +107,11 @@ var app = {
         var _this = this;
     
         if(_this.foundServer) {
+            
+          window.resolveLocalFileSystemURI(imageURI, function(fileEntry) {
+            
+            var imageURI = fileEntry.fullPath;
+            alert('file now:' + imageURI);
             var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -122,7 +127,7 @@ var app = {
             var ft = new FileTransfer();
             alert('Uploading to' + _this.foundServer);
             ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
-            
+          }  
         } else {
             alert('No server known');
         }
