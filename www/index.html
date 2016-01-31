@@ -35,15 +35,14 @@
                 </div>
 
                 <button onclick="app.takePicture();">Take Picture</button>
+                <button onclick="app.get('192.168.1.107:5566', function(resp) { alert('connected to server!' + resp);  });">Get LAN</button>
+            
             </div>
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
-            app.get('192.168.1.107:5566', function() {
-               alert('connected to server!');
-            });
-        </script>
+          </script>
     </body>
 </html>
