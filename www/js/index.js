@@ -68,7 +68,8 @@ var app = {
         request.onreadystatechange = function() {
             if (request.readyState == 4) {
                 if (request.status == 200 || request.status == 0) {
-                    cb(request.responseText);
+                    cb(url, request.responseText);
+                    
                     // -> request.responseText <- is a result
                 }
             }
@@ -79,12 +80,13 @@ var app = {
     scanlan: function(lan, port, cb) {
        
        
+       
        for(var cnt= 105; cnt< 110; cnt++){
           var machine = cnt.toString(); 
           var url = 'http://' + lan + machine + ':' + port;
-          this.get(url, function() {
-              this.foundServer = url;
-              cb(url);
+          this.get(url, function(goodurl, resp) {
+              this.foundServer = goodurl;
+              cb(goodurl);
           });
        }
     }
