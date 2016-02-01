@@ -61,14 +61,14 @@ var app = {
         alert( imageURI );
         _this.uploadPhoto(imageURI);
         alert('After upload image');
-      },
-      function( message ) {
+       },
+       function( message ) {
         alert( message );
-      },
-      {
+       },
+       {
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI
-      });
+       });
     },
     
    get: function(url, cb) {
@@ -225,7 +225,7 @@ var app = {
                    } else {
                     _this.takePicture();
                    }
-             }), 3000):
+              }), 3000):
              
           } else {
              this.findServer(function(err) {
@@ -246,9 +246,12 @@ var app = {
     
     
     findServer: function(cb) {
+       
+       var _this = this;
+       
        this.getip(function() {
        
-          this.scanlan('5566', function(err) {
+          _this.scanlan('5566', function(err) {
              
              if(err) {
                cb(err);
