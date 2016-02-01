@@ -18,8 +18,7 @@
  */
 var app = {
 
-   var _this = this;
-   
+    
    
     // Application Constructor
     initialize: function() {
@@ -93,10 +92,11 @@ var app = {
     
     scanlan: function(port, cb) {
       
-     alert('about to scan ' + _this.lan); 
-     if(_this.lan) {
-       
-       var lan = _this.lan;
+     alert('about to scan ' + this.lan); 
+     if(this.lan) {
+       var _this = this;
+
+       var lan = this.lan;
        
        // todo 0 - 256
        for(var cnt=0; cnt< 256; cnt++){
@@ -116,7 +116,7 @@ var app = {
     
     uploadPhoto: function(imageURIin) {
     
-        
+        var _this = this;
     
         if(_this.foundServer) {
             
@@ -159,7 +159,8 @@ var app = {
     
     getip: function() {
     
-           
+           var _this = this;
+ 
            networkinterface.getIPAddress(function(ip) { 
                _this.ip = ip;
                alert(ip);
