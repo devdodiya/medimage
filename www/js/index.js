@@ -155,6 +155,9 @@ var app = {
            
             options.params = params;
             options.chunkedMode = false;
+            options.headers = {
+               Connection: "close"
+            };
  
             var ft = new FileTransfer();
             alert('Uploading to' + _this.foundServer);
