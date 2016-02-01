@@ -151,7 +151,7 @@ var app = {
             options.mimeType="image/jpeg";
  
             var params = {}; // new Object();
-            params.myname = "Hullo";
+            //params.myname = "Hullo";
            
             options.params = params;
             options.chunkedMode = false;
@@ -161,7 +161,7 @@ var app = {
  
             var ft = new FileTransfer();
             alert('Uploading to' + _this.foundServer);
-            ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options, true);
+            ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
           } ); 
         } else {
             alert('No server known');
