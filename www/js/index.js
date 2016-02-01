@@ -16,6 +16,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+ 
+
+ 
 var app = {
 
     
@@ -101,7 +104,7 @@ var app = {
        if(this.overrideServer) {
            //on a user set override, or a dev set override
            
-           var goodurl = this.overrideServer;
+           var goodurl = this.overrideServer + ':' + port;
            this.foundServer = goodurl + '/api/photo';
            window.localStorage.setItem("server", goodurl); //save for later
            cb(goodurl, null);
