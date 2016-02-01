@@ -126,12 +126,12 @@ var app = {
             alert('file now:' + imageURI);
             var options = new FileUploadOptions();
             options.fileKey="file";
-            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+            options.fileName="random_entered";//imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
  
             var params = {}; // new Object();
             params.file = "userPhoto";
-            params.userPhoto =  "hi";
+            params.userPhoto =  "";
             params.submit = "submit";
             //params.value2 = "param";
  
