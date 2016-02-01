@@ -46,6 +46,8 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
+        this.getip();
+
         console.log('Received Event: ' + id);
     },
 
@@ -70,11 +72,11 @@ var app = {
         var request = new XMLHttpRequest();
         request.open("GET", url, true);
         
-        alert('about to get' +url);
+        // alert('about to get' +url);
         request.onreadystatechange = function() {
             if (request.readyState == 4) {
                 if (request.status == 200 || request.status == 0) {
-                    alert('got' + url);
+                    //alert('got' + url);
                     
                     cb(url, request.responseText);
                     
@@ -85,12 +87,14 @@ var app = {
         request.send();
     },
     
-    scanlan: function(lan, port, cb) {
+    scanlan: function(port, cb) {
        
+     if(this.lan) {
        _this = this;
+       lan = this.lan;
        
        // todo 0 - 256
-       for(var cnt= 98; cnt< 101; cnt++){
+       for(var cnt=0; cnt< 256; cnt++){
           var machine = cnt.toString(); 
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
@@ -100,6 +104,9 @@ var app = {
               }
           });
        }
+      } else {
+         alert('Sorry, please connect to your Wifi network.');
+      }
     },
     
     uploadPhoto: function(imageURIin) {
@@ -146,7 +153,14 @@ var app = {
     },
     
     getip: function() {
-           networkinterface.getIPAddress(function(ip) { alert(ip); });
+    
+           var _this = this;
+           networkinterface.getIPAddress(function(ip) { 
+               _this.ip = ip;
+               _this.lan = ip.substr(0, ip.lastIndexOf('.'))
+               alert(ip + ' lan:' + lan);
+               
+           });
     }
 
 };
