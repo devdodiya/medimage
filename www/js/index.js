@@ -46,7 +46,7 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        this.getip();
+        //this.getip();
 
         console.log('Received Event: ' + id);
     },
@@ -157,7 +157,8 @@ var app = {
            var _this = this;
            networkinterface.getIPAddress(function(ip) { 
                _this.ip = ip;
-               _this.lan = ip.substr(0, ip.lastIndexOf('.'))
+               alert(ip);
+               _this.lan = ip.substr(0, ip.lastIndexOf('.'));
                alert(ip + ' lan:' + lan);
                
            });
