@@ -98,6 +98,16 @@ var app = {
       
        var lan = this.lan;
        
+       if(this.overrideServer) {
+           //on a user set override, or a dev set override
+           
+           var goodurl = this.overrideServer;
+           this.foundServer = goodurl + '/api/photo';
+           window.localStorage.setItem("server", goodurl); //save for later
+           cb(goodurl, null);
+           return;
+       }
+       
        // todo 0 - 256
        for(var cnt=0; cnt< 255; cnt++){
           var machine = cnt.toString(); 
@@ -105,14 +115,23 @@ var app = {
           this.get(url, function(goodurl, resp) {
               if(resp) {
                  _this.foundServer = goodurl + '/api/photo';
-                 cb(goodurl);
+                 window.localStorage.setItem("server", goodurl); //save for later
+                 cb(goodurl, null);
               }
           });
+          
+          
        }
+       
+       //todo after timeout cb(null,'Try entering your ip.');
       } else {
-         alert('Sorry, please connect to your Wifi network.');
+      
+         cb(null,'Sorry, please connect to your Wifi network.');
       }
     },
+    
+    
+    
     
     uploadPhoto: function(imageURIin) {
     
@@ -155,7 +174,7 @@ var app = {
             alert("An error has occurred: Code = " + error.code);
     },
     
-    getip: function() {
+    getip: function(cb) {
     
            var _this = this;
  
@@ -166,8 +185,70 @@ var app = {
                alert('len:' + len);
                _this.lan = ip.substr(0,len);
                alert(ip + ' lan:' + _this.lan);
-               
+               cb();
            });
+    },
+    
+    
+    startup: function(overrideServer) {
+        var _this = this;
+        
+        if(overrideServer) {
+          this.overrideServer = overrideServer;
+        }
+        
+        if(this.foundServer) {
+        
+          //already know from this session
+          this.takePicture();
+        } else {
+          var server = window.localStorage.getItem("key");
+          if(server) {
+              //OK we already know the server, or did at least
+              //try connecting to it
+              this.get(server, function(url, resp) {
+              
+                 //ok connected alright
+                 this.takePicture();
+              
+              });
+              
+              //todo timeout -rerun this.findServer()
+        
+          } else {
+             this.findServer(function(err) {
+                 
+                 if(err) {
+                   alert(err);
+                 } else {
+                   _this.takePicture();
+                 }
+             });
+          
+          }
+          
+        }
+       
+    
+    },
+    
+    
+    findServer: function(cb) {
+       this.getip(function() {
+       
+          this.scanlan('5566', function(err) {
+             
+             if(err) {
+               cb(err);
+             } else {
+               cb(null);
+             }
+          
+          }
+       });
+    
     }
+    
+    
 
 };
