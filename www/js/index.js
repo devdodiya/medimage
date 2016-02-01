@@ -124,6 +124,8 @@ var app = {
        }
        
        //todo after timeout cb(null,'Try entering your ip.');
+       
+       
       } else {
       
          cb(null,'Sorry, please connect to your Wifi network.');
@@ -202,19 +204,29 @@ var app = {
           //already know from this session
           this.takePicture();
         } else {
-          var server = window.localStorage.getItem("key");
+          var server = window.localStorage.getItem("server");
           if(server) {
               //OK we already know the server, or did at least
               //try connecting to it
               this.get(server, function(url, resp) {
               
                  //ok connected alright
-                 this.takePicture();
+                 clearTimeout(cnct);
+                 _this.foundServer = server + '/api/photo';
+                 _this.takePicture();
               
               });
               
-              //todo timeout -rerun this.findServer()
-        
+              //timeout after 3 secs -rerun this.findServer()
+              var cnct = setTimeout(_this.findServer(function(err) {
+                 
+                   if(err) {
+                     alert(err);
+                   } else {
+                    _this.takePicture();
+                   }
+             }), 3000):
+             
           } else {
              this.findServer(function(err) {
                  
@@ -244,7 +256,7 @@ var app = {
                cb(null);
              }
           
-          }
+          });
        });
     
     }
