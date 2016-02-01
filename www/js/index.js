@@ -158,8 +158,10 @@ var app = {
            networkinterface.getIPAddress(function(ip) { 
                _this.ip = ip;
                alert(ip);
-               _this.lan = ip.substr(0, ip.lastIndexOf('.'));
-               alert(ip + ' lan:' + lan);
+               var len =  ip.lastIndexOf('\.');
+               alert('len:' + len);
+               _this.lan = ip.substr(0,len);
+               alert(ip + ' lan:' + _this.lan);
                
            });
     }
