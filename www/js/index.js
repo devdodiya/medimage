@@ -101,16 +101,7 @@ var app = {
       
        var lan = this.lan;
        
-       if(this.overrideServer) {
-           //on a user set override, or a dev set override
-           
-           var goodurl = this.overrideServer + ':' + port;
-           this.foundServer = goodurl + '/api/photo';
-           window.localStorage.setItem("server", goodurl); //save for later
-           cb(goodurl, null);
-           return;
-       }
-       
+        
        // todo 0 - 256
        for(var cnt=0; cnt< 255; cnt++){
           var machine = cnt.toString(); 
@@ -193,7 +184,7 @@ var app = {
                alert('len:' + len);
                _this.lan = ip.substr(0,len);
                alert(ip + ' lan:' + _this.lan);
-               cb();
+               cb(ip);
            });
     },
     
@@ -214,6 +205,7 @@ var app = {
           if(server) {
               //OK we already know the server, or did at least
               //try connecting to it
+              alert('Trying ' + server);
               this.get(server, function(url, resp) {
               
                  //ok connected alright
@@ -236,6 +228,7 @@ var app = {
               }), 3000):*/
              
           } else {
+             alert('finding server');
              this.findServer(function(err) {
                  
                  if(err) {
@@ -257,8 +250,21 @@ var app = {
        
        var _this = this;
        
+       if(this.overrideServer) {
+           //on a user set override, or a dev set override
+           
+           var goodurl = this.overrideServer + ':' + port;
+           this.foundServer = goodurl + '/api/photo';
+           window.localStorage.setItem("server", goodurl); //save for later
+           alert('found.server as override=' + goodurl);
+           cb(null);
+           return;
+       }
+      
+         
+       }
        this.getip(function() {
-       
+          
           _this.scanlan('5566', function(err) {
              
              if(err) {
