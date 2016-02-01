@@ -91,15 +91,15 @@ var app = {
     },
     
     scanlan: function(port, cb) {
-      
+     var _this = this;
+
      alert('about to scan ' + this.lan); 
      if(this.lan) {
-       var _this = this;
-
+      
        var lan = this.lan;
        
        // todo 0 - 256
-       for(var cnt=0; cnt< 256; cnt++){
+       for(var cnt=0; cnt< 255; cnt++){
           var machine = cnt.toString(); 
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
@@ -131,6 +131,7 @@ var app = {
  
             var params = {}; // new Object();
             params.file = "userPhoto";
+            params.userPhoto =  "hi";
             params.submit = "submit";
             //params.value2 = "param";
  
