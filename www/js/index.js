@@ -158,7 +158,7 @@ var app = {
            networkinterface.getIPAddress(function(ip) { 
                _this.ip = ip;
                alert(ip);
-               var len =  ip.lastIndexOf('\.');
+               var len =  ip.lastIndexOf('\.') + 1;
                alert('len:' + len);
                _this.lan = ip.substr(0,len);
                alert(ip + ' lan:' + _this.lan);
