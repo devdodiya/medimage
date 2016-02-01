@@ -262,7 +262,7 @@ var app = {
        }
       
          
-       }
+       
        this.getip(function() {
           
           _this.scanlan('5566', function(err) {
