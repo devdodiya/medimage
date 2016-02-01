@@ -146,7 +146,7 @@ var app = {
             var imageURI = fileEntry.toURL();
             alert('file now:' + imageURI);
             var options = new FileUploadOptions();
-            options.fileKey="file";
+            options.fileKey="file1";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
  
