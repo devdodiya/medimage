@@ -49,7 +49,7 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-        //this.getip();
+       
 
         console.log('Received Event: ' + id);
     },
@@ -218,14 +218,16 @@ var app = {
               });
               
               //timeout after 3 secs -rerun this.findServer()
-              var cnct = setTimeout(_this.findServer(function(err) {
+              var cnct = setTimeout(function() { alert('timeout connectng');}, 3000);
+              
+             /* _this.findServer(function(err) {
                  
                    if(err) {
                      alert(err);
                    } else {
-                    _this.takePicture();
+                      _this.takePicture();
                    }
-              }), 3000):
+              }), 3000):*/
              
           } else {
              this.findServer(function(err) {
