@@ -45,8 +45,8 @@
                 
                 
                    <input id="id-entered" type="text">
-                   
-                   <button onclick="app.startup('http://104.131.151.99:5566');">Photo to PC</button>
+                   <input style="display:none;" id="override" type="text" value="">
+                   <button onclick="app.startup(document.getElementById("override"));">Photo to PC</button>
                 
             </div>
         </div>
