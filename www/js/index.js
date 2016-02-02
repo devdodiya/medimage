@@ -139,9 +139,8 @@ var app = {
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
  
-            var params = {}; // new Object();
-             params.key = 'title';
-             params.value = document.getElementById("id-entered").value;
+            var params = new Object();
+             params.title = document.getElementById("id-entered").value;
             
             
             options.params = params;
@@ -162,7 +161,7 @@ var app = {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            alert('Image transferred. '); //+ JSON.stringify(r.response));
+            alert('Image transferred. ' + r.response));
     },
  
     fail: function(error) {
