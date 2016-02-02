@@ -105,7 +105,7 @@ var app = {
           this.get(url, function(goodurl, resp) {
               if(resp) {
                  _this.foundServer = goodurl + '/api/photo';
-                 window.localStorage.setItem("server", goodurl); //save for later
+                 //window.localStorage.setItem("server", goodurl); //save for later
                  cb(goodurl, null);
               }
           });
@@ -192,16 +192,19 @@ var app = {
         
           //already know from this session
           this.takePicture();
-        } else {
-          var server = window.localStorage.getItem("server");
-          if(server) {
+          // } else {
+          //var server = window.localStorage.getItem("server");
+          //if(server) {
+          
+          var server = this.foundServer;
+          
               //OK we already know the server, or did at least
               //try connecting to it
               this.get(server, function(url, resp) {
               
                  //ok connected alright
                  clearTimeout(cnct);
-                 _this.foundServer = server + '/api/photo';
+                 //_this.foundServer = server + '/api/photo';
                  _this.takePicture();
               
               });
@@ -218,8 +221,7 @@ var app = {
                    }
               }), 3000):*/
              
-          } else {
-             //alert('finding server');
+        } else {
              this.findServer(function(err) {
                  
                  if(err) {
@@ -229,9 +231,9 @@ var app = {
                  }
              });
           
-          }
-          
         }
+          
+        
        
     
     },
