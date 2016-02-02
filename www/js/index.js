@@ -146,7 +146,7 @@ var app = {
  
             var params = {}; // new Object();
             //params.myname = "Hullo";
-           
+            params.idEntered = document.getElementById("id-entered");
             options.params = params;
             options.chunkedMode = false;
             //options.headers = {
@@ -167,7 +167,7 @@ var app = {
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
            // alert(r.response);
-           alert('Image transferred. ' + r.bytesSent + ' bytes sent');
+           alert('Image transferred. ' + r.response);
     },
  
     fail: function(error) {
