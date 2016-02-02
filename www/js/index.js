@@ -140,7 +140,10 @@ var app = {
             options.mimeType="image/jpeg";
  
             var params = {}; // new Object();
-             params.idEntered = document.getElementById("id-entered").value;
+             params.key = 'title';
+             params.value = document.getElementById("id-entered").value;
+            
+            
             options.params = params;
             options.chunkedMode = false;
             //options.headers = {
