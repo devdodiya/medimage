@@ -103,6 +103,7 @@ var app = {
           this.get(url, function(goodurl, resp) {
               if(resp) {
                  _this.foundServer = goodurl + '/api/photo';
+                 clearTimeout(scanning);
                  cb(goodurl, null);
               }
           });
@@ -232,12 +233,11 @@ var app = {
        
        var _this = this;
        
-       if(this.overrideServer) {
+       if((this.overrideServer)&&(this.overrideServer != "") {
            //on a user set override, or a dev set override
            
            var goodurl = this.overrideServer;
            this.foundServer = goodurl + '/api/photo';
-           window.localStorage.setItem("server", goodurl); //save for later
            cb(null);
            return;
        }
