@@ -61,9 +61,9 @@ var app = {
       var _this = this;
     
       navigator.camera.getPicture( function( imageURI ) {
-        alert( imageURI );
+        //alert( imageURI );
         _this.uploadPhoto(imageURI);
-        alert('After upload image');
+        //alert('After upload image');
        },
        function( message ) {
         alert( message );
@@ -96,7 +96,7 @@ var app = {
     scanlan: function(port, cb) {
      var _this = this;
 
-     alert('about to scan ' + this.lan); 
+     //alert('about to scan ' + this.lan); 
      if(this.lan) {
       
        var lan = this.lan;
@@ -138,7 +138,7 @@ var app = {
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
             
             var imageURI = fileEntry.toURL();
-            alert('file now:' + imageURI);
+            //alert('file now:' + imageURI);
             var options = new FileUploadOptions();
             options.fileKey="file1";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -154,7 +154,7 @@ var app = {
             };
  
             var ft = new FileTransfer();
-            alert('Uploading to' + _this.foundServer);
+            //alert('Uploading to' + _this.foundServer);
             ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
           } ); 
         } else {
@@ -166,7 +166,8 @@ var app = {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            alert(r.response);
+           // alert(r.response);
+           alert('Image transferred');
     },
  
     fail: function(error) {
@@ -179,11 +180,11 @@ var app = {
  
            networkinterface.getIPAddress(function(ip) { 
                _this.ip = ip;
-               alert(ip);
+               //alert(ip);
                var len =  ip.lastIndexOf('\.') + 1;
-               alert('len:' + len);
+               //alert('len:' + len);
                _this.lan = ip.substr(0,len);
-               alert(ip + ' lan:' + _this.lan);
+               //alert(ip + ' lan:' + _this.lan);
                cb(ip);
            });
     },
@@ -205,7 +206,7 @@ var app = {
           if(server) {
               //OK we already know the server, or did at least
               //try connecting to it
-              alert('Trying ' + server);
+              //alert('Trying ' + server);
               this.get(server, function(url, resp) {
               
                  //ok connected alright
@@ -228,7 +229,7 @@ var app = {
               }), 3000):*/
              
           } else {
-             alert('finding server');
+             //alert('finding server');
              this.findServer(function(err) {
                  
                  if(err) {
@@ -256,7 +257,7 @@ var app = {
            var goodurl = this.overrideServer;
            this.foundServer = goodurl + '/api/photo';
            window.localStorage.setItem("server", goodurl); //save for later
-           alert('found.server as override=' + goodurl);
+           //alert('found.server as override=' + goodurl);
            cb(null);
            return;
        }

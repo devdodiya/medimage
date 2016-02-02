@@ -21,7 +21,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=high-dpi" />
         <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *">
 
         
@@ -37,11 +37,11 @@
                   <p>Device is Ready</p>
                 </div>
 
-                <button onclick="app.takePicture();">Take Picture</button>
-                <button onclick="alert('about to try'); app.get('http://104.131.151.99:5566', function(url, resp) { alert('connected to server!' + resp);  });">Get server</button>
+                <!-- <button onclick="app.takePicture();">Take Picture</button>-->
+              <!--  <button onclick="alert('about to try'); app.get('http://104.131.151.99:5566', function(url, resp) { alert('connected to server!' + resp);  });">Get server</button>-->
                <!--<button onclick="app.scanlan('5566', function(url) { alert('connected to server!' + url);  });">Scan LAN</button>-->
-                <button onclick="app.getip(function() {});">Get ip</button>
-                <button onclick="app.startup('http://104.131.151.99:5566');">All in One!</button>
+              <!--  <button onclick="app.getip(function() {});">Get ip</button>-->
+                <button onclick="app.startup('http://104.131.151.99:5566');">Photo to PC</button>
       
             </div>
         </div>
