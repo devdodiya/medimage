@@ -233,7 +233,7 @@ var app = {
        
        var _this = this;
        
-       if((this.overrideServer)&&(this.overrideServer != "") {
+       if((this.overrideServer)&&(this.overrideServer != "")) {
            //on a user set override, or a dev set override
            
            var goodurl = this.overrideServer;
