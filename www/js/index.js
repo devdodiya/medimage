@@ -185,10 +185,12 @@ var app = {
         var _this = this;
         if((document.getElementById("override").value) &&
           (document.getElementById("override").value != '')) {
-           var overrideServer = document.getElementById("override").value;
+          
+           overrideServer = document.getElementById("override").value;
         }
         
         if(overrideServer) {
+          alert('Now trying:' + overrideServer);
           this.overrideServer = overrideServer;
         }
         
