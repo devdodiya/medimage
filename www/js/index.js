@@ -67,7 +67,7 @@ var app = {
         alert( message );
        },
        {
-        quality: 100,
+        quality: 50, //Should be: 100,
         destinationType: Camera.DestinationType.FILE_URI
        });
     },
@@ -162,7 +162,7 @@ var app = {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            alert('Image transferred. ' + JSON.stringify(r.response));
+            alert('Image transferred. '); //+ JSON.stringify(r.response));
     },
  
     fail: function(error) {
