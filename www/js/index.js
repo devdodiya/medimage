@@ -67,7 +67,7 @@ var app = {
         alert( message );
        },
        {
-        quality: 50, //Should be: 100,
+        quality: 100,
         destinationType: Camera.DestinationType.FILE_URI
        });
     },
@@ -76,7 +76,6 @@ var app = {
         var request = new XMLHttpRequest();
         request.open("GET", url, true);
         
-        // alert('about to get' +url);
         request.onreadystatechange = function() {
             if (request.readyState == 4) {
                 if (request.status == 200 || request.status == 0) {
@@ -98,22 +97,26 @@ var app = {
        var lan = this.lan;
        
         
-       // todo 0 - 256
        for(var cnt=0; cnt< 255; cnt++){
           var machine = cnt.toString(); 
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
               if(resp) {
                  _this.foundServer = goodurl + '/api/photo';
-                 //window.localStorage.setItem("server", goodurl); //save for later
                  cb(goodurl, null);
               }
           });
           
           
        }
-       
-       //todo after timeout cb(null,'Try entering your ip.');
+              
+       //timeout after 10 secs -rerun this.findServer()
+       var scanning = setTimeout(function() { 
+                  alert('Timeout finding your server. Please ensure your server is on the same network as your device and wifi and try again.');
+                
+       }, 10000);
+     
+       //todo 'Try entering your ip.';
        
        
       } else {
@@ -140,15 +143,12 @@ var app = {
             options.mimeType="image/jpeg";
  
             var params = new Object();
-             params.title = document.getElementById("id-entered").value;
+            params.title = document.getElementById("id-entered").value;
             
             
             options.params = params;
             options.chunkedMode = false;
-            //options.headers = {
-            //   Connection: "close"
-            //};
- 
+   
             var ft = new FileTransfer();
             ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
           } ); 
@@ -161,7 +161,7 @@ var app = {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            alert('Image transferred. ' + r.response);
+            alert('Image transferred.');
     },
  
     fail: function(error) {
@@ -190,12 +190,7 @@ var app = {
         
         if(this.foundServer) {
         
-          //already know from this session
-          //this.takePicture();
-          // } else {
-          //var server = window.localStorage.getItem("server");
-          //if(server) {
-          
+              
           var server = this.foundServer;
           
               //OK we already know the server, or did at least
@@ -204,22 +199,17 @@ var app = {
               
                  //ok connected alright
                  clearTimeout(cnct);
-                 //_this.foundServer = server + '/api/photo';
                  _this.takePicture();
               
               });
               
               //timeout after 3 secs -rerun this.findServer()
-              var cnct = setTimeout(function() { alert('timeout connectng');}, 3000);
+              var cnct = setTimeout(function() { 
+                  alert('Timeout connecting. Please try again.'); 
+                  _this.foundServer = null;
+               }, 3000);
               
-             /* _this.findServer(function(err) {
-                 
-                   if(err) {
-                     alert(err);
-                   } else {
-                      _this.takePicture();
-                   }
-              }), 3000):*/
+        
              
         } else {
              this.findServer(function(err) {
