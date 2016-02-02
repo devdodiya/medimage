@@ -161,7 +161,7 @@ var app = {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            alert('Image transferred. ' + r.response));
+            alert('Image transferred. ' + r.response);
     },
  
     fail: function(error) {
