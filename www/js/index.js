@@ -69,7 +69,7 @@ var app = {
         alert( message );
        },
        {
-        quality: 50,
+        quality: 100,
         destinationType: Camera.DestinationType.FILE_URI
        });
     },
@@ -149,9 +149,9 @@ var app = {
            
             options.params = params;
             options.chunkedMode = false;
-            options.headers = {
-               Connection: "close"
-            };
+            //options.headers = {
+            //   Connection: "close"
+            //};
  
             var ft = new FileTransfer();
             //alert('Uploading to' + _this.foundServer);
@@ -167,7 +167,7 @@ var app = {
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
            // alert(r.response);
-           alert('Image transferred');
+           alert('Image transferred. ' + r.bytesSent + ' bytes sent');
     },
  
     fail: function(error) {
@@ -266,7 +266,7 @@ var app = {
        
        this.getip(function() {
           
-          _this.scanlan('5566', function(err) {
+          _this.scanlan('5566', function(url, err) {
              
              if(err) {
                cb(err);
