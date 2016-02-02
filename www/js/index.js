@@ -253,7 +253,7 @@ var app = {
        if(this.overrideServer) {
            //on a user set override, or a dev set override
            
-           var goodurl = this.overrideServer + ':' + port;
+           var goodurl = this.overrideServer;
            this.foundServer = goodurl + '/api/photo';
            window.localStorage.setItem("server", goodurl); //save for later
            alert('found.server as override=' + goodurl);
