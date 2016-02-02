@@ -114,7 +114,7 @@ var app = {
        //timeout after 10 secs -rerun this.findServer()
        var scanning = setTimeout(function() { 
                   alert('Timeout finding your server. Please ensure your server is on the same wifi network as your device, or enter a custom http://serverip:port.');
-                document.getElementById('override').display = 'block';
+                document.getElementById('override').style.display = 'block';
        }, 10000);
      
           
