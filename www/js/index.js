@@ -191,7 +191,7 @@ var app = {
         if(this.foundServer) {
         
           //already know from this session
-          this.takePicture();
+          //this.takePicture();
           // } else {
           //var server = window.localStorage.getItem("server");
           //if(server) {
