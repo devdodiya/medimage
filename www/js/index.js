@@ -169,11 +169,11 @@ var app = {
             alert('Image transferred.');
             
             //and delete phone version
-            //alert('delete' + _this.deleteThisFile);
+            alert('delete' + r.localURL + ' ' + JSON.stringify(r));
        
-            if(_this.deleteThisFile != "") {
+            if(r.localURL != "") {
             
-               this.removeFile(_this.deleteThisFile);
+               this.removeFile(r.localURL);
             }
     
     },
