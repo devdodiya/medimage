@@ -111,11 +111,11 @@ var app = {
           
        }
               
-       //timeout after 10 secs -rerun this.findServer()
+       //timeout after 5 secs
        var scanning = setTimeout(function() { 
-                  alert('Timeout finding your server. Please ensure your server is on the same wifi network as your device, or enter a custom http://serverip:port.');
-                document.getElementById('override').style.display = 'block';
-       }, 10000);
+                alert('Timeout finding your server. Please ensure your server is on the same wifi network as your device, or enter a custom http://serverip:port. The port is likely 5566.');
+                document.getElementById('override-form').style.display = 'block';
+       }, 5000);
      
           
        
@@ -190,8 +190,7 @@ var app = {
         }
         
         if(overrideServer) {
-          alert('Now trying:' + overrideServer);
-          this.overrideServer = overrideServer;
+            this.overrideServer = overrideServer;
         }
         
         if(this.foundServer) {
