@@ -174,9 +174,9 @@ var app = {
          
            //timeout after 3 secs -rerun this.findServer()
            var iptime = setTimeout(function() { 
-                  alert("You don't appear to be connected to your wifi. Please connect and try again, or override with your server's url and port."); 
+                  var err = "You don't appear to be connected to your wifi. Please connect and try again, or override with your server's url and port."); 
                   document.getElementById('override-form').style.display = 'block';
-
+                  cb(err);
            }, 3000);
    
            networkinterface.getIPAddress(function(ip) { 
@@ -184,7 +184,7 @@ var app = {
                var len =  ip.lastIndexOf('\.') + 1;
                 _this.lan = ip.substr(0,len);
                 clearTimeout(iptime);
-                cb(ip);
+                cb(null);
            });
     },
     
@@ -257,7 +257,12 @@ var app = {
       
          
        
-       this.getip(function() {
+       this.getip(function(ip, err) {
+          
+          if(err) (
+             cb(err);
+             return;
+          }
           
           _this.scanlan('5566', function(url, err) {
              
