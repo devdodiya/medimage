@@ -137,7 +137,7 @@ var app = {
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
            
             _this.deleteThisFile = imageURIin; //fileEntry;
-            alert('delete' + _this.deleteThisFile);
+            //alert('delete' + _this.deleteThisFile);
        
        
             var imageURI = fileEntry.toURL();
@@ -169,11 +169,11 @@ var app = {
             alert('Image transferred.');
             
             //and delete phone version
-            alert('delete' + this.deleteThisFile);
+            //alert('delete' + _this.deleteThisFile);
        
-            if(this.deleteThisFile != "") {
+            if(_this.deleteThisFile != "") {
             
-               this.removeFile(this.deleteThisFile);
+               this.removeFile(_this.deleteThisFile);
             }
     
     },
