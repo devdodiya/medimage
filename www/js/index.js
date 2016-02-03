@@ -18,6 +18,7 @@
  */
  
 var deleteThisFile = "";
+var parentThis = {};
  
  
 var app = {
@@ -136,7 +137,9 @@ var app = {
             
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
            
-            deleteThisFile = imageURIin; //fileEntry;
+            deleteThisFile = imageURIin; //Store globally
+            parentThis = _this;          //Store this parent for win
+            
             //alert('delete' + _this.deleteThisFile);
        
        
@@ -174,7 +177,7 @@ var app = {
            
             if(deleteThisFile != "") {
             
-               this.removeFile(deleteThisFile);
+               parentThis.removeFile(deleteThisFile);
             }
     
     },
