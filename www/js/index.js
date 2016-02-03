@@ -17,7 +17,7 @@
  * under the License.
  */
  
-var deleteThisFile = "";
+var deleteThisFile = {};
 var parentThis = {};
  
  
@@ -137,7 +137,7 @@ var app = {
             
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
            
-            deleteThisFile = imageURIin; //Store globally
+            deleteThisFile = fileEntry; //Store globally
             parentThis = _this;          //Store this parent for win
             
             //alert('delete' + _this.deleteThisFile);
@@ -175,10 +175,13 @@ var app = {
             
             alert('delete ' + deleteThisFile);
            
+            deleteThisFile.remove();
+           
             if(deleteThisFile != "") {
-               var delme = deleteThisFile.replace(/file:\/\//, "");
+               //var delme = deleteThisFile.replace(/file:\/\//, "");
                
-               parentThis.removeFile(delme);
+               
+               //parentThis.removeFile(delme);
             }
     
     },
