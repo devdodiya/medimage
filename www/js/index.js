@@ -17,11 +17,11 @@
  * under the License.
  */
  
-
+var deleteThisFile = "";
+ 
  
 var app = {
 
-    deleteThisFile : "",
    
     // Application Constructor
     initialize: function() {
@@ -169,11 +169,13 @@ var app = {
             alert('Image transferred.');
             
             //and delete phone version
-            alert('delete' + r.localURL + ' ' + JSON.stringify(r));
-       
-            if(r.localURL != "") {
             
-               this.removeFile(r.localURL);
+            alert('delete ' + deleteThisFile);
+            //alert('delete' + r.files.file1[0].localURL + ' ' + JSON.stringify(r.files.file1));
+       
+            if(deleteThisFile != "") {
+            
+               this.removeFile(deleteThisFile);
             }
     
     },
