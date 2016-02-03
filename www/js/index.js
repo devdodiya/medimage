@@ -169,6 +169,8 @@ var app = {
             alert('Image transferred.');
             
             //and delete phone version
+            alert('delete' + _this.deleteThisFile);
+       
             if(this.deleteThisFile != "") {
             
                this.removeFile(this.deleteThisFile);
