@@ -297,7 +297,11 @@ var app = {
       
         var relativeFilePath = myfile;
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+            alert('Found filesystem');
+           
             fileSystem.root.getFile(relativeFilePath, {create:false}, function(fileEntry){
+                
+                alert('Found file');
                 fileEntry.remove(function(file){
                    alert("File removed!");
                 },function(){
