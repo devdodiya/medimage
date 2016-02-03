@@ -174,7 +174,7 @@ var app = {
          
            //timeout after 3 secs -rerun this.findServer()
            var iptime = setTimeout(function() { 
-                  var err = "You don't appear to be connected to your wifi. Please connect and try again, or override with your server's url and port."); 
+                  var err = "You don't appear to be connected to your wifi. Please connect and try again, or override with your server's url and port."; 
                   document.getElementById('override-form').style.display = 'block';
                   cb(err);
            }, 3000);
@@ -259,7 +259,7 @@ var app = {
        
        this.getip(function(ip, err) {
           
-          if(err) (
+          if(err) {
              cb(err);
              return;
           }
