@@ -174,7 +174,7 @@ var app = {
          
            //timeout after 3 secs -rerun this.findServer()
            var iptime = setTimeout(function() { 
-                  alert("You don't appear to be connected to your wifi. Please connect and try again, or override with your server's url and port.'); 
+                  alert("You don't appear to be connected to your wifi. Please connect and try again, or override with your server's url and port."); 
                   document.getElementById('override-form').style.display = 'block';
 
            }, 3000);
