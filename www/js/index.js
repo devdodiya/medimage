@@ -171,8 +171,7 @@ var app = {
             //and delete phone version
             
             alert('delete ' + deleteThisFile);
-            //alert('delete' + r.files.file1[0].localURL + ' ' + JSON.stringify(r.files.file1));
-       
+           
             if(deleteThisFile != "") {
             
                this.removeFile(deleteThisFile);
@@ -300,7 +299,7 @@ var app = {
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
             fileSystem.root.getFile(relativeFilePath, {create:false}, function(fileEntry){
                 fileEntry.remove(function(file){
-                   console.log("File removed!");
+                   alert("File removed!");
                 },function(){
                    alert("Warning: file not deleted on phone " + error.code);
                 });
@@ -308,6 +307,7 @@ var app = {
                 alert("file does not exist" +relativeFilePath);
             });
         },function(evt){
+            alert('No persistent filesystem');
             alert(evt.target.error.code);
         });
     }
