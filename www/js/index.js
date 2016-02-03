@@ -17,10 +17,8 @@
  * under the License.
  */
  
-var deleteThisFile = {};
-var parentThis = {};
- 
- 
+var deleteThisFile = {}; //Global object for image taken, to be deleted
+
 var app = {
 
    
@@ -138,11 +136,8 @@ var app = {
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
            
             deleteThisFile = fileEntry; //Store globally
-            parentThis = _this;          //Store this parent for win
-            
-            //alert('delete' + _this.deleteThisFile);
-       
-       
+              
+         
             var imageURI = fileEntry.toURL();
             var options = new FileUploadOptions();
             options.fileKey="file1";
@@ -171,19 +166,9 @@ var app = {
             console.log("Sent = " + r.bytesSent);
             alert('Image transferred.');
             
-            //and delete phone version
-            
-            alert('delete ' + deleteThisFile);
-           
+            //and delete phone version          
             deleteThisFile.remove();
-           
-            if(deleteThisFile != "") {
-               //var delme = deleteThisFile.replace(/file:\/\//, "");
-               
-               
-               //parentThis.removeFile(delme);
-            }
-    
+     
     },
  
   
@@ -298,30 +283,9 @@ var app = {
           });
        });
     
-    },
-    
-    removeFile: function(myfile) {
-      
-        var relativeFilePath = myfile;
-        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
-            alert('Found filesystem');
-           
-            fileSystem.root.getFile(relativeFilePath, {create:false}, function(fileEntry){
-                
-                alert('Found file');
-                fileEntry.remove(function(file){
-                   alert("File removed!");
-                },function(){
-                   alert("Warning: file not deleted on phone " + error.code);
-                });
-            },function(){
-                alert("file does not exist" +relativeFilePath);
-            });
-        },function(evt){
-            alert('No persistent filesystem');
-            alert(evt.target.error.code);
-        });
     }
+    
+  
     
     
 
