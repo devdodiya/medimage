@@ -136,7 +136,7 @@ var app = {
             
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
            
-            deleteThisFile = fileEntry;
+            _this.deleteThisFile = fileEntry;
        
             var imageURI = fileEntry.toURL();
             var options = new FileUploadOptions();
