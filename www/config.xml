@@ -23,7 +23,7 @@
     
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
     
-    <uses-feature android:name="android.permission.CAMERA" />
+  
     <access origin="*" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
