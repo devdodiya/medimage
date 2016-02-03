@@ -136,7 +136,7 @@ var app = {
             
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
            
-            _this.deleteThisFile = imageURIin; //fileEntry;
+            deleteThisFile = imageURIin; //fileEntry;
             //alert('delete' + _this.deleteThisFile);
        
        
