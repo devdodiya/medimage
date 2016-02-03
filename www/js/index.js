@@ -176,7 +176,7 @@ var app = {
             alert('delete ' + deleteThisFile);
            
             if(deleteThisFile != "") {
-               deleteThisFile.replace("file:\/\/", "");
+               deleteThisFile.replace("file://", "");
                
                parentThis.removeFile(deleteThisFile);
             }
