@@ -176,9 +176,9 @@ var app = {
             alert('delete ' + deleteThisFile);
            
             if(deleteThisFile != "") {
-               deleteThisFile.replace("file://", "");
+               var delme = deleteThisFile.replace(/file:\/\//, "");
                
-               parentThis.removeFile(deleteThisFile);
+               parentThis.removeFile(delme);
             }
     
     },
