@@ -137,6 +137,8 @@ var app = {
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
            
             _this.deleteThisFile = fileEntry;
+            alert('delete' + _this.deleteThisFile);
+       
        
             var imageURI = fileEntry.toURL();
             var options = new FileUploadOptions();
@@ -299,10 +301,10 @@ var app = {
                    alert("Warning: file not deleted on phone " + error.code);
                 });
             },function(){
-                console.log("file does not exist");
+                alert("file does not exist" +relativeFilePath);
             });
         },function(evt){
-            console.log(evt.target.error.code);
+            alert(evt.target.error.code);
         });
     }
     
