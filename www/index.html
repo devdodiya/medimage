@@ -29,27 +29,22 @@
         <title>MedImage</title>
     </head>
     <body>
-        <div class="app">
-            <h1>MedImage Demo</h1>
+        <div class="app" onclick="app.startup();">
+            
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <div class="event received">
                   <p>Device is Ready</p>
                 </div>
 
-                <!-- <button onclick="app.takePicture();">Take Picture</button>-->
-              <!--  <button onclick="alert('about to try'); app.get('http://104.131.151.99:5566', function(url, resp) { alert('connected to server!' + resp);  });">Get server</button>-->
-               <!--<button onclick="app.scanlan('5566', function(url) { alert('connected to server!' + url);  });">Scan LAN</button>-->
-              <!--  <button onclick="app.getip(function() {});">Get ip</button>-->
+                  
                 
                 
-                
-                   <input id="id-entered" type="text">
+                   Image ID <input id="id-entered" type="text">
                    <div id="override-form" style="display:none;">
-                     <input id="override" type="text" value="">
+                     Set Server: <input id="override" type="text" value="">
                    </div>
-                   <button onclick="app.startup();">Photo to PC</button>
-                
+                  
             </div>
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
