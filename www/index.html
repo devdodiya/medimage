@@ -21,7 +21,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=med-dpi" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=high-dpi" />
         <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *">
 
         
@@ -29,9 +29,9 @@
         <title>MedImage</title>
     </head>
     <body>
-        <div class="app" onclick="app.startup();">
-            <img src="../img/logo.svg">
-            <div id="deviceready" class="blink">
+        <div class="app" >
+               <button onclick="app.startup();">
+               <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
                 <div class="event received">
                   <p>Device is Ready</p>

@@ -76,6 +76,8 @@ body {
   border-radius: 5px;
   line-height: 30px;
   font-size: 15px;
+  width: 400%;
+  height: 400%;
 }
 
 h1 {
