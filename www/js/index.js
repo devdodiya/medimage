@@ -21,7 +21,7 @@
  
 var app = {
 
-    
+    deleteThisFile : "",
    
     // Application Constructor
     initialize: function() {
@@ -135,7 +135,9 @@ var app = {
         if(_this.foundServer) {
             
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
-            
+           
+            deleteThisFile = fileEntry;
+       
             var imageURI = fileEntry.toURL();
             var options = new FileUploadOptions();
             options.fileKey="file1";
@@ -148,6 +150,7 @@ var app = {
             
             options.params = params;
             options.chunkedMode = false;
+            
    
             var ft = new FileTransfer();
             ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
@@ -162,8 +165,16 @@ var app = {
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
             alert('Image transferred.');
+            
+            //and delete phone version
+            if(deleteThisFile != "") {
+            
+               this.removeFile(deleteThisFile);
+            }
+    
     },
  
+  
     fail: function(error) {
             alert("An error has occurred: Code = " + error.code);
     },
@@ -275,6 +286,24 @@ var app = {
           });
        });
     
+    },
+    
+    removeFile: function(myfile) {
+      
+        var relativeFilePath = myfile;
+        window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem){
+            fileSystem.root.getFile(relativeFilePath, {create:false}, function(fileEntry){
+                fileEntry.remove(function(file){
+                   console.log("File removed!");
+                },function(){
+                   alert("Warning: file not deleted on phone " + error.code);
+                });
+            },function(){
+                console.log("file does not exist");
+            });
+        },function(evt){
+            console.log(evt.target.error.code);
+        });
     }
     
     
