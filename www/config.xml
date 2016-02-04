@@ -9,7 +9,7 @@
     <name>Med Image</name>
 
     <description>
-        Copy your image to your PC
+        Copy a camera image to your PC
     </description>
 
     <author href="http://atomjump.com" email="webmaster@atomjump.com">
@@ -20,9 +20,10 @@
     <gap:plugin name="org.apache.cordova.core.camera" />
     <gap:plugin name="org.apache.cordova.file-transfer"  source="npm"/> 
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
-    
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
     
+    <uses-permission android:name="android.permission.CAMERA"/>
+
   
     <access origin="*" />
     <allow-intent href="*" />
