@@ -10,7 +10,7 @@
     <!-- When ready add ios|winphone|wp8|android -->    
     <platform name="android" />
 
-    <name>MedImage</name>
+    <name>Med Image</name>
 
     <description>
         Copy a camera image to your PC.
