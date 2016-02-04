@@ -173,7 +173,28 @@ var app = {
  
   
     fail: function(error) {
-            alert("An error has occurred: Code = " + error.code);
+    
+        switch(error.code):
+        {
+            case 1:
+                alert("Sorry the photo file was not found on your phone.");
+            break;
+            
+            case 2:
+                alert("Sorry you have tried to send it to an invalid URL.");
+            break;
+            
+            case 3:
+                alert("You cannot connect to the server at this time. Check if it is running, and try again.");
+            break;
+            
+            case 4:
+                alert("Sorry, your image transfer was aborted.");
+            break;
+            
+            default:
+                alert("An error has occurred: Code = " + error.code);
+            break;
     },
     
     getip: function(cb) {
