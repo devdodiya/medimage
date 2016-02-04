@@ -51,7 +51,7 @@ body {
     position:absolute;             /* position in the center of the screen */
     left:0%;
     top:30%;
-    height:512px;                   /* text area height */
+    /*height:360px;  */                 /* text area height */
     width:100%;                   /* text area width */
     text-align:center;
     padding:360px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
