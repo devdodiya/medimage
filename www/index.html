@@ -33,20 +33,16 @@
              <span class="big-text">Image ID<br/> </span><input id="id-entered" type="text" class="resizedTextbox">
         </p>
     
-        <div class="app" >
+        <div class="app" onclick="app.startup();">
             
-            <div class="big-button" onclick="app.startup();">
-            </div>
-        
+           
                <h1>Photo to PC</h1>
               
-               <div id="deviceready" >
-                
-                <div id="override-form" style="display:none;">
-                     <span class="big-text">Set Server </span><input id="override" type="text" value="" class="resizedTextbox">
-                </div>
-                  
-              </div>
+              
+        </div>
+        
+        <div id="override-form" style="display:none;">
+             <span class="big-text">Set Server </span><input id="override" type="text" value="" class="resizedTextbox">
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
