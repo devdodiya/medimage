@@ -30,8 +30,12 @@
     </head>
     <body>
         <div class="app" >
-               <button onclick="app.startup();">
-               <div id="deviceready" class="blink">
+            <div class="big-button" onclick="app.startup();">
+            </div>
+        
+               <h1>Photo to PC</h1>
+              
+               <div id="deviceready" >
                 <p class="event listening">Connecting to Device</p>
                 <div class="event received">
                   <p>Device is Ready</p>
@@ -40,12 +44,15 @@
                   
                 
                 
-                   Image ID <input id="id-entered" type="text">
-                   <div id="override-form" style="display:none;">
-                     Set Server: <input id="override" type="text" value="">
-                   </div>
+                <p>
+                   <span class="big-text">Image ID </span><input id="id-entered" type="text" class="resizedTextbox">
+                </p>
+                
+                <div id="override-form" style="display:none;">
+                     <span class="big-text">Set Server </span><input id="override" type="text" value="" class="resizedTextbox">
+                </div>
                   
-            </div>
+              </div>
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
