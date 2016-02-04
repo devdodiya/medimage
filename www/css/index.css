@@ -89,12 +89,12 @@ body {
 h1 {
     position:relative;
     top: 0px;
-    font-size:24px;
+    font-size:44px;
     font-weight:normal;
     margin:0px;
     overflow:visible;
     padding:0px;
-    margin-top:-180px;
+    margin-top:-200px;
     margin-bottom: 190px;
     text-align:center;
     color: #892f83;
@@ -103,9 +103,9 @@ h1 {
 
 
 .resizedTextbox {
-    width: 200px;
+    width: 300px;
     height: 30px;
-    font-size: 200%;
+    font-size: 400%;
 }
 
 
