@@ -49,47 +49,7 @@ body {
 
 }
 
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
 
-    .logo {
-	    position: relative; 
-	    width: 200px; 
-	    height:200px;
-	    margin-left: auto; 
-	    margin-right: auto;
-	    z-index: 10;
-    }
-    
-    
-    body {
-        -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-        -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-        -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-        background-color:#FFFFFF;
-        background-attachment:fixed;
-        font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-        font-size:12px;
-        /*height:100%;*/
-        margin:0px;
-        padding:0px;
-        width:100%;
-    }
-    
-    h1 {
-    
-        position:relative;
-        top: 0px;
-        font-size:44px;
-        font-weight:normal;
-        margin:0px;
-        overflow:visible;
-        padding:0px;
-        margin-top:160px;
-        margin-bottom: 190px;
-        text-align:center;
-        color: #892f83;
-    }
-}
 
 
 /* Portrait layout (default) */
@@ -138,4 +98,46 @@ h1 {
     font-size: 400%;
 }
 
+
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+
+    .logo {
+	    position: relative; 
+	    width: 200px; 
+	    height:200px;
+	    margin-left: auto; 
+	    margin-right: auto;
+	    z-index: 10;
+    }
+    
+    
+    body {
+        -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+        -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+        -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+        background-color:#FFFFFF;
+        background-attachment:fixed;
+        font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+        font-size:12px;
+        /*height:100%;*/
+        margin:0px;
+        padding:0px;
+        width:100%;
+    }
+    
+    h1 {
+    
+        position:relative;
+        top: 0px;
+        font-size:44px;
+        font-weight:normal;
+        margin:0px;
+        overflow:visible;
+        padding:0px;
+        margin-top:160px;
+        margin-bottom: 190px;
+        text-align:center;
+        color: #892f83;
+    }
+}
 
