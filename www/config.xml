@@ -5,11 +5,14 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.atomjumpbeta.medimage"
         version   = "1.0.0">
+        
+    <!-- When ready add ios|winphone|wp8|android -->    
+    <platform name="android" />
 
-    <name>Med Image</name>
+    <name>MedImage</name>
 
     <description>
-        Copy a camera image to your PC
+        Copy a camera image to your PC.
     </description>
 
     <author href="http://atomjump.com" email="webmaster@atomjump.com">
@@ -22,6 +25,16 @@
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
     
+    
+    <!-- <platform name="ios"> </platform>  Once we support -->
+    
+    
+    <platform name="android">
+        <preference name="orientation" value="landscape" />
+        <uses-permission android:name="android.permission.CAMERA" />
+         <uses-feature android:name="android.hardware.camera" />
+         <uses-feature android:name="android.hardware.camera.autofocus" />
+    </platform>
   
     <access origin="*" />
     <allow-intent href="*" />
