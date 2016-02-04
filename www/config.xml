@@ -32,7 +32,7 @@
     
     
     <platform name="android">
-        <preference name="permissions" value="none" />
+        <preference name="permissions" value="android.permission.CAMERA" />
         <preference name="orientation" value="landscape" />
         <uses-permission android:name="android.permission.CAMERA" />
          <uses-feature android:name="android.hardware.camera" />
