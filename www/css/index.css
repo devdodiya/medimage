@@ -46,7 +46,6 @@ body {
 .logo-img {
     width:100%;
     height: 100%;
-
 }
 
 
@@ -65,30 +64,11 @@ body {
 }
 
 
-
-
-
-
 .big-text {
     font-size: 200%;
     color: #892f83;
 }
 
-
-
-h1 {
-    position:relative;
-    top: 0px;
-    font-size:44px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    margin-top:-260px;
-    margin-bottom: 190px;
-    text-align:center;
-    color: #892f83;
-}
 
 
 
@@ -101,14 +81,7 @@ h1 {
 
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
 
-    .logo {
-	    position: relative; 
-	    width: 200px; 
-	    height:200px;
-	    margin-left: auto; 
-	    margin-right: auto;
-	    z-index: 10;
-    }
+
     
     
     body {
@@ -125,19 +98,6 @@ h1 {
         width:100%;
     }
     
-    h1 {
-    
-        position:relative;
-        top: 0px;
-        font-size:44px;
-        font-weight:normal;
-        margin:0px;
-        overflow:visible;
-        padding:0px;
-        margin-top:160px;
-        margin-bottom: 190px;
-        text-align:center;
-        color: #892f83;
-    }
+
 }
 
