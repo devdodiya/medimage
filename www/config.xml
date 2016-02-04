@@ -22,8 +22,6 @@
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
     
-    <uses-permission android:name="android.permission.CAMERA"/>
-
   
     <access origin="*" />
     <allow-intent href="*" />
