@@ -32,8 +32,8 @@
     
     
     <platform name="android">
-        <preference name="permissions" value="android.permission.CAMERA" />
-        <preference name="orientation" value="landscape" />
+        <preference name="permissions" value="none" />
+        <preference name="orientation" value="portrait" />
         <uses-permission android:name="android.permission.CAMERA" />
          <uses-feature android:name="android.hardware.camera" />
          <uses-feature android:name="android.hardware.camera.autofocus" />
