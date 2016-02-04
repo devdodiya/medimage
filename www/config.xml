@@ -11,6 +11,7 @@
     <platform name="android" />
 
     <name>Med Image</name>
+    <!-- For Beta, this should be MedImage, for release, it should be Med Image -->
 
     <description>
         Copy a camera image to your PC.
@@ -31,6 +32,7 @@
     
     
     <platform name="android">
+        <preference name="permissions" value="none" />
         <preference name="orientation" value="landscape" />
         <uses-permission android:name="android.permission.CAMERA" />
          <uses-feature android:name="android.hardware.camera" />
