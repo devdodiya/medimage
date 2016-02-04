@@ -174,7 +174,7 @@ var app = {
   
     fail: function(error) {
     
-        switch(error.code):
+        switch(error.code)
         {
             case 1:
                 alert("Sorry the photo file was not found on your phone.");
@@ -195,6 +195,7 @@ var app = {
             default:
                 alert("An error has occurred: Code = " + error.code);
             break;
+        }
     },
     
     getip: function(cb) {
