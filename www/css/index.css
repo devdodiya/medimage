@@ -74,6 +74,21 @@ body {
         padding:0px;
         width:100%;
     }
+    
+    h1 {
+    
+        position:relative;
+        top: 0px;
+        font-size:44px;
+        font-weight:normal;
+        margin:0px;
+        overflow:visible;
+        padding:0px;
+        margin-top:160px;
+        margin-bottom: 190px;
+        text-align:center;
+        color: #892f83;
+    }
 }
 
 
