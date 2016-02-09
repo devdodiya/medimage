@@ -161,6 +161,11 @@ var app = {
 				  var mydt = date.value.replace(/:/g,'-');
 				  mydt = mydt.replace(/ /g,'-');
 				  mydt = mydt.replace(/\//g,'-');
+				  
+				  var aDate = new Date();
+				  var seconds = aDate.getSeconds();
+				  mydt = mydt + "-" + seconds;
+				  
 
 				  options.fileName = myoutFile + '-' + mydt + '.jpg';
 
@@ -182,7 +187,7 @@ var app = {
 
 			  },
 			  function () {alert('Error getting dateString\n');},
-			  {formatLength:'full', selector:'date and time'}
+			  {formatLength:'medium', selector:'date and time'}
 			);
 
 
