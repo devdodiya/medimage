@@ -63,7 +63,7 @@ var app = {
           _this.uploadPhoto(imageURI);
         },
        function( message ) {
-        alert( message );
+        _this.notify( message );
        },
        {
         quality: 100,
