@@ -176,13 +176,13 @@ var app = {
 
 				  var ft = new FileTransfer();
 				  
-				  _this.notify("Starting upload to " + _this.foundServer); 
+				  _this.notify("Uploading to " + _this.foundServer); 
 				  
             	  ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
 
 			  },
 			  function () {alert('Error getting dateString\n');},
-			  {formatLength:'medium', selector:'date and time'}
+			  {formatLength:'full', selector:'date and time'}
 			);
 
 
@@ -198,7 +198,9 @@ var app = {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            this.notify('Image transferred.');
+            document.getElementById("notify").innerHTML = 'Image transferred.';
+            document.getElementById("override-form").style.display = 'none';    //Hide any url entry
+
 
             //and delete phone version
             deleteThisFile.remove();
