@@ -50,9 +50,6 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-
-
-
         console.log('Received Event: ' + id);
     },
 
@@ -79,9 +76,7 @@ var app = {
             if (request.readyState == 4) {
                 if (request.status == 200 || request.status == 0) {
 
-                    cb(url, request.responseText);
-
-                    // -> request.responseText <- is a result
+                    cb(url, request.responseText);   // -> request.responseText <- is a result
                 }
             }
         }
@@ -101,7 +96,7 @@ var app = {
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
               if(resp) {
-                 _this.foundServer = goodurl + '/api/photo';
+                 _this.foundServer = goodurl;
                  clearTimeout(scanning);
                  cb(goodurl, null);
               }
@@ -182,8 +177,9 @@ var app = {
 				  var ft = new FileTransfer();
 				  
 				  _this.notify("Uploading to " + _this.foundServer); 
+				  var serverReq = _this.foundServer + '/api/photo';
 				  
-            	  ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
+            	  ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 
 			  },
 			  function () {alert('Error getting dateString\n');},
@@ -304,7 +300,7 @@ var app = {
         if(overrideServer) {
             overrideServer = this.checkDefaultDir(overrideServer);       //Check for a default upload directory
             this.overrideServer = overrideServer;
-            this.foundServer = overrideServer;
+            
         }
 
         if(this.foundServer) {
@@ -366,7 +362,7 @@ var app = {
            //on a user set override, or a dev set override
 
            var goodurl = this.overrideServer;
-           this.foundServer = goodurl + '/api/photo';
+           this.foundServer = goodurl;
            
            _this.notify("Using server: " + goodurl);
            cb(null);
