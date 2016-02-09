@@ -112,7 +112,7 @@ var app = {
 
        //timeout after 5 secs
        var scanning = setTimeout(function() {
-                alert('Timeout finding your server. Please ensure your server is on the same wifi network as your device, or enter a custom http://serverip:port. The port is likely 5566.');
+                _this.notify('Timeout finding your server. Please ensure your server is on the same wifi network as your device, or enter a custom http://serverip:port. The port is likely 5566.');
                 document.getElementById('override-form').style.display = 'block';
        }, 5000);
 
