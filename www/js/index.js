@@ -16,16 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
- 
+
 var deleteThisFile = {}; //Global object for image taken, to be deleted
 
 var app = {
 
-   
+
     // Application Constructor
     initialize: function() {
-    
-     
+
+
         this.bindEvents();
     },
     // Bind Event Listeners
@@ -51,14 +51,14 @@ var app = {
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
 
-       
+
 
         console.log('Received Event: ' + id);
     },
 
     takePicture: function() {
       var _this = this;
-    
+
       navigator.camera.getPicture( function( imageURI ) {
           _this.uploadPhoto(imageURI);
         },
@@ -70,34 +70,34 @@ var app = {
         destinationType: Camera.DestinationType.FILE_URI
        });
     },
-    
+
    get: function(url, cb) {
         var request = new XMLHttpRequest();
         request.open("GET", url, true);
-        
+
         request.onreadystatechange = function() {
             if (request.readyState == 4) {
                 if (request.status == 200 || request.status == 0) {
-                    
+
                     cb(url, request.responseText);
-                    
+
                     // -> request.responseText <- is a result
                 }
             }
         }
         request.send();
     },
-    
+
     scanlan: function(port, cb) {
      var _this = this;
 
       if(this.lan) {
-      
+
        var lan = this.lan;
-       
-        
+
+
        for(var cnt=0; cnt< 255; cnt++){
-          var machine = cnt.toString(); 
+          var machine = cnt.toString();
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
               if(resp) {
@@ -106,110 +106,144 @@ var app = {
                  cb(goodurl, null);
               }
           });
-          
-          
+
+
        }
-              
+
        //timeout after 5 secs
-       var scanning = setTimeout(function() { 
+       var scanning = setTimeout(function() {
                 alert('Timeout finding your server. Please ensure your server is on the same wifi network as your device, or enter a custom http://serverip:port. The port is likely 5566.');
                 document.getElementById('override-form').style.display = 'block';
        }, 5000);
-     
-          
-       
+
+
+
       } else {
-      
+
          cb(null,'Sorry, please connect to your Wifi network.');
       }
     },
-    
-    
-    
-    
+
+
+    notify: function(msg) {
+        //Set the user message
+        document.getElementById("notify").innerHTML = msg;    
+    },
+
+
     uploadPhoto: function(imageURIin) {
-    
+
         var _this = this;
-    
+
         if(_this.foundServer) {
-            
+
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
-           
+
             deleteThisFile = fileEntry; //Store globally
-              
-         
+
+
+
             var imageURI = fileEntry.toURL();
             var options = new FileUploadOptions();
             options.fileKey="file1";
-            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
-            options.mimeType="image/jpeg";
- 
-            var params = new Object();
-            params.title = document.getElementById("id-entered").value;
             
-            
-            options.params = params;
-            options.chunkedMode = false;
-            
-   
-            var ft = new FileTransfer();
-            ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
-          } ); 
+            var tempName = document.getElementById("id-entered").value;
+            if(_this.defaultDir) {
+                //A hash code signifies a directory to write to
+                tempName = "#" + _this.defaultDir + " " + tempName;
+            } 
+                
+            var myoutFile = tempName.replace(/ /g,'-');
+
+			var mydt = navigator.globalization.dateToString(
+			  new Date(),
+			  function (date) {
+				  var mydt = date.value.replace(/:/g,'-');
+				  mydt = mydt.replace(/ /g,'-');
+				  mydt = mydt.replace(/\//g,'-');
+
+				  options.fileName = myoutFile + '-' + mydt + '.jpg';
+
+				  options.mimeType="image/jpeg";
+
+				  var params = new Object();
+				  params.title = document.getElementById("id-entered").value;
+
+
+				  options.params = params;
+				  options.chunkedMode = false;
+
+
+				  var ft = new FileTransfer();
+				  
+				  _this.notify("Starting upload to " + _this.foundServer); 
+				  
+            	  ft.upload(imageURI, _this.foundServer, _this.win, _this.fail, options);
+
+			  },
+			  function () {alert('Error getting dateString\n');},
+			  {formatLength:'medium', selector:'date and time'}
+			);
+
+
+
+
+          } );
         } else {
-            alert('No server known');
+            _this.notify('No server known');
         }
     },
- 
+
     win: function(r) {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            alert('Image transferred.');
-            
-            //and delete phone version          
+            this.notify('Image transferred.');
+
+            //and delete phone version
             deleteThisFile.remove();
-     
+
     },
- 
-  
+
+
     fail: function(error) {
-    
+
         switch(error.code)
         {
             case 1:
-                alert("Sorry the photo file was not found on your phone.");
+                this.notify("Sorry the photo file was not found on your phone.");
             break;
-            
+
             case 2:
-                alert("Sorry you have tried to send it to an invalid URL.");
+                this.notify("Sorry you have tried to send it to an invalid URL.");
             break;
-            
+
             case 3:
-                alert("You cannot connect to the server at this time. Check if it is running, and try again.");
+                this.notify("You cannot connect to the server at this time. Check if it is running, and try again.");
             break;
-            
+
             case 4:
-                alert("Sorry, your image transfer was aborted.");
+                this.notify("Sorry, your image transfer was aborted.");
             break;
-            
+
             default:
-                alert("An error has occurred: Code = " + error.code);
+                this.notify("An error has occurred: Code = " + error.code);
             break;
         }
     },
-    
+
     getip: function(cb) {
-    
+
            var _this = this;
-         
+
            //timeout after 3 secs -rerun this.findServer()
-           var iptime = setTimeout(function() { 
-                  var err = "You don't appear to be connected to your wifi. Please connect and try again, or override with your server's url and port."; 
+           var iptime = setTimeout(function() {
+                  var err = "You don't appear to be connected to your wifi. Please connect and try again, or override with your server's url and port.";
                   document.getElementById('override-form').style.display = 'block';
                   cb(err);
-           }, 3000);
-   
-           networkinterface.getIPAddress(function(ip) { 
+           }, 5000);
+
+           networkinterface.getIPAddress(function(ip) {
                _this.ip = ip;
                var len =  ip.lastIndexOf('\.') + 1;
                 _this.lan = ip.substr(0,len);
@@ -217,98 +251,151 @@ var app = {
                 cb(null);
            });
     },
+
+    clearOverride: function() {
+        localStorage.clear();
+        this.foundServer = null;
+        document.getElementById("override").value = "";
+        alert("Cleared default server.");
     
+    },
+
+
+    checkDefaultDir: function(server) {
+        //Check if the default server has a default dir eg. http://123.123.123.123:5566/write/hello
+        var requiredStr = "/write/";
+        var startsAt = server.indexOf(requiredStr);  
+        if(startsAt >= 0) {
+            //Get the default dir after the /write/ string
+            var startFrom = startsAt + requiredStr.length;
+            this.defaultDir = server.substr(startFrom);
+            var properServer = server.substr(0, startsAt);
+            return properServer;
+        } else {
+            return server;
+        }
     
+    },
+
     startup: function(overrideServer) {
+    
+        //First called at startup time.
         var _this = this;
         if((document.getElementById("override").value) &&
           (document.getElementById("override").value != '')) {
-          
+
            overrideServer = document.getElementById("override").value;
-        }
-        
-        if(overrideServer) {
-            this.overrideServer = overrideServer;
-        }
-        
-        if(this.foundServer) {
-        
-              
-          var server = this.foundServer;
-          
-              //OK we already know the server, or did at least
-              //try connecting to it
-              this.get(server, function(url, resp) {
-              
-                 //ok connected alright
-                 clearTimeout(cnct);
-                 _this.takePicture();
-              
-              });
-              
-              //timeout after 3 secs -rerun this.findServer()
-              var cnct = setTimeout(function() { 
-                  alert('Timeout connecting. Please try again.'); 
-                  _this.foundServer = null;
-               }, 3000);
-              
-        
-             
+           
+           //And save this server
+           localStorage.setItem("overrideServer",overrideServer);
         } else {
+            //Check if there is a saved server
+            overrideServer = localStorage.getItem("overrideServer");
+        
+        }
+
+        if(overrideServer) {
+            overrideServer = this.checkDefaultDir(overrideServer);       //Check for a default upload directory
+            this.overrideServer = overrideServer;
+            
+        }
+
+        if(this.foundServer) {
+
+          //We have already found the server
+          var server = this.foundServer;
+
+          //OK we already know the server, or did at least
+          //try connecting to it
+          
+          _this.notify("Trying to connect..");
+          this.get(server, function(url, resp) {
+
+             //ok connected alright
+             
+             _this.notify("Connected.");
+             clearTimeout(cnct);
+             _this.takePicture();
+
+          });
+
+          //timeout after 5 secs 
+          var cnct = setTimeout(function() {
+              _this.notify('Timeout connecting. Please try again.');
+              _this.foundServer = null;
+           }, 5000);
+
+
+
+        } else {
+        
+            //Otherwise, first time we are running the app this session
+            _this.notify("Looking for server"); 
+            
              this.findServer(function(err) {
-                 
+
                  if(err) {
-                   alert(err);
+           
+                   _this.notify(err); 
                  } else {
+                    _this.notify("Found server"); 
                    _this.takePicture();
                  }
              });
-          
+
         }
-          
-        
-       
-    
+
+
+
+
     },
-    
-    
+
+
     findServer: function(cb) {
-       
+
        var _this = this;
-       
+
        if((this.overrideServer)&&(this.overrideServer != "")) {
            //on a user set override, or a dev set override
-           
+
            var goodurl = this.overrideServer;
            this.foundServer = goodurl + '/api/photo';
+           
+           _this.notify("Using server: " + goodurl);
            cb(null);
            return;
        }
-      
-         
+
+        
+       _this.notify("Checking Wifi connection"); 
        
        this.getip(function(ip, err) {
-          
+
           if(err) {
              cb(err);
              return;
           }
-          
+
+          _this.notify("Scanning Wifi");
+           
           _this.scanlan('5566', function(url, err) {
-             
+
              if(err) {
                cb(err);
              } else {
                cb(null);
              }
-          
+
           });
        });
-    
+
     }
+
+
     
-  
-    
-    
+
+
+
+
 
 };

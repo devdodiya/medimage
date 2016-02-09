@@ -34,13 +34,19 @@
         </p>
     
         <div class="logo" onclick="app.startup();">
-           
 				<img  src="img/logo.png" class="logo-img">
-                       
-              
+        </div>
+        
+        <div style="text-align:center;">
+            <span id="notify" class="small-text"></span>
+        </div>
+        
+        <div style="text-align:center;" onclick="app.clearOverride();">
+            <span class="small-text">Clear Server<br/></span>
         </div>
         
         <div id="override-form" style="text-align:center; display:none;">
+             
              <span class="big-text">Set Server<br/></span><input id="override" type="text" value="" class="resizedTextbox">
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
