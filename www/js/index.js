@@ -304,7 +304,7 @@ var app = {
         if(overrideServer) {
             overrideServer = this.checkDefaultDir(overrideServer);       //Check for a default upload directory
             this.overrideServer = overrideServer;
-            
+            this.foundServer = overrideServer;
         }
 
         if(this.foundServer) {
