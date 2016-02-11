@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  	    <meta charset="utf-8">
+		 <meta name="viewport" content="width=device-width, user-scalable=no">
+		 <title>AtomJump Smart Feedback - How To Use</title>
+		 
+		 <meta name="description" content="Offer your customers a smart feedback form, with live chat, public & private posts across any mobile or desktop device.">
+		 
+		 <meta name="keywords" content="Feedback Form, Live Chat, Customer Chat">
+		 
+			  <!-- Bootstrap core CSS -->
+			<link rel="StyleSheet" href="https://atomjump.com/css/bootstrap.min.css" rel="stylesheet">
+			
+			<!-- AtomJump Feedback CSS -->
+			<link rel="StyleSheet" href="https://atomjump.com/css/comments-0.1.css?ver=1">
+			
+			<!-- Bootstrap HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+			<!--[if lt IE 9]>
+			  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+			<![endif]-->
+			
+			<!-- Include your version of jQuery here.  This is version 1.9.1 which is tested with AtomJump Feedback. -->
+			<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script> 
+			<!-- Took from here 15 May 2014: http://ajax.googleapis.com/ajax/libs/jquery/1.9.1 -->
+			
+			<script>
+				var ajFeedback = {
+					"uniqueFeedbackId" : "earth_feedback",
+					"myMachineUser" : "92.27.10.17:3"
+				}
+			</script>
+			<script type="text/javascript" src="https://atomjump.com/js/chat.js"></script> <!-- TODO - keep path as js/chat.js -->
+			
+			<style>
+				h2 {
+					text-align: center;
+				}
+				
+				textarea:focus, input:focus, img:focus {
+					outline: 0;
+				}
+				
+				
+
+				
+				
+				.looplogo {
+					position: relative; 
+					width: 800px; 
+					margin-left: auto; 
+					margin-right: auto;
+				}
+				
+				.smart-image {
+					position: relative; 
+					width: 373px; 
+					margin-left: auto; 
+					margin-right: auto;
+				
+				}
+				
+				.subs {
+				
+					position: fixed; 
+					bottom: 10px; 
+					float: left; 
+					margin-left: 20px;
+				}
+				
+				.cpy {
+					position: fixed;
+					right: 10px; 
+					bottom: 10px; 
+					float: right; 
+					margin-right: 20px;
+				}
+				
+				@media screen and (max-width: 480px) {
+				
+					.looplogo { 
+						width: 373px; 
+						height:288px; 
+						
+				
+					}
+					
+					.smart-image { 
+						width: 373px; 
+										
+					}
+					
+					
+				}
+				
+				@media screen and (-webkit-min-device-pixel-ratio: 3.0) and (max-width: 1080px) {
+					.looplogo { 
+						width: 320px; 
+						height:192px; 
+						
+				
+					}
+					
+					.smart-image { 
+						width: 290px; 
+										
+					}
+					
+					
+				}
+				
+				#bg {
+					position:relative; 
+					top:0; 
+					left:0; 
+					width:100%;
+					height:100%;
+					z-index: -1;
+				}
+				
+				.h2 {
+					text-align: left !important;
+				}
+				
+				.greyed {
+				
+					background-color: #F5F5F5 !important;
+					padding-top: 15px;
+					padding-bottom: 15px;
+				
+				}
+				
+				
+				
+				
+				.looplogo-second:hover {
+					position: relative;
+					height: 300px;
+					width: 300px;
+					margin-left: auto;
+					margin-right: auto;
+					padding-top: 0px;
+				}
+				
+				.looplogo-second {
+					position: relative; 
+					width: 300px; 
+					height:300px; 
+					margin-left: auto; 
+					margin-right: auto;
+				}
+				
+				
+				
+				
+				
+				
+				/* iphone and other phones */
+				@media screen and (max-width: 480px) {
+				
+					.looplogo-second { 
+						width: 300px; 
+						height:300px; 
+						
+				
+					}
+					
+					.looplogo-second:hover {
+						height: 300px;
+						width: 300px;
+					}
+					
+					.smart-image { 
+						width: 260px; 
+										
+					}
+					
+					.subs {
+				
+						position: relative; 
+						margin-top: 10px; 
+						float: left; 
+						margin-left: 20px;
+					}
+					
+					.cpy {
+						position: relative;
+						margin-top: 10px; 
+						margin-right: 20px;
+					}
+				}
+				
+				/* Samsung S4 */
+				@media screen and (-webkit-min-device-pixel-ratio: 3.0) and (max-width: 1080px) {
+					.looplogo-second { 
+						width: 300px; 
+						height:300px; 
+						
+				
+					}
+					
+					.looplogo-second:hover {
+						height: 300px;
+						width: 300px;
+					}
+					
+					.smart-image { 
+						width: 290px; 
+										
+					}
+					
+					.subs {
+				
+						position: relative; 
+						bottom: 10px; 
+						float: left; 
+						margin-left: 20px;
+					}
+				
+					.cpy {
+						position: relative;
+						right: 10px; 
+						bottom: 10px; 
+						float: right; 
+						margin-right: 20px;
+					}
+				}
+				
+				
+
+			</style>
+			
+	</head>
+	
+	<body>
+		<script>
+				$(document).ready(function(){
+				 
+				 	
+				});
+		</script>
+		
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-2">
+				</div>
+				<div class="col-md-8">
+				
+				</br>
+				</br>
+				
+				
+				<span style="float: left;">
+					<a href="index.php"><img  src="images/logo80.png" title="AtomJump Loop"></a>&nbsp;&nbsp;
+				</span>
+				
+			
+				<span style="float: left;">
+					<h1>Using <span style="color: #563cc5 !important">MedImage</span>&nbsp;</h1>
+				</span>
+				
+				
+				<div style="height: 90px; clear: both;">
+				</div>
+				
+				
+				
+				<div class="container-fluid">
+				
+					<div class="row">
+						<div class="col-md-12">
+							<p>
+								<div class="btn-group btn-group-sm" role="group" aria-label="...">
+									
+									<button type="button" class="btn btn-default active">Using MedImage</a></button>
+								
+								
+									<button type="button" class="btn btn-default" onclick="window.location='smart.php'">Using the Smart Feedback</button>
+								
+								</div>
+								
+								
+							</p>
+						</div>
+					</div>
+					
+					<br/><br/>
+					<ul class="nav nav-list">
+    					<li class="divider"></li>
+    				</ul>
+					
+				
+					<div class="row greyed">
+						
+						<div class="col-md-6">
+							<img class="smart-image img-responsive" src="medimage-phone.jpg">
+						</div>
+						<div class="col-md-6">
+							<h3>The App</h3>
+							<p>This app allows the medical professional to upload a photo from their phone of a patient’s case e.g. a mole, and transfer the image directly to the patient's file on their PC. The app is currently available for <a href="https://play.google.com/store/apps/details?id=com.phonegap.medimage">Android</a>, and there is a planned iPhone/iPad release. Each doctor will need an app for their own phone.</p>
+						</div>
+						
+					</div>
+					
+					
+					<br/><br/><br/><br/><br/><br/>
+					<ul class="nav nav-list">
+    					<li class="divider"></li>
+    				</ul>
+					
+					
+					<div class="row">
+						<div class="col-md-6">
+							<h3>Downloading the server for your PC</h3>
+							<p>In order for you to receive the photos from your phone, you need to <a href="https://atomjump.com/public_product/MedImageServer.exe">download</a> a companion server to your PC.  This server has a very easy installer ready for Windows 64-bit machines.  You can test this out directly, without any technical knowledge, if you have a Wifi connection shared between your PC and your phone, however most medical institutions require a 'proxy' server to be set up.</p>
+						</div>
+						<div class="col-md-6">
+							<img class="smart-image img-responsive" src="medimage-pc.jpg">
+						</div>
+					</div>
+					
+					<br/><br/><br/><br/><br/><br/>
+					<ul class="nav nav-list">
+    					<li class="divider"></li>
+    	</ul>
+					
+					
+					<div class="row greyed">
+						
+						<div class="col-md-6">
+							<img class="smart-image img-responsive" src="images/howto/live.jpg">
+						</div>
+						<div class="col-md-6">
+							<h3>Setting up a 'proxy' server</h3>
+							<p>Note: this section requires technical and system administration knowledge.</p>
+							<p><b>What you will need:</b> a linux (or Windows) web server with an incoming and outgoing internet connection. Any number of client Windows PCs potentially in different physical premises.</p>
+							<p><b>The setup:</b> your server will receive photos over 3G or 4G wireless from your doctor's mobile phones. The client Windows PCs are associated uniquely with each different mobile phone (via a code that each doctor chooses). A photo will stay on the proxy server for a few seconds before being downloaded to the doctor's unique Windows machine, and then being removed from the proxy server.</p>
+						</div>
+						
+					</div>
+					
+					<br/><br/><br/><br/><br/><br/>
+					<ul class="nav nav-list">
+    					<li class="divider"></li>
+    				</ul>
+    				
+    				
+    				
+    				<div class="row">
+						
+						<div class="col-md-12">
+							<h3>Proxy Setup</h3>
+							<p>On your internet server, first install <a href="https://nodejs.org">NodeJS</a> and <a href="https://www.npmjs.com/">npm</a>. See these <a href="https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-an-ubuntu-14-04-server">Ubuntu install notes</a>, but there are several ways to do this depending on your platform e.g. MacOSX may vary slightly. Note, Windows server users can install the same <a href="https://atomjump.com/public_product/MedImageServer.exe">Windows 64-bit installer</a> that client PCs use and do not need to follow the steps in this section below.</p> 
+							
+							<p>
+							Then
+							<pre>
+git clone https://github.com/atomjump/medimageserv.git medimageserv
+cd medimageserv
+npm install
+cp newconfig.js config.js     #this step is for a fresh server-based setup
+node bin/server.js            #run the server</pre>
+							</p>
+							
+							<p>
+							We recommend using 'forever' to ensure the MedImage server runs continuously:
+							<pre>
+sudo npm install forever -g
+mkdir /var/log/medimageserv
+forever start -l /var/log/medimageserv/forever.log 
+                -o /var/log/medimageserv/out.log
+                -e /var/log/medimageserv/err.log -a
+                bin/server.js</pre>
+							</p>
+							<p>
+							Then open the firewall to port 5566 for reading and writing eg.
+							<pre>
+sudo ufw allow 5566/tcp</pre>
+							See more details on a Ubuntu firewall setup in this <a href="https://www.digitalocean.com/community/tutorials/how-to-setup-a-firewall-with-ufw-on-an-ubuntu-and-debian-cloud-server">article</a>.
+							</p>
+						</div>
+						
+						
+					</div>
+					
+
+					<br/><br/><br/><br/><br/><br/>
+					<ul class="nav nav-list">
+    					<li class="divider"></li>
+    </ul>
+    				
+    				
+    				
+    <div class="row">
+								
+
+						  <div class="col-md-12">
+							    <h3>Windows client machine setup</h3>
+							    <p>Download and run the installable <a href="https://atomjump.com/public_product/MedImageServer.exe">MedImageServer.exe</a> on each client. Note: you will likely need to do this as an Administrator.</p>
+							    <p>Edit the JSON file C:\MedImageServer\config.js in a text editor, and set the field "readProxy" to be:
+							    
+							    <pre>"readProxy" : "http://YOURIP:5566/read/YOURCODE"</pre>
+							    
+							    </p>
+							    <p>Where YOURIP is your server's IP address. YOURCODE is your site's passcode, that each person can specify and keep private.  You choose this value, but please ensure that it is unguessable. For example, you could have several hundred different practises operating off one proxy server, each with their own passcode.</p>
+							    <p>Then run 'Windows Services', find 'MedImage', and click 'Restart'.</p>
+						  </div>
+						
+					</div>
+					
+
+
+
+					<br/><br/><br/><br/><br/><br/>
+					<ul class="nav nav-list">
+    					<li class="divider"></li>
+    				</ul>
+    				
+					
+					
+					<div class="row">
+						
+						<div class="col-md-12">
+							 <h3>Phone setup</h3>
+				
+					        <p>Run the app and click the large circle. After 5 seconds it will mention that you must enter a server. Enter your 'Server' after this as:</p>
+					        <p><pre>http://YOURIP:5566/write/YOURCODE</pre></p>
+					        <p>Where YOURCODE is the same site's passcode that was in your Windows config.json "readProxy" parameter, above.</p>
+					        
+					        <p>Enter the patient id in the box at the top, specific to each photo. Note: #tags will allocate a folder (this will create another folder inside your photos folder - this feature is to be completed when using a custom proxy). eg.<pre>#moles John123</pre>
+					        </p>
+					        <p>Click the large icon to start taking photos, and they will appear after a few seconds on your PC. The default folder is C:\MedImage\photos, but it will also be copied to C:\mt32\attachments (particularly for MedTech users)</p>
+					        
+					        
+							
+						</div>
+						
+				
+					</div>
+					
+					<br/><br/><br/><br/><br/><br/>
+					<ul class="nav nav-list">
+    					<li class="divider"></li>
+    				</ul>
+    				
+    				
+    	<div class="row">
+						
+
+						<div class="col-md-12">
+							<h3>Further options</h3>
+							<ul>
+							    <li>
+							
+							        <p>You can back-up the photos as they arrive on any MedImage server to other drives or folders on the same drive. Edit the config.json file in the server's directory.</p>
+							        <p><pre>"backupTo": [
+                    "C:/your/folder",
+                    "D:/your/second/drive",
+                    "/linux/directory
+              ],
+							        </pre>Note the forward-slashes are needed on Windows and linux, rather than back-slashes</p>
+							    </li>
+							    <li>
+							        <p>
+							        You can edit the 'onStartBackupDriveDetect' parameter to be true. This will auto-detect other drives on starting the script, and start backing up to a MedImage/photos folder at the top of the drive.
+							        <pre>"onStartBackupDriveDetect": true,</pre>
+							        </p>
+							
+							        
+							    </li>
+							    <li>
+							        <p><p>Tip: <a href="http://jsonlint.com/">JSONLint</a> is a great tool for confirming you have a valid .json file.
+							        </p>
+							    </li>
+							</ul>
+						</div>
+						
+					</div>
+					
+
+				
+				
+				
+				
+				
+				
+
+				<!--<img class="looplogo" src="images/sunrise.jpg">-->
+				<br/>
+				<br/>
+				</div>
+				<div class="col-md-2">
+				</div>
+				
+				<!-- TODO: link for referral scheme from digitalocean https://www.digitalocean.com/?refcode=7ce149b336e8 -->
+				
+			</div>
+		</div>
+		
+		
+		
+		<div class="cpy">
+			<p align="right"><small>&copy; 2016 AtomJump.com</small></p>
+		</div>
+		
+		<div id="comment-holder"></div><!-- holds the popup comments. Can be anywhere between the <body> tags -->
+	
+
+		
+		<div id="comment-holder"></div><!-- holds the popup comments. Can be anywhere between the <body> tags -->
+	
+		<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+	var u="";
+	_paq.push(['setTrackerUrl', u+'piwik.php']);
+	_paq.push(['setSiteId', 1]);
+	var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+		
+	</body>
+	
+</html>
+
