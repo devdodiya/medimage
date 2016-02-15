@@ -75,7 +75,7 @@ var app = {
 
         request.onreadystatechange = function() {
             if (request.readyState == 4) {
-				_this.notify("Trying ready state 4  status: " + request.status);
+
                 if (request.status == 200 || request.status == 0) {
 
                     cb(url, request.responseText);   // -> request.responseText <- is a result
