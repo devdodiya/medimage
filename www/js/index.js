@@ -327,7 +327,7 @@ var app = {
 			}
 		}
 
-        if((localOverride != "")&&(localOverride != null) {
+        if((localOverride != "")&&(localOverride != null)) {
             alert('Server set to: ' + localOverride);
 
             localOverride = this.checkDefaultDir(localOverride);       //Check for a default upload directory
