@@ -313,7 +313,7 @@ var app = {
 		   			    //Check if there is a saved server
 			   	     localOverride = localStorage.getItem("overrideServer");
 			   	     
-			   	     if((localOverride == null)|| (localOverride == '') {
+			   	     if((localOverride == null)|| (localOverride == '')) {
 	
 		            //no local storage of server already exists
    //Check if a user entered code
@@ -344,7 +344,7 @@ var app = {
 					 return;
 				   }
 
-			   });
+			   }); //end of get
 			   
 			 } else {
 			    //No user entered code
@@ -352,7 +352,10 @@ var app = {
 			 }
 
 			
-		}
+		       } //end of local override check
+	       	} //end of inoverride check
+		
+		
         //Now process full localOverride into split and default dir
         if((localOverride != "")&&(localOverride != null)) {
           
