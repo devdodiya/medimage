@@ -180,7 +180,7 @@ var app = {
 
 				  _this.notify("Uploading to " + _this.foundServer);
 				  var serverReq = _this.foundServer + '/api/photo';
-
+     
             	  ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 
 			  },
@@ -282,12 +282,16 @@ var app = {
 
     },
 
-    startup: function(overrideServer) {
+    startup: function(inOverrideServer) {
 
+
+ 
         //First called at startup time.
         var _this = this;
-        if(overrideServer) {
-			//Do nothing here
+        var overrideServer = "";
+        
+     if(inOverrideServer) {
+		       overrideServer = inOverrideServer;
 		} else {
 			if((document.getElementById("override").value) &&
 			  (document.getElementById("override").value != '')) {
@@ -323,11 +327,12 @@ var app = {
 			}
 		}
 
-        if(overrideServer) {
-            alert(overrideServer);
+        if(overrideServer != "") {
+            alert('Server set to: ' + overrideServer);
            
             overrideServer = this.checkDefaultDir(overrideServer);       //Check for a default upload directory
             this.overrideServer = overrideServer;
+            alert('Actual server:' + overrideServer + ' Default dir:' + this.defaultDir);
 
         }
 
