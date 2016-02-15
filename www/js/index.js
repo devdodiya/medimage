@@ -287,10 +287,21 @@ var app = {
         if((document.getElementById("override").value) &&
           (document.getElementById("override").value != '')) {
 
-           overrideServer = document.getElementById("override").value;
+           //Old: overrideServer = document.getElementById("override").value;
+           overrideCode = document.getElementById("override").value;
+           var requestGuid = _this.get(function(server) {
            
-           //And save this server
-           localStorage.setItem("overrideServer",overrideServer);
+              var overrideServer = server;
+              
+              //And save this server
+              localStorage.setItem("overrideServer",overrideServer);
+              
+              //Rerun again, this time with new default
+              _this.startup(overrideServer);
+       
+           });
+           
+           return;
         } else {
             //Check if there is a saved server
             overrideServer = localStorage.getItem("overrideServer");
