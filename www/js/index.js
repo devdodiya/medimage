@@ -180,6 +180,7 @@ var app = {
 
 				  _this.notify("Uploading to " + _this.foundServer);
 				  var serverReq = _this.foundServer + '/api/photo';
+				  alert("Filename=" + options.fileName);
 
             	  ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 
