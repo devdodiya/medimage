@@ -297,6 +297,7 @@ var app = {
 
 			  if(resp == 'nomatch') {
 				 	_this.notify("Sorry, there was no match for that code.");
+
 		  	  } else {
 
 
@@ -315,7 +316,6 @@ var app = {
 
            });
 
-           return;
         } else {
             //Check if there is a saved server
             overrideServer = localStorage.getItem("overrideServer");
