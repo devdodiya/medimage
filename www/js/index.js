@@ -286,43 +286,47 @@ var app = {
 
         //First called at startup time.
         var _this = this;
-        if((document.getElementById("override").value) &&
-          (document.getElementById("override").value != '')&&
-          (!overrideServer)) {
+        if(overrideServer) {
+			//Do nothing here
+		} else {
+			if((document.getElementById("override").value) &&
+			  (document.getElementById("override").value != '')&&
+			  (overrideServer )) {
 
-           overrideCode = document.getElementById("override").value;
-           var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
-           _this.notify("Pairing with " + pairUrl);
-           _this.get(pairUrl, function(url, resp) {
+			   overrideCode = document.getElementById("override").value;
+			   var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
+			   _this.notify("Pairing with " + pairUrl);
+			   _this.get(pairUrl, function(url, resp) {
 
-			  if(resp == 'nomatch') {
-				 	_this.notify("Sorry, there was no match for that code.");
-				 	return;
+				  if(resp == 'nomatch') {
+						_this.notify("Sorry, there was no match for that code.");
+						return;
 
-		  	  } else {
+				  } else {
 
-				  _this.notify("Paired success with " + resp);
-				  var server = resp;
+					  _this.notify("Paired success with " + resp);
+					  var server = resp;
 
 
 
-				  var overrideServer = server;
+					  var overrideServer = server;
 
-				  //And save this server
-				  localStorage.setItem("overrideServer",overrideServer);
+					  //And save this server
+					  localStorage.setItem("overrideServer",overrideServer);
 
-				  //Rerun again, this time with new default
-				  _this.startup(overrideServer);
-				  return;
-		   	   }
+					  //Rerun again, this time with new default
+					  _this.startup(overrideServer);
+					  return;
+				   }
 
-           });
+			   });
 
-        } else {
-            //Check if there is a saved server
-            overrideServer = localStorage.getItem("overrideServer");
+			} else {
+				//Check if there is a saved server
+				overrideServer = localStorage.getItem("overrideServer");
 
-        }
+			}
+		}
 
         if(overrideServer) {
             overrideServer = this.checkDefaultDir(overrideServer);       //Check for a default upload directory
