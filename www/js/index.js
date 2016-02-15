@@ -145,6 +145,10 @@ var app = {
             options.fileKey="file1";
 
             var tempName = document.getElementById("id-entered").value;
+            if((tempName == '')||(tempName == null)) {
+                params.tempName == 'image';
+            }
+
             if(_this.defaultDir) {
                 //A hash code signifies a directory to write to
                 tempName = "#" + _this.defaultDir + " " + tempName;
@@ -152,16 +156,16 @@ var app = {
 
             var myoutFile = tempName.replace(/ /g,'-');
 
-			var mydt = navigator.globalization.dateToString(
-			  new Date(),
-			  function (date) {
-				  var mydt = date.value.replace(/:/g,'-');
-				  mydt = mydt.replace(/ /g,'-');
-				  mydt = mydt.replace(/\//g,'-');
+		          	navigator.globalization.dateToString(
+			              new Date(),
+			              function (date) {
+				                  var mydt = date.value.replace(/:/g,'-');
+				                  mydt = mydt.replace(/ /g,'-');
+				                  mydt = mydt.replace(/\//g,'-');
 
-				  var aDate = new Date();
-				  var seconds = aDate.getSeconds();
-				  mydt = mydt + "-" + seconds;
+				                  var aDate = new Date();
+				                  var seconds = aDate.getSeconds();
+				                  mydt = mydt + "-" + seconds;
 
 
 				  options.fileName = myoutFile + '-' + mydt + '.jpg';
@@ -170,7 +174,9 @@ var app = {
 
 				  var params = new Object();
 				  params.title = document.getElementById("id-entered").value;
-
+     if((params.title == '')||(params.title == null)) {
+         params.title == 'image';
+     }
 
 				  options.params = params;
 				  options.chunkedMode = false;
@@ -178,8 +184,9 @@ var app = {
 
 				  var ft = new FileTransfer();
 
-				  _this.notify("Uploading to " + _this.foundServer);
+				  _this.notify("Uploading " + imageURI + " to " + _this.foundServer + ", file:" + options.fileName + " title:" + params.title);
 				  var serverReq = _this.foundServer + '/api/photo';
+				  
 
             	  ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 
