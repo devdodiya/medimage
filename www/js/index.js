@@ -297,13 +297,14 @@ var app = {
 
 			  if(resp == 'nomatch') {
 				 	_this.notify("Sorry, there was no match for that code.");
+				 	return;
 
 		  	  } else {
 
-
+				  _this.notify("Paired success with " + resp);
 				  var server = resp;
 
-				  _this.notify("Paired success with " + server);
+
 
 				  var overrideServer = server;
 
@@ -312,6 +313,7 @@ var app = {
 
 				  //Rerun again, this time with new default
 				  _this.startup(overrideServer);
+				  return;
 		   	   }
 
            });
