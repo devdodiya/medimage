@@ -307,7 +307,16 @@ var app = {
 
         if(inOverrideServer) {
 		       localOverride = inOverrideServer;
-		} else {
+		      } else {
+		
+		
+		   			    //Check if there is a saved server
+			   	     localOverride = localStorage.getItem("overrideServer");
+			   	     
+			   	     if((localOverride == null)|| (localOverride == '') {
+	
+		            //no local storage of server already exists
+   //Check if a user entered code
 			if((document.getElementById("override").value) &&
 			  (document.getElementById("override").value != '')) {
 
@@ -336,14 +345,15 @@ var app = {
 				   }
 
 			   });
+			   
+			 } else {
+			    //No user entered code
+			    _this.notify('Please enter a 4 digit code from your PC.');
+			 }
 
-			} else {
-				//Check if there is a saved server
-				localOverride = localStorage.getItem("overrideServer");
-
-			}
+			
 		}
-
+        //Now process full localOverride into split and default dir
         if((localOverride != "")&&(localOverride != null)) {
           
             localOverride = this.checkDefaultDir(localOverride);       //Check for a default upload directory
