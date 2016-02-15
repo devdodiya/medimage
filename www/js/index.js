@@ -27,7 +27,14 @@ var app = {
     initialize: function() {
 
 
-        this.bindEvents();
+        this.bindEvents();     
+        
+        
+        /*This may be needed: window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, 
+             function(fileSystem){ 
+                fileSystem.root.fullPath; 
+             });*/
+
     },
     // Bind Event Listeners
     //
@@ -129,12 +136,8 @@ var app = {
 
 
     uploadPhoto: function(imageURIin) {
-
-         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, 
-             function(fileSystem){ 
-                fileSystem.root.fullPath; 
-             });
-
+        
+    
 
         var _this = this;
 
@@ -326,7 +329,7 @@ var app = {
 
 					  //And save this server
 					  localStorage.setItem("overrideServer",server);
-
+      
 					  //Rerun again, this time with new default
 					 _this.startup(server);
 					 return;
