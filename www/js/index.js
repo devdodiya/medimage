@@ -180,7 +180,7 @@ var app = {
 
 				  _this.notify("Uploading to " + _this.foundServer);
 				  var serverReq = _this.foundServer + '/api/photo';
-     
+
             	  ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 
 			  },
@@ -285,13 +285,13 @@ var app = {
     startup: function(inOverrideServer) {
 
 
- 
+
         //First called at startup time.
         var _this = this;
-        var overrideServer = "";
-        
-     if(inOverrideServer) {
-		       overrideServer = inOverrideServer;
+        var localOverride = "";
+
+        if(inOverrideServer) {
+		       localOverride = inOverrideServer;
 		} else {
 			if((document.getElementById("override").value) &&
 			  (document.getElementById("override").value != '')) {
@@ -309,7 +309,7 @@ var app = {
 
 					  _this.notify("Paired success with " + resp);
 					  var server = resp;
-   			 
+
 					  //And save this server
 					  localStorage.setItem("overrideServer",server);
 
@@ -322,17 +322,17 @@ var app = {
 
 			} else {
 				//Check if there is a saved server
-				overrideServer = localStorage.getItem("overrideServer");
+				localOverride = localStorage.getItem("overrideServer");
 
 			}
 		}
 
-        if(overrideServer != "") {
-            alert('Server set to: ' + overrideServer);
-           
-            overrideServer = this.checkDefaultDir(overrideServer);       //Check for a default upload directory
-            this.overrideServer = overrideServer;
-            alert('Actual server:' + overrideServer + ' Default dir:' + this.defaultDir);
+        if((localOverride != "")&&(localOverride != null) {
+            alert('Server set to: ' + localOverride);
+
+            localOverride = this.checkDefaultDir(localOverride);       //Check for a default upload directory
+            this.overrideServer = localOverride;
+            alert('Actual server:' + localOverride + ' Default dir:' + this.defaultDir);
 
         }
 
