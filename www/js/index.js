@@ -290,8 +290,7 @@ var app = {
 			//Do nothing here
 		} else {
 			if((document.getElementById("override").value) &&
-			  (document.getElementById("override").value != '')&&
-			  (overrideServer )) {
+			  (document.getElementById("override").value != '')) {
 
 			   overrideCode = document.getElementById("override").value;
 			   var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
