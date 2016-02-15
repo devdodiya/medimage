@@ -293,14 +293,14 @@ var app = {
            overrideCode = document.getElementById("override").value;
            var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
            _this.notify("Pairing with " + pairUrl);
-           var requestGuid = _this.get(pairUrl, function(url, resp) {
+           _this.get(pairUrl, function(url, resp) {
 
 			  if(resp == 'nomatch') {
 				 	_this.notify("Sorry, there was no match for that code.");
 		  	  } else {
 
 
-				  var server = res;
+				  var server = resp;
 
 				  _this.notify("Paired success with " + server);
 
