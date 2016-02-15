@@ -305,12 +305,12 @@ var app = {
 
 					  _this.notify("Paired success with " + resp);
 					  var server = resp;
-
+   			 
 					  //And save this server
 					  localStorage.setItem("overrideServer",server);
 
 					  //Rerun again, this time with new default
-					 //TEMPOUT _this.startup(server);
+					 _this.startup(server);
 					 return;
 				   }
 
@@ -324,6 +324,8 @@ var app = {
 		}
 
         if(overrideServer) {
+            alert(overrideServer);
+           
             overrideServer = this.checkDefaultDir(overrideServer);       //Check for a default upload directory
             this.overrideServer = overrideServer;
 
