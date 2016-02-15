@@ -130,6 +130,12 @@ var app = {
 
     uploadPhoto: function(imageURIin) {
 
+         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, 
+             function(fileSystem){ 
+                fileSystem.root.fullPath; 
+             });
+
+
         var _this = this;
 
         if(_this.foundServer) {
