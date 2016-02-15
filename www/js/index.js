@@ -18,6 +18,7 @@
  */
 
 var deleteThisFile = {}; //Global object for image taken, to be deleted
+var centralPairingUrl = "https://atomjump.com/med-genid.php";
 
 var app = {
 
@@ -285,11 +286,12 @@ var app = {
         //First called at startup time.
         var _this = this;
         if((document.getElementById("override").value) &&
-          (document.getElementById("override").value != '')) {
+          (document.getElementById("override").value != '')&&
+          (!overrideServer)) {
 
-           //Old: overrideServer = document.getElementById("override").value;
            overrideCode = document.getElementById("override").value;
-           var requestGuid = _this.get(function(server) {
+           var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
+           var requestGuid = _this.get(pairUrl, function(server) {
            
               var overrideServer = server;
               
