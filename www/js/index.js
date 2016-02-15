@@ -109,9 +109,9 @@ var app = {
 
        //timeout after 5 secs
        var scanning = setTimeout(function() {
-                _this.notify('Timeout finding your server. Please ensure your server is on the same wifi network as your device, or enter a custom http://serverip:port. The port is likely 5566.');
+                _this.notify('Timeout finding your Wifi server.');
                 document.getElementById('override-form').style.display = 'block';
-       }, 5000);
+       }, 4000);
 
 
 
@@ -310,8 +310,8 @@ var app = {
 					  localStorage.setItem("overrideServer",server);
 
 					  //Rerun again, this time with new default
-					  _this.startup(server);
-					  return;
+					 //TEMPOUT _this.startup(server);
+					 //TEMPOUT return;
 				   }
 
 			   });
