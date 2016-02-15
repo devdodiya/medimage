@@ -123,7 +123,7 @@ var app = {
 
     notify: function(msg) {
         //Set the user message
-        document.getElementById("notify").innerHTML = msg;    
+        document.getElementById("notify").innerHTML = msg;
     },
 
 
@@ -142,13 +142,13 @@ var app = {
             var imageURI = fileEntry.toURL();
             var options = new FileUploadOptions();
             options.fileKey="file1";
-            
+
             var tempName = document.getElementById("id-entered").value;
             if(_this.defaultDir) {
                 //A hash code signifies a directory to write to
                 tempName = "#" + _this.defaultDir + " " + tempName;
-            } 
-                
+            }
+
             var myoutFile = tempName.replace(/ /g,'-');
 
 			var mydt = navigator.globalization.dateToString(
@@ -157,11 +157,11 @@ var app = {
 				  var mydt = date.value.replace(/:/g,'-');
 				  mydt = mydt.replace(/ /g,'-');
 				  mydt = mydt.replace(/\//g,'-');
-				  
+
 				  var aDate = new Date();
 				  var seconds = aDate.getSeconds();
 				  mydt = mydt + "-" + seconds;
-				  
+
 
 				  options.fileName = myoutFile + '-' + mydt + '.jpg';
 
@@ -176,10 +176,10 @@ var app = {
 
 
 				  var ft = new FileTransfer();
-				  
-				  _this.notify("Uploading to " + _this.foundServer); 
+
+				  _this.notify("Uploading to " + _this.foundServer);
 				  var serverReq = _this.foundServer + '/api/photo';
-				  
+
             	  ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 
 			  },
@@ -261,14 +261,14 @@ var app = {
         this.foundServer = null;
         document.getElementById("override").value = "";
         alert("Cleared default server.");
-    
+
     },
 
 
     checkDefaultDir: function(server) {
         //Check if the default server has a default dir eg. http://123.123.123.123:5566/write/hello
         var requiredStr = "/write/";
-        var startsAt = server.indexOf(requiredStr);  
+        var startsAt = server.indexOf(requiredStr);
         if(startsAt >= 0) {
             //Get the default dir after the /write/ string
             var startFrom = startsAt + requiredStr.length;
@@ -278,11 +278,11 @@ var app = {
         } else {
             return server;
         }
-    
+
     },
 
     startup: function(overrideServer) {
-    
+
         //First called at startup time.
         var _this = this;
         if((document.getElementById("override").value) &&
@@ -291,29 +291,36 @@ var app = {
 
            overrideCode = document.getElementById("override").value;
            var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
-           var requestGuid = _this.get(pairUrl, function(server) {
-           
+           var requestGuid = _this.get(pairUrl, function(url, resp) {
+
+           	  var compo = resp.split(" ");
+           	  var entrycode = compo[0];
+           	  var guid = compo[1];
+           	  var proxyServer = compo[2].replace("\n", "");
+
+           	  var server = proxyServer + '/read/' + guid;
+
               var overrideServer = server;
-              
+
               //And save this server
               localStorage.setItem("overrideServer",overrideServer);
-              
+
               //Rerun again, this time with new default
               _this.startup(overrideServer);
-       
+
            });
-           
+
            return;
         } else {
             //Check if there is a saved server
             overrideServer = localStorage.getItem("overrideServer");
-        
+
         }
 
         if(overrideServer) {
             overrideServer = this.checkDefaultDir(overrideServer);       //Check for a default upload directory
             this.overrideServer = overrideServer;
-            
+
         }
 
         if(this.foundServer) {
@@ -323,19 +330,19 @@ var app = {
 
           //OK we already know the server, or did at least
           //try connecting to it
-          
+
           _this.notify("Trying to connect..");
           this.get(server, function(url, resp) {
 
              //ok connected alright
-             
+
              _this.notify("Connected.");
              clearTimeout(cnct);
              _this.takePicture();
 
           });
 
-          //timeout after 5 secs 
+          //timeout after 5 secs
           var cnct = setTimeout(function() {
               _this.notify('Timeout connecting. Please try again.');
               _this.foundServer = null;
@@ -344,17 +351,17 @@ var app = {
 
 
         } else {
-        
+
             //Otherwise, first time we are running the app this session
-            _this.notify("Looking for server"); 
-            
+            _this.notify("Looking for server");
+
              this.findServer(function(err) {
 
                  if(err) {
-           
-                   _this.notify(err); 
+
+                   _this.notify(err);
                  } else {
-                    _this.notify("Found server"); 
+                    _this.notify("Found server");
                    _this.takePicture();
                  }
              });
@@ -376,15 +383,15 @@ var app = {
 
            var goodurl = this.overrideServer;
            this.foundServer = goodurl;
-           
+
            _this.notify("Using server: " + goodurl);
            cb(null);
            return;
        }
 
-        
-       _this.notify("Checking Wifi connection"); 
-       
+
+       _this.notify("Checking Wifi connection");
+
        this.getip(function(ip, err) {
 
           if(err) {
@@ -393,7 +400,7 @@ var app = {
           }
 
           _this.notify("Scanning Wifi");
-           
+
           _this.scanlan('5566', function(url, err) {
 
              if(err) {
@@ -408,7 +415,7 @@ var app = {
     }
 
 
-    
+
 
 
 
