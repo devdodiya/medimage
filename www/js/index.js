@@ -311,7 +311,7 @@ var app = {
 
 					  //Rerun again, this time with new default
 					 //TEMPOUT _this.startup(server);
-					 //TEMPOUT return;
+					 return;
 				   }
 
 			   });
