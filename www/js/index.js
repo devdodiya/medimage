@@ -117,7 +117,7 @@ var app = {
 
       } else {
 
-         cb(null,'Sorry, please connect to your Wifi network.');
+         cb(null,'Do you have a 4 digit code?');
       }
     },
 
@@ -313,6 +313,8 @@ var app = {
 			   _this.notify("Pairing with " + pairUrl);
 			   _this.get(pairUrl, function(url, resp) {
 
+         resp = resp.replace('\n', '')
+
 				  if(resp == 'nomatch') {
 						_this.notify("Sorry, there was no match for that code.");
 						return;
@@ -320,7 +322,7 @@ var app = {
 				  } else {
 
 					  _this.notify("Paired success with " + resp);
-					  var server = resp.replace('\n', '');
+					  var server = resp;
 
 					  //And save this server
 					  localStorage.setItem("overrideServer",server);
@@ -340,12 +342,10 @@ var app = {
 		}
 
         if((localOverride != "")&&(localOverride != null)) {
-            alert('Server set to: ' + localOverride);
-
+          
             localOverride = this.checkDefaultDir(localOverride);       //Check for a default upload directory
             this.overrideServer = localOverride;
-            alert('Actual server:' + localOverride + ' Default dir:' + this.defaultDir);
-
+ 
         }
 
         if(this.foundServer) {
