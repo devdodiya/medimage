@@ -297,12 +297,9 @@ var app = {
 			  if(resp == 'nomatch') {
 				 	_this.notify("Sorry, there was no match for that code.");
 		  	  } else {
-				  var compo = resp.split(" ");
-				  var entrycode = compo[0];
-				  var guid = compo[1];
-				  var proxyServer = compo[2].replace("\n", "");
 
-				  var server = proxyServer + '/read/' + guid;
+
+				  var server = res;
 
 				  _this.notify("Paired success with " + server);
 
