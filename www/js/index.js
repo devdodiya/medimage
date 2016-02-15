@@ -307,15 +307,11 @@ var app = {
 					  _this.notify("Paired success with " + resp);
 					  var server = resp;
 
-
-
-					  var overrideServer = server;
-
 					  //And save this server
-					  localStorage.setItem("overrideServer",overrideServer);
+					  localStorage.setItem("overrideServer",server);
 
 					  //Rerun again, this time with new default
-					  _this.startup(overrideServer);
+					  _this.startup(server);
 					  return;
 				   }
 
