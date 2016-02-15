@@ -314,7 +314,7 @@ var app = {
 				  } else {
 
 					  _this.notify("Paired success with " + resp);
-					  var server = resp;
+					  var server = resp.replace('\n', '');
 
 					  //And save this server
 					  localStorage.setItem("overrideServer",server);
