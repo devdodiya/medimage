@@ -222,7 +222,7 @@ var app = {
 
 
     fail: function(error) {
-        alert("Error:" + JSON.stringify(error));
+        alert("Error:" + error);
         switch(error.code)
         {
             case 1:
