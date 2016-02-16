@@ -29,11 +29,6 @@ var app = {
 
         this.bindEvents();     
         
-        
-        /*This may be needed: window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, 
-             function(fileSystem){ 
-                fileSystem.root.fullPath; 
-             });*/
 
     },
     // Bind Event Listeners
@@ -192,8 +187,11 @@ var app = {
 
 
 				  var ft = new FileTransfer();
-
-				     _this.notify("Uploading " + imageURI + " to " + _this.foundServer + ", file:" + options.fileName + " title:" + params.title);
+        _this.notify("Uploading " + options.fileName);
+				     
+				     if(debug) {
+				         _this.notify("Uploading " + imageURI + " to " + _this.foundServer + ", file:" + options.fileName + " title:" + params.title);
+				     }
 				     var serverReq = _this.foundServer + '/api/photo';
 
             	  ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
