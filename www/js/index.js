@@ -222,27 +222,27 @@ var app = {
 
 
     fail: function(error) {
-        alert("Error:" + error);
+  
         switch(error.code)
         {
             case 1:
-                this.notify("Sorry the photo file was not found on your phone.");
+                _this.notify("Sorry the photo file was not found on your phone.");
             break;
 
             case 2:
-                this.notify("Sorry you have tried to send it to an invalid URL.");
+                _this.notify("Sorry you have tried to send it to an invalid URL.");
             break;
 
             case 3:
-                this.notify("You cannot connect to the server at this time. Check if it is running, and try again.");
+                _this.notify("You cannot connect to the server at this time. Check if it is running, and try again.");
             break;
 
             case 4:
-                this.notify("Sorry, your image transfer was aborted.");
+                _this.notify("Sorry, your image transfer was aborted.");
             break;
 
             default:
-                this.notify("An error has occurred: Code = " + error.code);
+                _this.notify("An error has occurred: Code = " + error.code);
             break;
         }
     },
