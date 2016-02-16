@@ -19,6 +19,8 @@
 
 var deleteThisFile = {}; //Global object for image taken, to be deleted
 var centralPairingUrl = "https://atomjump.com/med-genid.php";
+var errorThis = {};  //Used as a global error handler
+
 
 var app = {
 
@@ -135,12 +137,14 @@ var app = {
     
 
         var _this = this;
+        errorThis = this;
 
         if(_this.foundServer) {
 
           window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
 
             deleteThisFile = fileEntry; //Store globally
+            
 
 
 
@@ -226,23 +230,23 @@ var app = {
         switch(error.code)
         {
             case 1:
-                _this.notify("Sorry the photo file was not found on your phone.");
+                errorThis.notify("Sorry the photo file was not found on your phone.");
             break;
 
             case 2:
-                _this.notify("Sorry you have tried to send it to an invalid URL.");
+                errorThis.notify("Sorry you have tried to send it to an invalid URL.");
             break;
 
             case 3:
-                _this.notify("You cannot connect to the server at this time. Check if it is running, and try again.");
+                errorThis.notify("You cannot connect to the server at this time. Check if it is running, and try again.");
             break;
 
             case 4:
-                _this.notify("Sorry, your image transfer was aborted.");
+                errorThis.notify("Sorry, your image transfer was aborted.");
             break;
 
             default:
-                _this.notify("An error has occurred: Code = " + error.code);
+                errorThis.notify("An error has occurred: Code = " + error.code);
             break;
         }
     },
