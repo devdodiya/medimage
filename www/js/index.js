@@ -183,7 +183,7 @@ var app = {
 				  var params = new Object();
 				  params.title = document.getElementById("id-entered").value;
      if((params.title == '')||(params.title == null)) {
-         params.title == 'image';
+         params.title = 'image';
      }
 
 				  options.params = params;
