@@ -154,7 +154,7 @@ var app = {
 
             var tempName = document.getElementById("id-entered").value;
             if((tempName == '')||(tempName == null)) {
-                params.tempName == 'image';
+                params.tempName = 'image';
             }
 
             if(_this.defaultDir) {
@@ -274,6 +274,7 @@ var app = {
     clearOverride: function() {
         localStorage.clear();
         this.foundServer = null;
+        this.defaultDir = null;
         document.getElementById("override").value = "";
         alert("Cleared default server.");
 
@@ -338,6 +339,11 @@ var app = {
 					  //And save this server
 					  localStorage.setItem("overrideServer",server);
       
+      
+      //Clear any previous details
+      this.foundServer = null;
+      this.defaultDir = null;
+  
 					  //Rerun again, this time with new default
 					 _this.startup(server);
 					 return;
