@@ -154,7 +154,7 @@ var app = {
 
             var tempName = document.getElementById("id-entered").value;
             if((tempName == '')||(tempName == null)) {
-                params.tempName = 'image';
+                tempName = 'image';
             }
 
             if(_this.defaultDir) {
