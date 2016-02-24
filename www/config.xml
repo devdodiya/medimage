@@ -9,6 +9,8 @@
         
     <!-- When ready add ios|winphone|wp8|android -->    
     <platform name="android" />
+    <platform name="ios" />
+
 
     <name>Med Image</name>
     <!-- For Beta, this should be MedImage, for release, it should be Med Image -->
@@ -40,6 +42,13 @@
          <uses-feature android:name="android.hardware.camera.autofocus" />
          <icon src="icon.png" width="128" height="128" />
     </platform>
+    
+    <platform name="ios">
+        <preference name="permissions" value="none" />
+        <preference name="orientation" value="portrait" />
+        <icon src="icon.png" width="128" height="128" />
+    </platform>
+    
   
     <access origin="*" />
     <allow-intent href="*" />
