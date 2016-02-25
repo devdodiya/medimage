@@ -12,7 +12,7 @@
     <platform name="ios" />
 
 
-    <name>Med Image</name>
+    <name>MedImage</name>
     <!-- For Beta, this should be MedImage, for release, it should be Med Image -->
 
     <description>
