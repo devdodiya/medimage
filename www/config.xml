@@ -47,6 +47,8 @@
         <preference name="permissions" value="none" />
         <preference name="orientation" value="portrait" />
         <icon src="icon.png" width="128" height="128" />
+        <icon src="icon72.png" width="72" height="72" />
+        <icon src="icon57.png" width="57" height="57" />
     </platform>
     
   
