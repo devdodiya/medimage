@@ -5,7 +5,7 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android   = "http://schemas.android.com/apk/res/android"
         id        = "com.phonegap.medimage"
-        version   = "1.0.1">
+        version   = "1.0.2">
         
     <!-- When ready add ios|winphone|wp8|android -->    
     <platform name="android" />
@@ -85,7 +85,7 @@
 	<icon src="icon-50.png" platform="ios" width="50" height="50" />
 	<icon src="icon-50@2x.png" platform="ios" width="100" height="100" />
 
-    <splash src="splash@2x.png" />
+    <splash src="img/splash@2x.png" />
 
     </platform>
     
