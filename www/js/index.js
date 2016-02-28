@@ -175,6 +175,7 @@ var app = {
 				                  var seconds = aDate.getSeconds();
 				                  mydt = mydt + "-" + seconds;
 
+	                    mydt = mydt.replace(/,/g,'');  //remove any commas from iphone
 
 				  options.fileName = myoutFile + '-' + mydt + '.jpg';
 

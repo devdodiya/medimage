@@ -83,7 +83,7 @@ body {
 
 
 .resizedTextbox {
-    width: 300px;
+    width: 280px;
     height: 60px;
     font-size: 400%;
 }
@@ -108,6 +108,10 @@ body {
         width:100%;
     }
     
-
+    .resizedTextbox {
+       width: 260px;
+       height: 60px;
+       font-size: 400%;
+    }
 }
 
