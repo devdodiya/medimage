@@ -6,6 +6,7 @@
         xmlns:android   = "http://schemas.android.com/apk/res/android"
         id        = "com.atomjumpbeta.medimage"
         version   = "1.0.2">
+
         
     <!-- When ready add ios|winphone|wp8|android -->    
     <platform name="android" />
@@ -49,6 +50,11 @@
         <icon src="icon.png" width="128" height="128" />
         <!-- iPhone 6 / 6+ -->
 	<icon src="icon-60@3x.png" platform="ios" width="180" height="180" />
+
+
+	<!--   -->
+	<icon src="icon-57.png" platform="ios" width="57" height="57" />
+	<icon src="icon-57@2x.png" platform="ios" width="114" height="114" />
 	
 	<!-- iPhone / iPod Touch  -->
 	<icon src="icon-60.png" platform="ios" width="60" height="60" />
@@ -79,6 +85,9 @@
 	<!-- iPad Spotlight and Settings Icon -->
 	<icon src="icon-50.png" platform="ios" width="50" height="50" />
 	<icon src="icon-50@2x.png" platform="ios" width="100" height="100" />
+
+
+    <splash src="img/splash-568h@2x.png" platform="ios" width="640" height="1136" />
 
     </platform>
     
