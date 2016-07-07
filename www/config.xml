@@ -4,8 +4,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android   = "http://schemas.android.com/apk/res/android"
-        id        = "com.phonegap.medimage"
-        version   = "1.0.6">
+        id        = "com.atomjumpbeta.medimage"
+        version   = "1.0.5">
 
         
     <!-- When ready add ios|winphone|wp8|android -->    
@@ -13,7 +13,7 @@
     <platform name="ios" />
 
 
-    <name>MedImage</name>
+    <name>Med Image</name>
     <!-- For Beta, this should be Med Image, for release, it should be MedImage -->
 
     <description>
