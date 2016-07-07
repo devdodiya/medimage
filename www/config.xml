@@ -13,7 +13,7 @@
 
 
     <name>MedImage</name>
-    <!-- For Beta, this should be Med Image, for release, it should be MedImage -->
+    <!-- For Beta, this should be Med Image, for release, it should be MedImage. -->
 
     <description>
         Copy a camera image to your PC.
