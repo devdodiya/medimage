@@ -23,21 +23,7 @@ var errorThis = {};  //Used as a global error handler
 var retryIfNeeded = [];	//A global pushable list with the repeat attempts
 
 
-function retry() {
-     var repeatIfNeeded = retryIfNeeded.pop();
-     
-     if(repeatIfNeeded) {
-    	 //Resend within a minute here
-    	_this.notify("Resending " + repeatIfNeeded.options.params.title " in 10 seconds.");
-    	
-    	setTimeout(function() {
-    		var ft = new FileTransfer();
-        	_this.notify("Trying to upload " + repeatIfNeeded.options.params.title);
-        	
-    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, app.win, app.fail, repeatIfNeeded.options);
-    	}, 10000);		//Wait 10 seconds before trying again	
-     }
-}
+
 
 
 var app = {
@@ -237,7 +223,21 @@ var app = {
         }
     },
 
-
+    retry: function() {
+	     var repeatIfNeeded = retryIfNeeded.pop();
+	     
+	     if(repeatIfNeeded) {
+	    	 //Resend within a minute here
+	    	app.notify("Resending " + repeatIfNeeded.options.params.title " in 10 seconds.");
+	    	
+	    	setTimeout(function() {
+	    		var ft = new FileTransfer();
+	        	app.notify("Trying to upload " + repeatIfNeeded.options.params.title);
+	        	
+	    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, app.win, app.fail, repeatIfNeeded.options);
+	    	}, 10000);		//Wait 10 seconds before trying again	
+	     }
+      },
 
     win: function(r) {
             console.log("Code = " + r.responseCode);
