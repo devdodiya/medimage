@@ -321,7 +321,7 @@ var app = {
         this.defaultDir = null;
         document.getElementById("override").value = "";
         alert("Cleared default server.");
-
+	return false;
     },
 
 
