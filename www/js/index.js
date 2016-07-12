@@ -228,17 +228,18 @@ var app = {
 
     retry: function() {
     	    
+    	    alert("Retrying " + retryNum);		//TEMPIN
 	     
 	     if(retryNum > 0) {
 	     	var repeatIfNeeded = retryIfNeeded[retryNum];
 	     	
 	     	
 	    	 //Resend within a minute here
-	    	_this.notify("Resending " + repeatIfNeeded.options.params.title + " in 10 seconds.");
+	    	errorThis.notify("Resending " + repeatIfNeeded.options.params.title + " in 10 seconds.");
 	    	
 	    	setTimeout(function() {
 	    		var ft = new FileTransfer();
-	        	_this.notify("Trying to upload " + repeatIfNeeded.options.params.title);
+	        	errorThis.notify("Trying to upload " + repeatIfNeeded.options.params.title);
 	        	
 	    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
 	    	}, 10000);		//Wait 10 seconds before trying again	
