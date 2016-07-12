@@ -228,19 +228,19 @@ var app = {
 
     retry: function() {
     	    
-
+	     
 	     if(retryNum > 0) {
 	     	var repeatIfNeeded = retryIfNeeded[retryNum];
 	     	
 	     	
 	    	 //Resend within a minute here
-	    	app.notify("Resending " + repeatIfNeeded.options.params.title + " in 10 seconds.");
+	    	_this.notify("Resending " + repeatIfNeeded.options.params.title + " in 10 seconds.");
 	    	
 	    	setTimeout(function() {
 	    		var ft = new FileTransfer();
-	        	app.notify("Trying to upload " + repeatIfNeeded.options.params.title);
+	        	_this.notify("Trying to upload " + repeatIfNeeded.options.params.title);
 	        	
-	    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, app.win, app.fail, repeatIfNeeded.options);
+	    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
 	    	}, 10000);		//Wait 10 seconds before trying again	
 	     }
       },
@@ -259,7 +259,7 @@ var app = {
             	deleteThisFile.remove();
             } else {
             	//Retry sending
-            	app.retry();
+            	errorThis.retry();
             	
             }
 
@@ -280,12 +280,12 @@ var app = {
 
             case 3:
                 errorThis.notify("You cannot connect to the server at this time. Check if it is running, and try again.");
-                app.retry();
+                errorThis.retry();
             break;
 
             case 4:
                 errorThis.notify("Sorry, your image transfer was aborted.");
-                app.retry();
+                errorThis.retry();
             break;
 
             default:
