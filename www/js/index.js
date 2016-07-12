@@ -232,7 +232,7 @@ var app = {
     	    alert("Retrying " + retryNum);		//TEMPIN
 	     
 	     if(retryNum > 0) {
-	     	var repeatIfNeeded = retryIfNeeded[retryNum];
+	     	var repeatIfNeeded = retryIfNeeded[retryNum - 1];
 	     	
 	     	if(repeatIfNeeded) {
 	     		alert("repeatIfNeeded exists");   //TEMPIN
