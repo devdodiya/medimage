@@ -216,12 +216,17 @@ var app = {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            document.getElementById("notify").innerHTML = 'Image transferred.';
-            document.getElementById("override-form").style.display = 'none';    //Hide any url entry
+            if(r.responseCode == 200) {
+            	document.getElementById("notify").innerHTML = 'Image transferred.';
+            	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
 
 
-            //and delete phone version
-            deleteThisFile.remove();
+            	//and delete phone version
+            	deleteThisFile.remove();
+            } else {
+            	//TODO: resend within a minute here
+            	
+            }
 
     },
 
