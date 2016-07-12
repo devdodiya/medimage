@@ -222,7 +222,7 @@ var app = {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            if((r.responseCode == 200)||(r.response.indexOf("200"))) {
+            if((r.responseCode == 200)||(r.response.indexOf("200") != -1)) {
             	document.getElementById("notify").innerHTML = 'Image transferred.';
             	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
 
