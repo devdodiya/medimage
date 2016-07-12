@@ -233,8 +233,10 @@ var app = {
 	     if(retryNum > 0) {
 	     	var repeatIfNeeded = retryIfNeeded[retryNum];
 	     	
-	     	
-	    	 //Resend within a minute here
+	     	if(repeatIfNeeded) {
+	    	 	//Resend within a minute here
+	    	 	alert("repeatIfNeeded " + JSON.stringify(repeatIfNeeded));
+	     	}
 	    	errorThis.notify("Resending " + repeatIfNeeded.options.params.title + " in 10 seconds.");
 	    	
 	    	setTimeout(function() {
