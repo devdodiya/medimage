@@ -195,6 +195,12 @@ var app = {
 	            _this.notify("Uploading " + params.title);
 					     
 		    var serverReq = _this.foundServer + '/api/photo';
+		    
+		    var repeatIfNeeded = {
+		    	"imageURI" : imageURI,
+		    	"serverReq" : serverReq,
+		    	"options" :options
+		    }	
 	
 	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 	
@@ -216,7 +222,7 @@ var app = {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            if(r.responseCode == 200) {
+            if((r.responseCode == 200)||(r.response.indexOf("200"))) {
             	document.getElementById("notify").innerHTML = 'Image transferred.';
             	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
 
@@ -224,7 +230,15 @@ var app = {
             	//and delete phone version
             	deleteThisFile.remove();
             } else {
-            	//TODO: resend within a minute here
+            	//Resend within a minute here
+            	_this.notify("Resending " + repeatIfNeeded.options.params.title);
+            	
+            	setTimeout(function() {
+            		var ft = new FileTransfer();
+	        	_this.notify("Trying to upload " + params.title);
+	        	
+            		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, _this.win, _this.fail, repeatIfNeeded.options);
+            	}, 10000);		//Wait 10 seconds before trying again
             	
             }
 
