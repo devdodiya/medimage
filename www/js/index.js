@@ -252,7 +252,7 @@ var app = {
             	deleteThisFile.remove();
             } else {
             	//Retry sending
-            	retry();
+            	app.retry();
             	
             }
 
@@ -273,12 +273,12 @@ var app = {
 
             case 3:
                 errorThis.notify("You cannot connect to the server at this time. Check if it is running, and try again.");
-                retry();
+                app.retry();
             break;
 
             case 4:
                 errorThis.notify("Sorry, your image transfer was aborted.");
-                retry();
+                app.retry();
             break;
 
             default:
