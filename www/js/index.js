@@ -20,6 +20,12 @@
 var deleteThisFile = {}; //Global object for image taken, to be deleted
 var centralPairingUrl = "https://atomjump.com/med-genid.php";
 var errorThis = {};  //Used as a global error handler
+var retryIfNeeded = [];	//A global pushable list with the repeat attempts
+var retryNum = 0;
+
+
+
+
 
 
 var app = {
@@ -90,7 +96,7 @@ var app = {
     },
 
     scanlan: function(port, cb) {
-     var _this = this;
+      var _this = this;
 
       if(this.lan) {
 
@@ -164,69 +170,129 @@ var app = {
 
             var myoutFile = tempName.replace(/ /g,'-');
 
-		          	navigator.globalization.dateToString(
-			              new Date(),
-			              function (date) {
-				                  var mydt = date.value.replace(/:/g,'-');
-				                  mydt = mydt.replace(/ /g,'-');
-				                  mydt = mydt.replace(/\//g,'-');
+	    navigator.globalization.dateToString(
+		new Date(),
+		function (date) {
+         	    var mydt = date.value.replace(/:/g,'-');
+                    mydt = mydt.replace(/ /g,'-');
+                    mydt = mydt.replace(/\//g,'-');
 
-				                  var aDate = new Date();
-				                  var seconds = aDate.getSeconds();
-				                  mydt = mydt + "-" + seconds;
+                    var aDate = new Date();
+                    var seconds = aDate.getSeconds();
+                    mydt = mydt + "-" + seconds;
 
-	                    mydt = mydt.replace(/,/g,'');  //remove any commas from iphone
+		    mydt = mydt.replace(/,/g,'');  //remove any commas from iphone
+	
+		    options.fileName = myoutFile + '-' + mydt + '.jpg';
+	
+		    options.mimeType="image/jpeg";
+	
+		    var params = new Object();
+		    params.title = document.getElementById("id-entered").value;
+	     	    if((params.title == '')||(params.title == null)) {
+	         	params.title = 'image';
+	     	    }
+	
+		    options.params = params;
+		    options.chunkedMode = false;
+	
+	
+		    var ft = new FileTransfer();
+	            _this.notify("Uploading " + params.title);
+	            
+	            ft.onprogress = _this.progress;
+	            
+					     
+		    var serverReq = _this.foundServer + '/api/photo';
+		    
+		    var repeatIfNeeded = {
+		    	"imageURI" : imageURI,
+		    	"serverReq" : serverReq,
+		    	"options" :options
+		    };
+		    retryIfNeeded.push(repeatIfNeeded);
 
-				  options.fileName = myoutFile + '-' + mydt + '.jpg';
-
-				  options.mimeType="image/jpeg";
-
-				  var params = new Object();
-				  params.title = document.getElementById("id-entered").value;
-     if((params.title == '')||(params.title == null)) {
-         params.title = 'image';
-     }
-
-				  options.params = params;
-				  options.chunkedMode = false;
-
-
-				  var ft = new FileTransfer();
-        _this.notify("Uploading " + params.title);
-				     
-						     var serverReq = _this.foundServer + '/api/photo';
-
-            	  ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
-
-			  },
-			  function () {alert('Error getting dateString\n');},
-			  {formatLength:'medium', selector:'date and time'}
-			);
+	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
+	
+		  },
+		  function () { alert('Error getting dateString\n'); },
+			{ formatLength:'medium', selector:'date and time'}
+		  ); //End of function in globalization date to string
 
 
 
 
-          } );
-        } else {
+          } );		//End of resolveLocalFileSystemURI
+        } else {	//End of if found server
             _this.notify('No server known');
         }
     },
+	
+    progress: function(progressEvent) {
+    		var statusDom = document.querySelector('#status');
+    	
+		if (progressEvent.lengthComputable) {
+			var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+			statusDom.innerHTML = perc + "% uploaded...";
+		} else {
+			if(statusDom.innerHTML == "") {
+				statusDom.innerHTML = "Uploading";
+			} else {
+				statusDom.innerHTML += ".";
+			}
+		}
+	},
+			
+    retry: function(existingText) {
+    	    
+ 
+	     	var repeatIfNeeded = retryIfNeeded.pop();
+	     	
+	     	if(repeatIfNeeded) {
+	    	 	//Resend within a minute here
+	    	 	errorThis.notify(existingText + " Retrying " + repeatIfNeeded.options.params.title + " in 10 seconds.");
+	    	
+		    	setTimeout(function() {
+		    		var ft = new FileTransfer();
+		        	
+		        	ft.onprogress = errorThis.progress;
+		        	
+		        	errorThis.notify("Trying to upload " + repeatIfNeeded.options.params.title);
+		        	
+		        	retryIfNeeded.push(repeatIfNeeded);
+		        	
+		    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
+		    	}, 10000);		//Wait 10 seconds before trying again	
+	     	}
+      },
 
     win: function(r) {
+    	    
+    	    document.querySelector('#status').innerHTML = "";	//Clear progress status
+    	    
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
-            document.getElementById("notify").innerHTML = 'Image transferred.';
-            document.getElementById("override-form").style.display = 'none';    //Hide any url entry
+            if((r.responseCode == 200)||(r.response.indexOf("200") != -1)) {
+            	document.getElementById("notify").innerHTML = 'Image transferred. Success!';
+            	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
 
+		//retryNum --;		//Count down the number of retry entries
 
-            //and delete phone version
-            deleteThisFile.remove();
+            	//and delete phone version
+            	deleteThisFile.remove();
+            } else {
+            	//Retry sending
+            	errorThis.retry("");
+            	
+            }
 
     },
 
 
     fail: function(error) {
+  
+  	document.querySelector('#status').innerHTML = "";	//Clear progress status
   
         switch(error.code)
         {
@@ -239,11 +305,13 @@ var app = {
             break;
 
             case 3:
-                errorThis.notify("You cannot connect to the server at this time. Check if it is running, and try again.");
+                errorThis.notify("You cannot connect to the server at this time.");
+                errorThis.retry("You cannot connect to the server at this time.</br>");
             break;
 
             case 4:
                 errorThis.notify("Sorry, your image transfer was aborted.");
+                errorThis.retry("Sorry, your image transfer was aborted.</br>");
             break;
 
             default:
@@ -278,7 +346,7 @@ var app = {
         this.defaultDir = null;
         document.getElementById("override").value = "";
         alert("Cleared default server.");
-
+	return false;
     },
 
 
@@ -307,17 +375,17 @@ var app = {
         var localOverride = "";
 
         if(inOverrideServer) {
-		       localOverride = inOverrideServer;
-		      } else {
+	       localOverride = inOverrideServer;
+	} else {
 		
 		
-		   			    //Check if there is a saved server
-			   	     localOverride = localStorage.getItem("overrideServer");
+	        //Check if there is a saved server
+	        localOverride = localStorage.getItem("overrideServer");
 			   	     
-			   	     if((localOverride == null)|| (localOverride == '')) {
+		if((localOverride == null)|| (localOverride == '')) {
 	
-		            //no local storage of server already exists
-   //Check if a user entered code
+		      	//no local storage of server already exists
+   		   	//Check if a user entered code
 			if((document.getElementById("override").value) &&
 			  (document.getElementById("override").value != '')) {
 
@@ -326,29 +394,29 @@ var app = {
 			   _this.notify("Pairing with " + pairUrl);
 			   _this.get(pairUrl, function(url, resp) {
 
-         resp = resp.replace('\n', '')
+		           resp = resp.replace('\n', '')
 
-				  if(resp == 'nomatch') {
-						_this.notify("Sorry, there was no match for that code.");
-						return;
+			   if(resp == 'nomatch') {
+				_this.notify("Sorry, there was no match for that code.");
+				return;
 
-				  } else {
+			   } else {
 
-					  _this.notify("Paired success with " + resp);
-					  var server = resp;
+			        _this.notify("Paired success with " + resp);
+			        var server = resp;
 
-					  //And save this server
-					  localStorage.setItem("overrideServer",server);
+			        //And save this server
+				localStorage.setItem("overrideServer",server);
       
       
-      //Clear any previous details
-      this.foundServer = null;
-      this.defaultDir = null;
+			        //Clear any previous details
+			        this.foundServer = null;
+			        this.defaultDir = null;
   
-					  //Rerun again, this time with new default
-					 _this.startup(server);
-					 return;
-				   }
+				//Rerun again, this time with new default
+				_this.startup(server);
+				return;
+			   }
 
 			   }); //end of get
 			   
