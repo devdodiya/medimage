@@ -30,7 +30,7 @@
     </head>
     <body>
         <p style="text-align:center;">
-             <span class="big-text">Image ID<br/></span><input id="id-entered" type="text" size="9" class="resizedTextbox">
+             <span class="big-text">Image ID (eg. NHI patient ID)<br/></span><input id="id-entered" type="text" size="9" class="resizedTextbox">
         </p>
 
         <div class="logo" onclick="app.startup();">
@@ -47,7 +47,7 @@
 
         <div id="override-form" style="text-align:center; display:none;">
 
-             <span class="big-text" >Enter pairing code<br/></span><input id="override" onkeydown="app.notify('Click above to continue.');" type="text" value="" class="resizedTextbox">
+             <span class="big-text" >Enter pairing code<br/></span><input id="override" onkeydown="if (event.keyCode == 13) { app.startup(); } else { app.notify('Click above to continue.'); }" type="text" value="" class="resizedTextbox">
         </div>
         <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
