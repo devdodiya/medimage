@@ -21,6 +21,8 @@ var deleteThisFile = {}; //Global object for image taken, to be deleted
 var centralPairingUrl = "https://atomjump.com/med-genid.php";
 var errorThis = {};  //Used as a global error handler
 var retryIfNeeded = [];	//A global pushable list with the repeat attempts
+var retryNum = 0;
+
 
 
 
@@ -205,7 +207,8 @@ var app = {
 		    	"serverReq" : serverReq,
 		    	"options" :options
 		    };
-		    retryIfNeeded.push(repeatIfNeeded);
+		    retryIfNeeded[retryNum] = repeatIfNeeded;
+		    retryNum ++;
 	
 	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 	
@@ -224,9 +227,12 @@ var app = {
     },
 
     retry: function() {
-	     var repeatIfNeeded = retryIfNeeded.pop();
-	     
-	     if(repeatIfNeeded) {
+    	    
+
+	     if(retryNum > 0) {
+	     	var repeatIfNeeded = retryIfNeeded[retryNum];
+	     	retryNum --;
+	     	
 	    	 //Resend within a minute here
 	    	app.notify("Resending " + repeatIfNeeded.options.params.title " in 10 seconds.");
 	    	
