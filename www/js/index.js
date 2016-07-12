@@ -227,32 +227,26 @@ var app = {
         }
     },
 
-    retry: function() {
+    retry: function(existingText) {
     	    
-    	    alert("Retrying " + retryNum);		//TEMPIN
-	     
+ 
 	     if(retryNum > 0) {
 	     	var repeatIfNeeded = retryIfNeeded[retryNum - 1];
 	     	
 	     	if(repeatIfNeeded) {
-	     		alert("repeatIfNeeded exists");   //TEMPIN
 	    	 	//Resend within a minute here
-	    	 	alert("repeatIfNeeded.imageURI = " + repeatIfNeeded.imageURI);
-	    	 	alert("repeatIfNeeded " + JSON.stringify(repeatIfNeeded));   //TEMPIN
-	    	 	errorThis.notify("Resending " + repeatIfNeeded.options.params.title + " in 10 seconds.");
+	    	 	errorThis.notify(existingText + " Retrying " + repeatIfNeeded.options.params.title + " in 10 seconds.");
+	    	
+		    	setTimeout(function() {
+		    		var ft = new FileTransfer();
+		        	
+		        	errorThis.notify("Trying to upload " + repeatIfNeeded.options.params.title);
+		        	
+		        	
+		        	
+		    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
+		    	}, 10000);		//Wait 10 seconds before trying again	
 	     	}
-	     	alert("Waiting 10 secs now");  //TEMPIN
-	    	
-	    	
-	    	setTimeout(function() {
-	    		var ft = new FileTransfer();
-	        	alert("About to display");
-	        	errorThis.notify("Trying to upload " + repeatIfNeeded.options.params.title);
-	        	
-	        	alert("About to upload again");
-	        	
-	    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
-	    	}, 10000);		//Wait 10 seconds before trying again	
 	     }
       },
 
@@ -261,7 +255,7 @@ var app = {
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
             if((r.responseCode == 200)||(r.response.indexOf("200") != -1)) {
-            	document.getElementById("notify").innerHTML = 'Image transferred.';
+            	document.getElementById("notify").innerHTML = 'Image transferred. Success!';
             	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
 
 		retryNum --;		//Count down the number of retry entries
@@ -270,7 +264,7 @@ var app = {
             	deleteThisFile.remove();
             } else {
             	//Retry sending
-            	errorThis.retry();
+            	errorThis.retry("");
             	
             }
 
@@ -290,13 +284,13 @@ var app = {
             break;
 
             case 3:
-                errorThis.notify("You cannot connect to the server at this time. Check if it is running, and try again.");
-                errorThis.retry();
+                errorThis.notify("You cannot connect to the server at this time.");
+                errorThis.retry("You cannot connect to the server at this time.");
             break;
 
             case 4:
                 errorThis.notify("Sorry, your image transfer was aborted.");
-                errorThis.retry();
+                errorThis.retry("Sorry, your image transfer was aborted.");
             break;
 
             default:
