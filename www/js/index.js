@@ -204,7 +204,7 @@ var app = {
 		    	"imageURI" : imageURI,
 		    	"serverReq" : serverReq,
 		    	"options" :options
-		    }
+		    };
 		    retryIfNeeded.push(repeatIfNeeded);
 	
 	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
