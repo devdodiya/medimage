@@ -20,6 +20,24 @@
 var deleteThisFile = {}; //Global object for image taken, to be deleted
 var centralPairingUrl = "https://atomjump.com/med-genid.php";
 var errorThis = {};  //Used as a global error handler
+var retryIfNeeded = [];	//A global pushable list with the repeat attempts
+
+
+function retry() {
+     var repeatIfNeeded = retryIfNeeded.pop();
+     
+     if(repeatIfNeeded) {
+    	 //Resend within a minute here
+    	_this.notify("Resending " + repeatIfNeeded.options.params.title " in 10 seconds.");
+    	
+    	setTimeout(function() {
+    		var ft = new FileTransfer();
+        	_this.notify("Trying to upload " + repeatIfNeeded.options.params.title);
+        	
+    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, app.win, app.fail, repeatIfNeeded.options);
+    	}, 10000);		//Wait 10 seconds before trying again	
+     }
+}
 
 
 var app = {
@@ -200,7 +218,8 @@ var app = {
 		    	"imageURI" : imageURI,
 		    	"serverReq" : serverReq,
 		    	"options" :options
-		    }	
+		    }
+		    retryIfNeeded.push(repeatIfNeeded);
 	
 	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 	
@@ -218,6 +237,8 @@ var app = {
         }
     },
 
+
+
     win: function(r) {
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
@@ -230,15 +251,8 @@ var app = {
             	//and delete phone version
             	deleteThisFile.remove();
             } else {
-            	//Resend within a minute here
-            	_this.notify("Resending " + repeatIfNeeded.options.params.title);
-            	
-            	setTimeout(function() {
-            		var ft = new FileTransfer();
-	        	_this.notify("Trying to upload " + params.title);
-	        	
-            		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, _this.win, _this.fail, repeatIfNeeded.options);
-            	}, 10000);		//Wait 10 seconds before trying again
+            	//Retry sending
+            	retry();
             	
             }
 
@@ -259,10 +273,12 @@ var app = {
 
             case 3:
                 errorThis.notify("You cannot connect to the server at this time. Check if it is running, and try again.");
+                retry();
             break;
 
             case 4:
                 errorThis.notify("Sorry, your image transfer was aborted.");
+                retry();
             break;
 
             default:
