@@ -209,7 +209,7 @@ var app = {
 		    };
 		    //Old: retryIfNeeded[retryNum] = repeatIfNeeded;
 		    retryIfNeeded.push(repeatIfNeeded);
-		    retryNum ++;
+		    //retryNum ++;
 	
 	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 	
@@ -230,8 +230,8 @@ var app = {
     retry: function(existingText) {
     	    
  
-	     if(retryNum > 0) {
-	     	var repeatIfNeeded = retryIfNeeded[retryNum - 1];
+	     //if(retryNum > 0) {
+	     	var repeatIfNeeded = retryIfNeeded.pop();//[retryNum - 1];
 	     	
 	     	if(repeatIfNeeded) {
 	    	 	//Resend within a minute here
@@ -242,12 +242,12 @@ var app = {
 		        	
 		        	errorThis.notify("Trying to upload " + repeatIfNeeded.options.params.title);
 		        	
-		        	
+		        	retryIfNeeded.push(repeatIfNeeded);
 		        	
 		    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
 		    	}, 10000);		//Wait 10 seconds before trying again	
 	     	}
-	     }
+	     //}
       },
 
     win: function(r) {
@@ -258,7 +258,7 @@ var app = {
             	document.getElementById("notify").innerHTML = 'Image transferred. Success!';
             	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
 
-		retryNum --;		//Count down the number of retry entries
+		//retryNum --;		//Count down the number of retry entries
 
             	//and delete phone version
             	deleteThisFile.remove();
@@ -285,12 +285,12 @@ var app = {
 
             case 3:
                 errorThis.notify("You cannot connect to the server at this time.");
-                errorThis.retry("You cannot connect to the server at this time.");
+                errorThis.retry("You cannot connect to the server at this time.</br>");
             break;
 
             case 4:
                 errorThis.notify("Sorry, your image transfer was aborted.");
-                errorThis.retry("Sorry, your image transfer was aborted.");
+                errorThis.retry("Sorry, your image transfer was aborted.</br>");
             break;
 
             default:
