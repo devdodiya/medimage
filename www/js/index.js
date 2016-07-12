@@ -207,10 +207,8 @@ var app = {
 		    	"serverReq" : serverReq,
 		    	"options" :options
 		    };
-		    //Old: retryIfNeeded[retryNum] = repeatIfNeeded;
 		    retryIfNeeded.push(repeatIfNeeded);
-		    //retryNum ++;
-	
+
 	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 	
 		  },
@@ -230,8 +228,7 @@ var app = {
     retry: function(existingText) {
     	    
  
-	     //if(retryNum > 0) {
-	     	var repeatIfNeeded = retryIfNeeded.pop();//[retryNum - 1];
+	     	var repeatIfNeeded = retryIfNeeded.pop();
 	     	
 	     	if(repeatIfNeeded) {
 	    	 	//Resend within a minute here
@@ -247,7 +244,6 @@ var app = {
 		    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
 		    	}, 10000);		//Wait 10 seconds before trying again	
 	     	}
-	     //}
       },
 
     win: function(r) {
