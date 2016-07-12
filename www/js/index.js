@@ -199,6 +199,9 @@ var app = {
 	
 		    var ft = new FileTransfer();
 	            _this.notify("Uploading " + params.title);
+	            
+	            ft.onprogress = _this.progress;
+	            
 					     
 		    var serverReq = _this.foundServer + '/api/photo';
 		    
@@ -224,7 +227,22 @@ var app = {
             _this.notify('No server known');
         }
     },
-
+	
+    progress: function(progressEvent) {
+    		var statusDom = document.querySelector('#status');
+    	
+		if (progressEvent.lengthComputable) {
+			var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
+			statusDom.innerHTML = perc + "% uploaded...";
+		} else {
+			if(statusDom.innerHTML == "") {
+				statusDom.innerHTML = "Uploading";
+			} else {
+				statusDom.innerHTML += ".";
+			}
+		}
+	},
+			
     retry: function(existingText) {
     	    
  
@@ -237,6 +255,8 @@ var app = {
 		    	setTimeout(function() {
 		    		var ft = new FileTransfer();
 		        	
+		        	ft.onprogress = errorThis.progress;
+		        	
 		        	errorThis.notify("Trying to upload " + repeatIfNeeded.options.params.title);
 		        	
 		        	retryIfNeeded.push(repeatIfNeeded);
@@ -247,6 +267,9 @@ var app = {
       },
 
     win: function(r) {
+    	    
+    	    document.querySelector('#status').innerHTML = "";	//Clear progress status
+    	    
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
@@ -268,6 +291,8 @@ var app = {
 
 
     fail: function(error) {
+  
+  	document.querySelector('#status').innerHTML = "";	//Clear progress status
   
         switch(error.code)
         {
