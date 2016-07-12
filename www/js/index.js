@@ -231,10 +231,10 @@ var app = {
 
 	     if(retryNum > 0) {
 	     	var repeatIfNeeded = retryIfNeeded[retryNum];
-	     	retryNum --;
+	     	
 	     	
 	    	 //Resend within a minute here
-	    	app.notify("Resending " + repeatIfNeeded.options.params.title " in 10 seconds.");
+	    	app.notify("Resending " + repeatIfNeeded.options.params.title + " in 10 seconds.");
 	    	
 	    	setTimeout(function() {
 	    		var ft = new FileTransfer();
@@ -253,6 +253,7 @@ var app = {
             	document.getElementById("notify").innerHTML = 'Image transferred.';
             	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
 
+		retryNum --;		//Count down the number of retry entries
 
             	//and delete phone version
             	deleteThisFile.remove();
