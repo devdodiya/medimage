@@ -90,7 +90,7 @@ var app = {
     },
 
     scanlan: function(port, cb) {
-     var _this = this;
+      var _this = this;
 
       if(this.lan) {
 
@@ -164,50 +164,50 @@ var app = {
 
             var myoutFile = tempName.replace(/ /g,'-');
 
-		          	navigator.globalization.dateToString(
-			              new Date(),
-			              function (date) {
-				                  var mydt = date.value.replace(/:/g,'-');
-				                  mydt = mydt.replace(/ /g,'-');
-				                  mydt = mydt.replace(/\//g,'-');
+	    navigator.globalization.dateToString(
+		new Date(),
+		function (date) {
+         	    var mydt = date.value.replace(/:/g,'-');
+                    mydt = mydt.replace(/ /g,'-');
+                    mydt = mydt.replace(/\//g,'-');
 
-				                  var aDate = new Date();
-				                  var seconds = aDate.getSeconds();
-				                  mydt = mydt + "-" + seconds;
+                    var aDate = new Date();
+                    var seconds = aDate.getSeconds();
+                    mydt = mydt + "-" + seconds;
 
-	                    mydt = mydt.replace(/,/g,'');  //remove any commas from iphone
-
-				  options.fileName = myoutFile + '-' + mydt + '.jpg';
-
-				  options.mimeType="image/jpeg";
-
-				  var params = new Object();
-				  params.title = document.getElementById("id-entered").value;
-     if((params.title == '')||(params.title == null)) {
-         params.title = 'image';
-     }
-
-				  options.params = params;
-				  options.chunkedMode = false;
-
-
-				  var ft = new FileTransfer();
-        _this.notify("Uploading " + params.title);
-				     
-						     var serverReq = _this.foundServer + '/api/photo';
-
-            	  ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
-
-			  },
-			  function () {alert('Error getting dateString\n');},
-			  {formatLength:'medium', selector:'date and time'}
-			);
-
-
+		    mydt = mydt.replace(/,/g,'');  //remove any commas from iphone
+	
+		    options.fileName = myoutFile + '-' + mydt + '.jpg';
+	
+		    options.mimeType="image/jpeg";
+	
+		    var params = new Object();
+		    params.title = document.getElementById("id-entered").value;
+	     	    if((params.title == '')||(params.title == null)) {
+	         	params.title = 'image';
+	     	    }
+	
+		    options.params = params;
+		    options.chunkedMode = false;
+	
+	
+		    var ft = new FileTransfer();
+	            _this.notify("Uploading " + params.title);
+					     
+		    var serverReq = _this.foundServer + '/api/photo';
+	
+	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
+	
+		  },
+		  function () { alert('Error getting dateString\n'); },
+			{ formatLength:'medium', selector:'date and time'}
+		  ); //End of function in globalization date to string
 
 
-          } );
-        } else {
+
+
+          } );		//End of resolveLocalFileSystemURI
+        } else {	//End of if found server
             _this.notify('No server known');
         }
     },
@@ -307,17 +307,17 @@ var app = {
         var localOverride = "";
 
         if(inOverrideServer) {
-		       localOverride = inOverrideServer;
-		      } else {
+	       localOverride = inOverrideServer;
+	} else {
 		
 		
-		   			    //Check if there is a saved server
-			   	     localOverride = localStorage.getItem("overrideServer");
+	        //Check if there is a saved server
+	        localOverride = localStorage.getItem("overrideServer");
 			   	     
-			   	     if((localOverride == null)|| (localOverride == '')) {
+		if((localOverride == null)|| (localOverride == '')) {
 	
-		            //no local storage of server already exists
-   //Check if a user entered code
+		      	//no local storage of server already exists
+   		   	//Check if a user entered code
 			if((document.getElementById("override").value) &&
 			  (document.getElementById("override").value != '')) {
 
@@ -326,29 +326,29 @@ var app = {
 			   _this.notify("Pairing with " + pairUrl);
 			   _this.get(pairUrl, function(url, resp) {
 
-         resp = resp.replace('\n', '')
+		           resp = resp.replace('\n', '')
 
-				  if(resp == 'nomatch') {
-						_this.notify("Sorry, there was no match for that code.");
-						return;
+			   if(resp == 'nomatch') {
+				_this.notify("Sorry, there was no match for that code.");
+				return;
 
-				  } else {
+			   } else {
 
-					  _this.notify("Paired success with " + resp);
-					  var server = resp;
+			        _this.notify("Paired success with " + resp);
+			        var server = resp;
 
-					  //And save this server
-					  localStorage.setItem("overrideServer",server);
+			        //And save this server
+				localStorage.setItem("overrideServer",server);
       
       
-      //Clear any previous details
-      this.foundServer = null;
-      this.defaultDir = null;
+			        //Clear any previous details
+			        this.foundServer = null;
+			        this.defaultDir = null;
   
-					  //Rerun again, this time with new default
-					 _this.startup(server);
-					 return;
-				   }
+				//Rerun again, this time with new default
+				_this.startup(server);
+				return;
+			   }
 
 			   }); //end of get
 			   
