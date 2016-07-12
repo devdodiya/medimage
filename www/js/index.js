@@ -207,7 +207,8 @@ var app = {
 		    	"serverReq" : serverReq,
 		    	"options" :options
 		    };
-		    retryIfNeeded[retryNum] = repeatIfNeeded;
+		    //Old: retryIfNeeded[retryNum] = repeatIfNeeded;
+		    retryIfNeeded.push(repeatIfNeeded);
 		    retryNum ++;
 	
 	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
@@ -234,14 +235,21 @@ var app = {
 	     	var repeatIfNeeded = retryIfNeeded[retryNum];
 	     	
 	     	if(repeatIfNeeded) {
+	     		alert("repeatIfNeeded exists");   //TEMPIN
 	    	 	//Resend within a minute here
-	    	 	alert("repeatIfNeeded " + JSON.stringify(repeatIfNeeded));
+	    	 	alert("repeatIfNeeded.imageURI = " + repeatIfNeeded.imageURI);
+	    	 	alert("repeatIfNeeded " + JSON.stringify(repeatIfNeeded));   //TEMPIN
+	    	 	errorThis.notify("Resending " + repeatIfNeeded.options.params.title + " in 10 seconds.");
 	     	}
-	    	errorThis.notify("Resending " + repeatIfNeeded.options.params.title + " in 10 seconds.");
+	     	alert("Waiting 10 secs now");  //TEMPIN
+	    	
 	    	
 	    	setTimeout(function() {
 	    		var ft = new FileTransfer();
+	        	alert("About to display");
 	        	errorThis.notify("Trying to upload " + repeatIfNeeded.options.params.title);
+	        	
+	        	alert("About to upload again");
 	        	
 	    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
 	    	}, 10000);		//Wait 10 seconds before trying again	
