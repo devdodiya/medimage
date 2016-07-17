@@ -144,10 +144,26 @@ var app = {
 
         var _this = this;
         errorThis = this;
+	
+	if(!_this.foundServer) {
+		//No server found in RAM, find the server now. And then call upload again
+		_this.findServer(function(err) {
+			if(err) {
+				_this.notify("Sorry, we cannot connect to the server. Trying again in 10 seconds.");
+				//Search again in 10 seconds:
+				setTimeout(function() {
+					uploadPhoto(imageURIin)
+					}, 10000);
+			} else {
+				//Now we are connected, upload the photo again
+				uploadPhoto(imageURIin);
+			}
+		});
+		return;
+	} else {
 
-        if(_this.foundServer) {
 
-          window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
+            window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
 
             deleteThisFile = fileEntry; //Store globally
             
@@ -223,8 +239,7 @@ var app = {
 
 
           } );		//End of resolveLocalFileSystemURI
-        } else {	//End of if found server
-            _this.notify('No server known');
+       
         }
     },
 	
@@ -443,9 +458,13 @@ var app = {
           //We have already found the server
           var server = this.foundServer;
 
+	  //Take the picture and connect later
+	  _this.takePicture();
+
           //OK we already know the server, or did at least
           //try connecting to it
-
+	  
+	  /* Old way:
           _this.notify("Trying to connect..");
           this.get(server, function(url, resp) {
 
@@ -462,13 +481,16 @@ var app = {
               _this.notify('Timeout connecting. Please try again.');
               _this.foundServer = null;
            }, 5000);
-
+           */
 
 
         } else {
 
             //Otherwise, first time we are running the app this session
-            _this.notify("Looking for server");
+            
+            _this.takePicture();
+            
+            /*_this.notify("Looking for server");
 
              this.findServer(function(err) {
 
@@ -479,7 +501,8 @@ var app = {
                     _this.notify("Found server");
                    _this.takePicture();
                  }
-             });
+             });*/
+             
 
         }
 
