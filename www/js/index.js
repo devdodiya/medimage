@@ -453,7 +453,7 @@ var app = {
  
         }
 
-        if(this.foundServer) {
+        if((this.foundServer)&&(this.foundServer != null)) {
 
           //We have already found the server
           var server = this.foundServer;
