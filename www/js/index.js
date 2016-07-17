@@ -152,11 +152,11 @@ var app = {
 				_this.notify("Sorry, we cannot connect to the server. Trying again in 10 seconds.");
 				//Search again in 10 seconds:
 				setTimeout(function() {
-					uploadPhoto(imageURIin)
+					errorThis.uploadPhoto(imageURIin)
 					}, 10000);
 			} else {
 				//Now we are connected, upload the photo again
-				uploadPhoto(imageURIin);
+				errorThis.uploadPhoto(imageURIin);
 			}
 		});
 		return;
