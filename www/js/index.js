@@ -465,9 +465,19 @@ var app = {
 
 
         } else {
+		//Otherwise, first time we are running the app this session	
+	    	_this.findServer(function(err) {
+	    		if(err) {
+	    			//An error finding server - likely need to enter a pairing code. Warn the user
+	    			_this.notify(err);
+	    		} else {
+	    			//Ready to take a pitcure
+	    			_this.takePicture();
+	    		}
+	    	});
 
-            //Otherwise, first time we are running the app this session
-            _this.takePicture();
+            
+            
             
         }
 
