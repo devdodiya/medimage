@@ -461,49 +461,14 @@ var app = {
 	  //Take the picture and connect later
 	  _this.takePicture();
 
-          //OK we already know the server, or did at least
-          //try connecting to it
-	  
-	  /* Old way:
-          _this.notify("Trying to connect..");
-          this.get(server, function(url, resp) {
 
-             //ok connected alright
-
-             _this.notify("Connected.");
-             clearTimeout(cnct);
-             _this.takePicture();
-
-          });
-
-          //timeout after 5 secs
-          var cnct = setTimeout(function() {
-              _this.notify('Timeout connecting. Please try again.');
-              _this.foundServer = null;
-           }, 5000);
-           */
 
 
         } else {
 
             //Otherwise, first time we are running the app this session
-            
             _this.takePicture();
             
-            /*_this.notify("Looking for server");
-
-             this.findServer(function(err) {
-
-                 if(err) {
-
-                   _this.notify(err);
-                 } else {
-                    _this.notify("Found server");
-                   _this.takePicture();
-                 }
-             });*/
-             
-
         }
 
 
