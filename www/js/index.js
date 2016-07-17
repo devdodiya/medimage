@@ -359,6 +359,7 @@ var app = {
         localStorage.clear();
         this.foundServer = null;
         this.defaultDir = null;
+        this.overrideServer = null;
         document.getElementById("override").value = "";
         alert("Cleared default server.");
 	return false;
@@ -441,8 +442,8 @@ var app = {
 			 }
 
 			
-		       } //end of local override check
-	       	} //end of inoverride check
+		} //end of local override check
+	} //end of inoverride check
 		
 		
         //Now process full localOverride into split and default dir
