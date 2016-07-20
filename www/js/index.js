@@ -631,7 +631,7 @@ var app = {
     saveServerName: function(results) {
     	//Save the server with a name
     	//Get existing settings array
-    	if(results.buttonIndex == 0) {
+    	if(results.buttonIndex == 1) {
     		//Clicked on 'Ok'
     		
     		var settings = window.localStorage.getArray("settings");
