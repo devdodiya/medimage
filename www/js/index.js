@@ -610,6 +610,7 @@ var app = {
     	//Save the current server
     	var _this = this;
     	
+    	
     	navigator.notification.prompt(
 	    'Please enter a name for this PC',  // message
 	    _this.saveServerName,                  // callback to invoke
@@ -629,11 +630,11 @@ var app = {
     		//Clicked on 'Ok'
     		
     		alert("About to get:");
-    		var settings = this.getArrayLocalStorage("settings");
+    		var settings = _this.getArrayLocalStorage("settings");
    		//Create a new entry
    		var newSetting = { 
    			name: results.input1,		//As input by the user
-   			overrideServer: this.overrideServer	//The current override server as already found
+   			overrideServer: _this.overrideServer	//The current override server as already found
    		};
    		alert("About to save:" + JSON.stringify(newSetting));	
    		
@@ -646,7 +647,7 @@ var app = {
    		} 
     		
     		//Save back to the persistent settings
-    		this.setArrayLocalStorage("settings", settings);
+    		_this.setArrayLocalStorage("settings", settings);
     		alert("Saved " + JSON.stringify(newSetting));
     		return;
     	} else {
