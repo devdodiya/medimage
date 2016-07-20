@@ -25,10 +25,10 @@ var retryNum = 0;
 
 
 //Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
-Storage.prototype.setArray = function(key, obj) {
+localStorage.prototype.setArray = function(key, obj) {
     return this.setItem(key, JSON.stringify(obj))
 }
-Storage.prototype.getArray = function(key) {
+localStorage.prototype.getArray = function(key) {
     return JSON.parse(this.getItem(key))
 }
 
