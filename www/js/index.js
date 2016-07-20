@@ -548,27 +548,46 @@ var app = {
 
     openSettings: function() {
     	//Open the settings screen
+    	var html = this.listServers();
+    	document.getElementById("settings").innerHTML = html;
+    	
+    	//TODO display in a popup
+    	
     },
     
     closeSettings: function() {
-    	//Close the settings screen	
+    	//Close the settings screen
+    	//TODO
     },
 
     listServers: function() {
     	//List the available servers
+    	var settings = window.localStorage.getArray("settings");
+    	
+    	var html = "<ul>";
+    	
+    	//Convert the array into html
+    	for(var cnt=0; cnt< settings.length; cnt++) {
+    		html = html + "<li onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + " <a href='javascript:' onclick='app.deleteServer(" + cnt + ");'>Delete</a></li>";
+    	}
+    	
+    	html = html + "</ul>";
+    	return html;
     },
     
     
     
-    setServer: function(serverName) {
-    	//Set the server to the input server name
+    setServer: function(serverId) {
+    	//Set the server to the input server id
     	var settings = window.localStorage.getArray("settings");
     
-    	this.overrideServer = settings[serverName].overrideServer;
+    	//Loop through
+    	this.overrideServer = settings[serverId].overrideServer;
     	document.getElementById("override").value = this.overrideServer;
     	this.foundServer = null;			//These need to be reset
         this.defaultDir = null;
     	
+    	return false;
     	
     },
     
@@ -583,8 +602,10 @@ var app = {
 	this.closeSettings();
     },
     
-    deleteServer: function() {
+    deleteServer: function(serverId) {
     	//Delete an existing server
+    	alert("Not written yet");
+    	return false;
     },
     
     saveServer: function() {
@@ -616,9 +637,15 @@ var app = {
    			overrideServer: this.overrideServer	//The current override server as already found
    		};
    			
-    		settings.push(newSetting);
+   			
+    		settings.push(newSetting);  //Save back to the array
+    		
+    		//Save back to the persistent settings
+    		window.localStorage.setArray("settings", settings);
+    		return;
     	} else {
     		//Clicked on 'Exit'. Do nothing.
+    		return;
     	}
 
      	
