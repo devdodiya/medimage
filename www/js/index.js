@@ -628,22 +628,22 @@ var app = {
     	if(results.buttonIndex == 1) {
     		//Clicked on 'Ok'
     		
-    		alert("About to get settings");
+    		alert("About to get:");
     		var settings = this.getArrayLocalStorage("settings");
    		//Create a new entry
    		var newSetting = { 
    			name: results.input1,		//As input by the user
    			overrideServer: this.overrideServer	//The current override server as already found
    		};
-   		alert("About to save:" + + JSON.stringify(newSetting));	
+   		alert("About to save:" + JSON.stringify(newSetting));	
    		
-   		if(settings) {	
-    			settings.push(newSetting);  //Save back to the array
-   		} else {
+   		if((settings == null)|| (settings == '')) {
    			//Creating an array for the first time
    			var settings = [];
    			settings.push(newSetting);  //Save back to the array
-   		}
+   		} else {
+    			settings.push(newSetting);  //Save back to the array
+   		} 
     		
     		//Save back to the persistent settings
     		this.setArrayLocalStorage("settings", settings);
@@ -659,14 +659,14 @@ var app = {
     },
     
     //Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
-    setArrayLocalStorage: function(key, obj) {
-	    alert("About to set " + key + " to " + obj);	
-	    return localStorage.setItem(key, JSON.stringify(obj))
+    setArrayLocalStorage: function(mykey, myobj) {
+	    alert("About to set " + mykey + " to " + myobj);	
+	    return localStorage.setItem(mykey, JSON.stringify(myobj));
     },
     
-    getArrayLocalStorage: function(key) {
-	    alert("About to get " + key);
-	    return JSON.parse(localStorage.getItem(key))
+    getArrayLocalStorage: function(mykey) {
+	    alert("About to get " + mykey);
+	    return JSON.parse(localStorage.getItem(mykey));
     }
 
 
