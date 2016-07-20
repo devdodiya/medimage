@@ -614,11 +614,11 @@ var app = {
     
     saveServer: function() {
     	//Save the current server
-    	
+    	var _this = this;
     	
     	navigator.notification.prompt(
 	    'Please enter a name for this PC',  // message
-	    this.saveServerName,                  // callback to invoke
+	    _this.saveServerName,                  // callback to invoke
 	    'PC Name',            // title
 	    ['Ok','Exit'],             // buttonLabels
 	    'Main'                 // defaultText
@@ -640,7 +640,7 @@ var app = {
    			name: results.input1,		//As input by the user
    			overrideServer: this.overrideServer	//The current override server as already found
    		};
-   			
+   		alert("About to save:" + + JSON.stringify(newSetting));	
    			
     		settings.push(newSetting);  //Save back to the array
     		
@@ -650,6 +650,7 @@ var app = {
     		return;
     	} else {
     		//Clicked on 'Exit'. Do nothing.
+    		alert("Exit clicked. No action");
     		return;
     	}
 
