@@ -578,11 +578,15 @@ var app = {
     	//Set the server to the input server id
     	var settings = this.getArrayLocalStorage("settings");
     
-    	//Loop through
     	this.overrideServer = settings[serverId].overrideServer;
     	document.getElementById("override").value = this.overrideServer;
     	this.foundServer = settings[serverId].foundServer;			
         this.defaultDir = settings[serverId].defaultDir;
+        
+        //Save the current server
+    	localStorage.setItem("overrideServer", this.overrideServer);
+    	
+    	alert("Switched to:" +  this.overrideServer);
     	
     	return false;
     	
@@ -595,14 +599,26 @@ var app = {
         this.defaultDir = null;
         this.overrideServer = null;
         document.getElementById("override").value = "";
-
+        
+        //Save the current one
+	localStorage.setItem("overrideServer", this.overrideServer);
 	alert("New Server");
 	this.closeSettings();
     },
     
     deleteServer: function(serverId) {
     	//Delete an existing server
-    	alert("Not written yet");
+    	var settings = this.getArrayLocalStorage("settings");
+    	
+    	if((settings == null)|| (settings == '')) {
+   		//Nothing to delete 
+   	} else {
+    		settings.splice(serverId, 1);  //Remove the entry entirely from array
+    		
+    		this.setArrayLocalStorage("settings", settings);
+   	} 
+    	
+    	
     	return false;
     },
     
