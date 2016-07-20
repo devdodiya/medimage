@@ -24,13 +24,7 @@ var retryIfNeeded = [];	//A global pushable list with the repeat attempts
 var retryNum = 0;
 
 
-//Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
-localStorage.prototype.setArray = function(key, obj) {
-    return this.setItem(key, JSON.stringify(obj))
-}
-localStorage.prototype.getArray = function(key) {
-    return JSON.parse(this.getItem(key))
-}
+
 
 
 
@@ -42,7 +36,15 @@ var app = {
     initialize: function() {
 
 
-        this.bindEvents();     
+        this.bindEvents();  
+        
+        //Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
+	localStorage.prototype.setArray = function(key, obj) {
+	    return this.setItem(key, JSON.stringify(obj))
+	}
+	localStorage.prototype.getArray = function(key) {
+	    return JSON.parse(this.getItem(key))
+	}
         
 
     },
