@@ -564,7 +564,7 @@ var app = {
     	
     	//Convert the array into html
     	for(var cnt=0; cnt< settings.length; cnt++) {
-    		html = html + "<li onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + " <a href='javascript:' onclick='app.deleteServer(" + cnt + ");'>Delete</a></li>";
+    		html = html + "<li onclick='app.setServer(" + cnt + ");'><span class='big-text'>" + settings[cnt].name + "</span> <a href='javascript:' onclick='app.deleteServer(" + cnt + ");'>Delete</a></li>";
     	}
     	
     	html = html + "</ul>";
@@ -581,8 +581,8 @@ var app = {
     	//Loop through
     	this.overrideServer = settings[serverId].overrideServer;
     	document.getElementById("override").value = this.overrideServer;
-    	this.foundServer = null;			//These need to be reset
-        this.defaultDir = null;
+    	this.foundServer = settings[serverId].foundServer;			
+        this.defaultDir = settings[serverId].defaultDir;
     	
     	return false;
     	
@@ -630,12 +630,14 @@ var app = {
     	if(results.buttonIndex == 1) {
     		//Clicked on 'Ok'
     		
-    		alert("About to get:");
+    		
     		var settings = errorThis.getArrayLocalStorage("settings");
    		//Create a new entry
    		var newSetting = { 
    			name: results.input1,		//As input by the user
-   			overrideServer: errorThis.overrideServer	//The current override server as already found
+   			overrideServer: errorThis.overrideServer,	//The current override server as already found
+   			defaultDir: errorThis.defaultDir,
+   			foundServer: errorThis.foundServer
    		};
    		alert("About to save:" + JSON.stringify(newSetting));	
    		
