@@ -39,11 +39,13 @@ var app = {
         this.bindEvents();  
         
         //Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
-	localStorage.prototype.setArray = function(key, obj) {
-	    return this.setItem(key, JSON.stringify(obj))
+	localStorage.setArray = function(key, obj) {
+	    alert("About to set " + key + " to " + obj);	
+	    return localStorage.setItem(key, JSON.stringify(obj))
 	}
-	localStorage.prototype.getArray = function(key) {
-	    return JSON.parse(this.getItem(key))
+	localStorage.getArray = function(key) {
+	    alert("About to get " + key);
+	    return JSON.parse(localStorage.getItem(key))
 	}
         
 
@@ -564,7 +566,7 @@ var app = {
 
     listServers: function() {
     	//List the available servers
-    	var settings = window.localStorage.getArray("settings");
+    	var settings = localStorage.getArray("settings");
     	
     	var html = "<ul>";
     	
@@ -582,7 +584,7 @@ var app = {
     
     setServer: function(serverId) {
     	//Set the server to the input server id
-    	var settings = window.localStorage.getArray("settings");
+    	var settings = localStorage.getArray("settings");
     
     	//Loop through
     	this.overrideServer = settings[serverId].overrideServer;
@@ -634,18 +636,25 @@ var app = {
     	if(results.buttonIndex == 1) {
     		//Clicked on 'Ok'
     		
-    		var settings = window.localStorage.getArray("settings");
+    		alert("About to get settings");
+    		var settings = localStorage.getArray("settings");
    		//Create a new entry
    		var newSetting = { 
    			name: results.input1,		//As input by the user
    			overrideServer: this.overrideServer	//The current override server as already found
    		};
    		alert("About to save:" + + JSON.stringify(newSetting));	
-   			
-    		settings.push(newSetting);  //Save back to the array
+   		
+   		if(settings) {	
+    			settings.push(newSetting);  //Save back to the array
+   		} else {
+   			//Creating an array for the first time
+   			var settings = [];
+   			settings.push(newSetting);  //Save back to the array
+   		}
     		
     		//Save back to the persistent settings
-    		window.localStorage.setArray("settings", settings);
+    		localStorage.setArray("settings", settings);
     		alert("Saved " + JSON.stringify(newSetting));
     		return;
     	} else {
