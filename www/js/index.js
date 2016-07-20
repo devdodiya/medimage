@@ -24,6 +24,13 @@ var retryIfNeeded = [];	//A global pushable list with the repeat attempts
 var retryNum = 0;
 
 
+//Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
+Storage.prototype.setArray = function(key, obj) {
+    return this.setItem(key, JSON.stringify(obj))
+}
+Storage.prototype.getArray = function(key) {
+    return JSON.parse(this.getItem(key))
+}
 
 
 
@@ -526,9 +533,96 @@ var app = {
           });
        });
 
+    },
+    
+    
+    /* Settings Functions */ 
+    /*  localStorage.clear();
+        this.foundServer = null;
+        this.defaultDir = null;
+        this.overrideServer = null;
+        document.getElementById("override").value = "";
+        alert("Cleared default server.");
+	return false; */
+
+
+    openSettings: function() {
+    	//Open the settings screen
+    },
+    
+    closeSettings: function() {
+    	//Close the settings screen	
+    },
+
+    listServers: function() {
+    	//List the available servers
+    },
+    
+    
+    
+    setServer: function(serverName) {
+    	//Set the server to the input server name
+    	var settings = window.localStorage.getArray("settings");
+    
+    	this.overrideServer = settings[serverName].overrideServer;
+    	document.getElementById("override").value = this.overrideServer;
+    	this.foundServer = null;			//These need to be reset
+        this.defaultDir = null;
+    	
+    	
+    },
+    
+    newServer: function() {
+    	//Create a new server. 
+    	//This is actually effectively resetting, and we will allow the normal functions to input a new one
+        this.foundServer = null;
+        this.defaultDir = null;
+        this.overrideServer = null;
+        document.getElementById("override").value = "";
+
+	this.closeSettings();
+    },
+    
+    deleteServer: function() {
+    	//Delete an existing server
+    },
+    
+    saveServer: function() {
+    	//Save the current server
+    	
+    	
+    	navigator.notification.prompt(
+	    'Please enter a name for this PC',  // message
+	    this.saveServerName,                  // callback to invoke
+	    'PC Name',            // title
+	    ['Ok','Exit'],             // buttonLabels
+	    'Main'                 // defaultText
+	);
+    	
+    	
+    	
+    },
+    
+    saveServerName: function(results) {
+    	//Save the server with a name
+    	//Get existing settings array
+    	if(results.buttonIndex == 0) {
+    		//Clicked on 'Ok'
+    		
+    		var settings = window.localStorage.getArray("settings");
+   		//Create a new entry
+   		var newSetting = { 
+   			name: results.input1,		//As input by the user
+   			overrideServer: this.overrideServer	//The current override server as already found
+   		};
+   			
+    		settings.push(newSetting);
+    	} else {
+    		//Clicked on 'Exit'. Do nothing.
+    	}
+
+     	
     }
-
-
 
 
 
