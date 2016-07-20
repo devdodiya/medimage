@@ -609,6 +609,7 @@ var app = {
     saveServer: function() {
     	//Save the current server
     	var _this = this;
+    	errorThis = this;
     	
     	
     	navigator.notification.prompt(
@@ -630,11 +631,11 @@ var app = {
     		//Clicked on 'Ok'
     		
     		alert("About to get:");
-    		var settings = _this.getArrayLocalStorage("settings");
+    		var settings = errorThis.getArrayLocalStorage("settings");
    		//Create a new entry
    		var newSetting = { 
    			name: results.input1,		//As input by the user
-   			overrideServer: _this.overrideServer	//The current override server as already found
+   			overrideServer: errorThis.overrideServer	//The current override server as already found
    		};
    		alert("About to save:" + JSON.stringify(newSetting));	
    		
@@ -647,7 +648,7 @@ var app = {
    		} 
     		
     		//Save back to the persistent settings
-    		_this.setArrayLocalStorage("settings", settings);
+    		errorThis.setArrayLocalStorage("settings", settings);
     		alert("Saved " + JSON.stringify(newSetting));
     		return;
     	} else {
