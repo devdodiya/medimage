@@ -574,6 +574,7 @@ var app = {
     	}
     	
     	html = html + "</ul>";
+    	alert("Settings are:" + html);
     	return html;
     },
     
@@ -601,6 +602,7 @@ var app = {
         this.overrideServer = null;
         document.getElementById("override").value = "";
 
+	alert("New Server");
 	this.closeSettings();
     },
     
@@ -644,6 +646,7 @@ var app = {
     		
     		//Save back to the persistent settings
     		window.localStorage.setArray("settings", settings);
+    		alert("Saved " + JSON.stringify(newSetting));
     		return;
     	} else {
     		//Clicked on 'Exit'. Do nothing.
