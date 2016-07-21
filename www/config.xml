@@ -41,7 +41,7 @@
     <platform name="android">
         <preference name="permissions" value="none" />
         <preference name="orientation" value="portrait" />
-        <preference name="android-windowSoftInputMode" value="adjustResize|stateHidden" />
+        <preference name="fullscreen" value="false" />
         <uses-permission android:name="android.permission.CAMERA" />
          <uses-feature android:name="android.hardware.camera" />
          <uses-feature android:name="android.hardware.camera.autofocus" />

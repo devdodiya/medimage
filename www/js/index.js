@@ -629,17 +629,30 @@ var app = {
     
     deleteServer: function(serverId) {
     	//Delete an existing server
-    	var settings = this.getArrayLocalStorage("settings");
     	
-    	if((settings == null)|| (settings == '')) {
-   			//Nothing to delete 
-   		} else {
-    		settings.splice(serverId, 1);  //Remove the entry entirely from array
-    		
-    		this.setArrayLocalStorage("settings", settings);
-   		} 
+    	navigator.notification.confirm(
+	    		'Are you sure? All your saved PCs and other settings will be cleared.',  // message
+	    		function(buttonIndex) {
+	    			if(buttonIndex == 1) {
+						var settings = this.getArrayLocalStorage("settings");
     	
-    	this.openSettings();	//refresh
+						if((settings == null)|| (settings == '')) {
+							//Nothing to delete 
+						} else {
+							settings.splice(serverId, 1);  //Remove the entry entirely from array
+			
+							this.setArrayLocalStorage("settings", settings);
+						} 
+		
+						this.openSettings();	//refresh
+					}
+	    		
+	    		},                  // callback to invoke
+	    		'Clear Settings',            // title
+	    		['Ok','Exit']             // buttonLabels
+		);
+    	
+    	
 
     },
     
