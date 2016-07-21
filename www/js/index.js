@@ -129,7 +129,7 @@ var app = {
 
 
       } else {
-
+		  //No lan detected
          cb(null,'Do you have a 4 digit code?');
       }
     },
@@ -295,7 +295,6 @@ var app = {
             	document.getElementById("notify").innerHTML = 'Image transferred. Success!';
             	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
 
-		//retryNum --;		//Count down the number of retry entries
 
             	//and delete phone version
             	deleteThisFile.remove();
@@ -350,25 +349,25 @@ var app = {
            }, 5000);
 
            networkinterface.getIPAddress(function(ip) {
-               _this.ip = ip;
-               var len =  ip.lastIndexOf('\.') + 1;
+                _this.ip = ip;
+                var len =  ip.lastIndexOf('\.') + 1;
                 _this.lan = ip.substr(0,len);
                 clearTimeout(iptime);
                 cb(null);
            });
     },
 
-    /* old code:
+    
     clearOverride: function() {
         localStorage.clear();
         this.foundServer = null;
         this.defaultDir = null;
         this.overrideServer = null;
         document.getElementById("override").value = "";
-        alert("Cleared default server.");
-	return false;
+        navigator.notification.alert("Cleared all servers.");
+		return false;
     },
-    */
+    
 
     checkDefaultDir: function(server) {
         //Check if the default server has a default dir eg. http://123.123.123.123:5566/write/hello
@@ -396,47 +395,47 @@ var app = {
 
         if(inOverrideServer) {
 	       localOverride = inOverrideServer;
-	} else {
+		} else {
 		
 		
 	        //Check if there is a saved server
 	        localOverride = localStorage.getItem("overrideServer");
 			   	     
-		if((localOverride == null)|| (localOverride == '')) {
+			if((localOverride == null)|| (localOverride == '')) {
 	
 		      	//no local storage of server already exists
-   		   	//Check if a user entered code
-			if((document.getElementById("override").value) &&
-			  (document.getElementById("override").value != '')) {
+   		   		//Check if a user entered code
+				if((document.getElementById("override").value) &&
+			  		(document.getElementById("override").value != '')) {
 
-			   overrideCode = document.getElementById("override").value;
-			   var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
-			   _this.notify("Pairing with " + pairUrl);
-			   _this.get(pairUrl, function(url, resp) {
+			   		overrideCode = document.getElementById("override").value;
+			   		var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
+			   		_this.notify("Pairing with " + pairUrl);
+			   		_this.get(pairUrl, function(url, resp) {
 
-		           resp = resp.replace('\n', '')
+		           	resp = resp.replace('\n', '')
 
-			   if(resp == 'nomatch') {
-				_this.notify("Sorry, there was no match for that code.");
-				return;
+			   		if(resp == 'nomatch') {
+						_this.notify("Sorry, there was no match for that code.");
+						return;
 
-			   } else {
+			   		} else {
 
-			        _this.notify("Paired success with " + resp);
-			        var server = resp;
+			        	_this.notify("Paired success with " + resp);
+			        	var server = resp;
 
-			        //And save this server
-				localStorage.setItem("overrideServer",server);
+			        	//And save this server
+						localStorage.setItem("overrideServer",server);
       
       
-			        //Clear any previous details
-			        this.foundServer = null;
-			        this.defaultDir = null;
+			        	//Clear any previous details
+			        	this.foundServer = null;
+			        	this.defaultDir = null;
   
-				//Rerun again, this time with new default
-				_this.startup(server);
-				return;
-			   }
+						//Rerun again, this time with new default
+						_this.startup(server);
+						return;
+			   		}
 
 			   }); //end of get
 			   
@@ -460,17 +459,17 @@ var app = {
 
         if((this.foundServer)&&(this.foundServer != null)) {
 
-          //We have already found the server
-          var server = this.foundServer;
+          	//We have already found the server
+          	var server = this.foundServer;
 
-	  //Take the picture and connect later
-	  _this.takePicture();
+	  		//Take the picture and connect later
+	  		_this.takePicture();
 
 
 
 
         } else {
-		//Otherwise, first time we are running the app this session	
+			//Otherwise, first time we are running the app this session	
 	    	_this.findServer(function(err) {
 	    		if(err) {
 	    			//An error finding server - likely need to enter a pairing code. Warn the user
@@ -607,9 +606,9 @@ var app = {
         document.getElementById("override").value = "";
         
         //Save the current one
-	localStorage.removeItem("overrideServer");
+		localStorage.removeItem("overrideServer");
 	
-	this.closeSettings();
+		this.closeSettings();
     	this.startup();
     	
     },
@@ -619,12 +618,12 @@ var app = {
     	var settings = this.getArrayLocalStorage("settings");
     	
     	if((settings == null)|| (settings == '')) {
-   		//Nothing to delete 
-   	} else {
+   			//Nothing to delete 
+   		} else {
     		settings.splice(serverId, 1);  //Remove the entry entirely from array
     		
     		this.setArrayLocalStorage("settings", settings);
-   	} 
+   		} 
     	
     	this.closeSettings();
 
@@ -642,7 +641,7 @@ var app = {
 	    'PC Name',            // title
 	    ['Ok','Exit'],             // buttonLabels
 	    'Main'                 // defaultText
-	);
+		);
     	
     	
     	
@@ -663,7 +662,6 @@ var app = {
    			defaultDir: errorThis.defaultDir,
    			foundServer: errorThis.foundServer
    		};
-   		//alert("About to save:" + JSON.stringify(newSetting));	
    		
    		if((settings == null)|| (settings == '')) {
    			//Creating an array for the first time

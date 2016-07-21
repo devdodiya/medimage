@@ -94,6 +94,9 @@
 	        	<p>	
 	        		<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.saveServer();">Save this PC</ons-button>
 				</p>
+				<p>
+					<a href="javascript" onclick="app.clearOverride();">Reset Factory Settings</a>
+				</p>
 			</div>
         </div>
         
@@ -102,7 +105,7 @@
 
              <span class="big-text" >Enter pairing code<br/></span><input id="override" onkeydown="if (event.keyCode == 13) { app.startup(); } else { app.notify('Click above to continue.'); }" type="text" value="" class="resizedTextbox">
         </div>
-        <!--<script type="text/javascript" src="phonegap.js"></script>-->
+        <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
