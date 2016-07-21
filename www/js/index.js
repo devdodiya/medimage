@@ -234,7 +234,7 @@ var app = {
 	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 	
 		  },
-		  function () { alert('Error getting dateString\n'); },
+		  function () { navigator.notification.alert('Error getting dateString\n'); },
 			{ formatLength:'medium', selector:'date and time'}
 		  ); //End of function in globalization date to string
 
@@ -358,6 +358,7 @@ var app = {
            });
     },
 
+    /* old code:
     clearOverride: function() {
         localStorage.clear();
         this.foundServer = null;
@@ -367,7 +368,7 @@ var app = {
         alert("Cleared default server.");
 	return false;
     },
-
+    */
 
     checkDefaultDir: function(server) {
         //Check if the default server has a default dir eg. http://123.123.123.123:5566/write/hello
@@ -590,7 +591,7 @@ var app = {
         //Save the current server
     	localStorage.setItem("overrideServer", this.overrideServer);
     	
-    	alert("Switched to:" +  this.overrideServer);
+    	navigator.notification.alert("Switched to:" +  settings[serverId].name);
     	
     	return false;
     	
