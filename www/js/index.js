@@ -562,14 +562,14 @@ var app = {
     	var settings = this.getArrayLocalStorage("settings");
     	
     	if(settings) {
-	    	var html = "<ul>";
+	    	var html = "<ons-list><ons-list-header>PCs Stored</ons-list-header>";
 	    	
 	    	//Convert the array into html
 	    	for(var cnt=0; cnt< settings.length; cnt++) {
-	    		html = html + "<li ><span class='big-text' onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='big-text' onclick='app.deleteServer(" + cnt + ");'>Remove</span></li>";
+	    		html = html + "<ons-list-item><ons-list-item onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</ons-list-item><div class="right"><ons-switch checked></ons-switch onclick='app.deleteServer(" + cnt + ");'></div></ons-list-item>";
 	    	}
 	    	
-	    	html = html + "</ul>";
+	    	html = html + "</ons-list>";
     	} else {
     		var html = "";
     	}
