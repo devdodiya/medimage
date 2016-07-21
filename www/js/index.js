@@ -376,7 +376,7 @@ var app = {
 	    		
 	    		},                  // callback to invoke
 	    		'Clear Settings',            // title
-	    		['Ok','Exit'],             // buttonLabels
+	    		['Ok','Exit']             // buttonLabels
 			);
         
 		return false;
