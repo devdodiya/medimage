@@ -560,14 +560,18 @@ var app = {
     	//List the available servers
     	var settings = this.getArrayLocalStorage("settings");
     	
-    	var html = "<ul>";
-    	
-    	//Convert the array into html
-    	for(var cnt=0; cnt< settings.length; cnt++) {
-    		html = html + "<li ><span class='big-text' onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</span> <a class='big-text' href='javascript:' onclick='app.deleteServer(" + cnt + ");'>Delete</a></li>";
+    	if(settings) {
+	    	var html = "<ul>";
+	    	
+	    	//Convert the array into html
+	    	for(var cnt=0; cnt< settings.length; cnt++) {
+	    		html = html + "<li ><span class='big-text' onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</span> <a class='big-text' href='javascript:' onclick='app.deleteServer(" + cnt + ");'>Delete</a></li>";
+	    	}
+	    	
+	    	html = html + "</ul>";
+    	} else {
+    		var html = "";
     	}
-    	
-    	html = html + "</ul>";
     	alert("Settings are:" + html);
     	return html;
     },
