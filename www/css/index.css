@@ -65,12 +65,12 @@ body {
 
 
 .big-text {
-    font-size: 200%;
+    font-size: 130%;
     color: #892f83;
 }
 
 .small-text {
-    font-size: 110%;
+    font-size: 90%;
     color: #CCC;
 }
 
@@ -112,7 +112,7 @@ li {
     width: 80%;
     max-width: 280px;
     height: 60px;
-    font-size: 400%;
+    font-size: 200%;
     margin: 0px;
     padding: 0px;
     border-width:thin;
