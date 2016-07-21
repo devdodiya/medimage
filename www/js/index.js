@@ -564,7 +564,7 @@ var app = {
     	
     	//Convert the array into html
     	for(var cnt=0; cnt< settings.length; cnt++) {
-    		html = html + "<li onclick='app.setServer(" + cnt + ");'><span class='big-text'>" + settings[cnt].name + "</span> <a href='javascript:' onclick='app.deleteServer(" + cnt + ");'>Delete</a></li>";
+    		html = html + "<li ><span class='big-text' onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</span> <a class='big-text' href='javascript:' onclick='app.deleteServer(" + cnt + ");'>Delete</a></li>";
     	}
     	
     	html = html + "</ul>";
@@ -601,7 +601,7 @@ var app = {
         document.getElementById("override").value = "";
         
         //Save the current one
-	localStorage.setItem("overrideServer", this.overrideServer);
+	localStorage.removeItem("overrideServer");
 	alert("New Server");
 	this.closeSettings();
     },
@@ -616,6 +616,7 @@ var app = {
     		settings.splice(serverId, 1);  //Remove the entry entirely from array
     		
     		this.setArrayLocalStorage("settings", settings);
+    		alert("Deleted " + serverId);
    	} 
     	
     	
