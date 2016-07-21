@@ -547,13 +547,13 @@ var app = {
     	var html = this.listServers();
     	document.getElementById("settings").innerHTML = html;
     	
-    	document.getElementById("settingsPopup").style.display = "block";
+    	document.getElementById("settings-popup").style.display = "block";
     	
     },
     
     closeSettings: function() {
     	//Close the settings screen
-    	document.getElementById("settingsPopup").style.display = "none";
+    	document.getElementById("settings-popup").style.display = "none";
     },
 
     listServers: function() {
