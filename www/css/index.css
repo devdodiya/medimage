@@ -88,8 +88,16 @@ body {
 	height: 100%;
 	padding:0px 0px 0px 0px;
 	margin:0px 0px 0px 0px;
-	background-color: #CCC;
+	background-color: #DDD;
 	z-index: 1000;
+}
+
+li {
+	width: 100%;
+	font-size: 300%;
+	background-color: #AAA;
+	border-bottom: 1px solid #888;
+	
 }
 
 .resizedTextbox {
