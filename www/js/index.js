@@ -562,7 +562,7 @@ var app = {
     	
     	
     	if(settings) {
-	    	var html = "<ons-list><ons-list-header>PCs Stored</ons-list-header>";
+	    	var html = "<ons-list><ons-list-header>Select PC</ons-list-header>";
 	    	
 	    	//Convert the array into html
 	    	for(var cnt=0; cnt< settings.length; cnt++) {
@@ -634,15 +634,24 @@ var app = {
     	var _this = this;
     	errorThis = this;
     	
+    	if((this.overrideServer != "")&&(this.defaultDir != "")&&(this.foundServer != "")) 				{
     	
-    	navigator.notification.prompt(
-	    'Please enter a name for this PC',  // message
-	    _this.saveServerName,                  // callback to invoke
-	    'PC Name',            // title
-	    ['Ok','Exit'],             // buttonLabels
-	    'Main'                 // defaultText
-		);
-    	
+    		//We have connected to a server OK
+    		navigator.notification.prompt(
+	    		'Please enter a name for this PC',  // message
+	    		_this.saveServerName,                  // callback to invoke
+	    		'PC Name',            // title
+	    		['Ok','Exit'],             // buttonLabels
+	    		'Main'                 // defaultText
+			);
+    	} else {
+    		//We aren't currently connected - not much point in saving
+    		navigator.notification.alert(
+    		   'Sorry, you must have made a successful pairing before saving the connection.',
+    		   function() {},
+    		   'No connection to save'
+    		);
+    	}
     	
     	
     },
@@ -655,24 +664,27 @@ var app = {
     		
     		
     		var settings = errorThis.getArrayLocalStorage("settings");
-   		//Create a new entry
-   		var newSetting = { 
-   			name: results.input1,		//As input by the user
-   			overrideServer: errorThis.overrideServer,	//The current override server as already found
-   			defaultDir: errorThis.defaultDir,
-   			foundServer: errorThis.foundServer
-   		};
+   			//Create a new entry
+   			var newSetting = { 
+   				name: results.input1,		//As input by the user
+   				overrideServer: errorThis.overrideServer,	//The current override server as already found
+   				defaultDir: errorThis.defaultDir,
+   				foundServer: errorThis.foundServer
+   			};
    		
-   		if((settings == null)|| (settings == '')) {
-   			//Creating an array for the first time
-   			var settings = [];
-   			settings.push(newSetting);  //Save back to the array
-   		} else {
+   			if((settings == null)|| (settings == '')) {
+   				//Creating an array for the first time
+   				var settings = [];
+   				settings.push(newSetting);  //Save back to the array
+   			} else {
     			settings.push(newSetting);  //Save back to the array
-   		} 
+   			} 
     		
     		//Save back to the persistent settings
     		errorThis.setArrayLocalStorage("settings", settings);
+    		
+    		//Now refresh the openSettings page
+    		errorThis.openSettings();
     		return;
     	} else {
     		//Clicked on 'Exit'. Do nothing.
