@@ -77,14 +77,11 @@
         <div id="settings-popup" style="display:none;">
         	<div id="inner-popup">
         		
-        		<ons-row>
-  					<ons-col><span class="big-text">Settings</span></ons-col>
-  					<ons-col>
-  						<div class="right">
-        					<ons-button style="background-color: #7c5599; color: white;" onclick="app.closeSettings();"><ons-icon icon="md-close" ></ons-icon></ons-button>
-        				</div>
-        			</ons-col>
-				</ons-row>
+        		<span class="big-text">Settings</span>
+        		
+        		<ons-fab position="top right" onclick="app.closeSettings();">
+		      		<ons-icon icon="md-close" ></ons-icon>
+		    	</ons-fab>
         		
         		
         		<div id="settings"></div>
