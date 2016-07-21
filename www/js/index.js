@@ -631,7 +631,7 @@ var app = {
     	//Delete an existing server
     	
     	navigator.notification.confirm(
-	    		'Are you sure? All your saved PCs and other settings will be cleared.',  // message
+	    		'Are you sure? This PC will be removed from memory.',  // message
 	    		function(buttonIndex) {
 	    			if(buttonIndex == 1) {
 						var settings = this.getArrayLocalStorage("settings");
@@ -648,7 +648,7 @@ var app = {
 					}
 	    		
 	    		},                  // callback to invoke
-	    		'Clear Settings',            // title
+	    		'Remove PC',            // title
 	    		['Ok','Exit']             // buttonLabels
 		);
     	
