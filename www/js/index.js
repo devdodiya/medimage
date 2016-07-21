@@ -566,7 +566,7 @@ var app = {
 	    	
 	    	//Convert the array into html
 	    	for(var cnt=0; cnt< settings.length; cnt++) {
-	    		html = html + "<li ><span class='big-text' onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</span> <a class='big-text' href='javascript:' onclick='app.deleteServer(" + cnt + ");'>Delete</a></li>";
+	    		html = html + "<li ><span class='big-text' onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='big-text' onclick='app.deleteServer(" + cnt + ");'>Remove</span></li>";
 	    	}
 	    	
 	    	html = html + "</ul>";
