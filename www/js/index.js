@@ -562,7 +562,7 @@ var app = {
     	
     	
     	if(settings) {
-	    	var html = "<ons-list><ons-list-header>Select PC</ons-list-header>";
+	    	var html = "<ons-list><ons-list-header>Select a PC to use now:</ons-list-header>";
 	    	
 	    	//Convert the array into html
 	    	for(var cnt=0; cnt< settings.length; cnt++) {
