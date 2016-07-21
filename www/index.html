@@ -42,17 +42,9 @@
          <ons-page>
         <ons-speed-dial position="bottom right" direction="up">
 	    <ons-fab>
-	      <ons-icon icon="md-share"></ons-icon>
+	      <ons-icon icon="md-menu" onclick="app.openSettings();"></ons-icon>
 	    </ons-fab>
-	    <ons-speed-dial-item>
-	      <ons-icon icon="md-twitter"></ons-icon>
-	    </ons-speed-dial-item>
-	    <ons-speed-dial-item>
-	      <ons-icon icon="md-facebook"></ons-icon>
-	    </ons-speed-dial-item>
-	    <ons-speed-dial-item>
-	      <ons-icon icon="md-google-plus"></ons-icon>
-	    </ons-speed-dial-item>
+	    
 	</ons-speed-dial>
 	
  
@@ -75,12 +67,12 @@
         
         
         
-        <div style="text-align:center;" onclick="app.openSettings();">
+        <!--<div style="text-align:center;" onclick="app.openSettings();">
             <span class="big-text">Settings<br/></span>
-        </div>
+        </div>-->
         
         <div id="settings-popup" style="display:none;">
-        	<br/><div style="text-align:center;" class="big-text" onclick="app.closeSettings();">Close Settings</div><br/>
+        	<br/><ons-button onclick="app.closeSettings();">Close Settings</ons-button><br/>
         	<div id="settings"></div>
         	<p>
         		<ons-button modifier="large" onclick="app.newServer();">Add a New PC</ons-button>
