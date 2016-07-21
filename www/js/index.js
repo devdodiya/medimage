@@ -547,13 +547,13 @@ var app = {
     	var html = this.listServers();
     	document.getElementById("settings").innerHTML = html;
     	
-    	//TODO display in a popup
+    	document.getElementById("settingsPopup").style.display = "block";
     	
     },
     
     closeSettings: function() {
     	//Close the settings screen
-    	//TODO
+    	document.getElementById("settingsPopup").style.display = "none";
     },
 
     listServers: function() {
