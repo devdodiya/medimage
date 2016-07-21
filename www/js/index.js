@@ -573,7 +573,6 @@ var app = {
     	} else {
     		var html = "";
     	}
-    	//alert("Settings are:" + html);
     	return html;
     },
     
@@ -584,15 +583,14 @@ var app = {
     	var settings = this.getArrayLocalStorage("settings");
     
     	this.overrideServer = settings[serverId].overrideServer;
-    	document.getElementById("override").value = this.overrideServer;
     	this.foundServer = settings[serverId].foundServer;			
         this.defaultDir = settings[serverId].defaultDir;
         
         //Save the current server
     	localStorage.setItem("overrideServer", this.overrideServer);
     	
-    	navigator.notification.alert("Switched to:" +  settings[serverId].name);
-    	
+    	navigator.notification.alert("Switched to: " +  settings[serverId].name, function() {}, "Changing PC");
+    	this.closeSettings();
     	return false;
     	
     },
@@ -623,7 +621,6 @@ var app = {
     		settings.splice(serverId, 1);  //Remove the entry entirely from array
     		
     		this.setArrayLocalStorage("settings", settings);
-    		//alert("Deleted " + serverId);
    	} 
     	
     	this.closeSettings();
@@ -675,12 +672,10 @@ var app = {
     		
     		//Save back to the persistent settings
     		errorThis.setArrayLocalStorage("settings", settings);
-    		//alert("Saved " + JSON.stringify(newSetting));
     		return;
     	} else {
     		//Clicked on 'Exit'. Do nothing.
-    		alert("Exit clicked. No action");
-    		return;
+     		return;
     	}
 
      	
@@ -688,12 +683,10 @@ var app = {
     
     //Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
     setArrayLocalStorage: function(mykey, myobj) {
-	    //alert("About to set " + mykey + " to " + myobj);	
 	    return localStorage.setItem(mykey, JSON.stringify(myobj));
     },
     
     getArrayLocalStorage: function(mykey) {
-	    //alert("About to get " + mykey);
 	    return JSON.parse(localStorage.getItem(mykey));
     }
 
