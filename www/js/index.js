@@ -625,7 +625,7 @@ var app = {
     		this.setArrayLocalStorage("settings", settings);
    		} 
     	
-    	this.closeSettings();
+    	this.openSettings();	//refresh
 
     },
     
