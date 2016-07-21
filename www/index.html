@@ -69,12 +69,12 @@
     	<style><item name="android:windowTranslucentStatus">true</item></style> <!-- Ensure clicking inside box scrolls down -->
     	<ons-navigator>
          <ons-page>
-	        <ons-speed-dial  position="bottom right" direction="up" onclick="app.openSettings();">
-		    <ons-fab >
+	        
+		    <ons-fab style="z-index: 3000;" position="bottom right" onclick="app.openSettings();">
 		      <ons-icon icon="md-menu" ></ons-icon>
 		    </ons-fab>
 		    
-		</ons-speed-dial>
+		
 	
  
         <p style="text-align:center;">
