@@ -1173,7 +1173,7 @@ ons-range[disabled] .range {
   letter-spacing: 0;
   color: #fff;
   vertical-align: middle;
-  background-color: #8962ed;
+  background-color: #cc99cc;
   border: 0px solid currentColor;
   -webkit-border-radius: 3px;
   border-radius: 3px;
@@ -1189,7 +1189,7 @@ ons-range[disabled] .range {
   transition: none;
 }
 .button:active {
-  background-color: #8962ed;
+  background-color: #cc99cc;
   -webkit-transition: none;
   -moz-transition: none;
   -o-transition: none;
@@ -1215,17 +1215,17 @@ ons-range[disabled] .range {
 */
 .button--outline {
   background-color: transparent;
-  border: 1px solid #8962ed;
-  color: #8962ed;
+  border: 1px solid #cc99cc;
+  color: #cc99cc;
 }
 .button--outline:active {
   background-color: rgba(137,98,237,0.2);
-  border: 1px solid #8962ed;
-  color: #8962ed;
+  border: 1px solid #cc99cc;
+  color: #cc99cc;
   opacity: 1;
 }
 .button--outline:hover {
-  border: 1px solid #8962ed;
+  border: 1px solid #cc99cc;
   -webkit-transition: 0;
   -moz-transition: 0;
   -o-transition: 0;
