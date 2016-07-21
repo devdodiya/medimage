@@ -92,10 +92,14 @@ body {
 	z-index: 1000;
 }
 
+ul {
+    	list-style-type: none;
+}
+
 li {
 	width: 100%;
-	font-size: 300%;
-	background-color: #AAA;
+	font-size: 200%;
+	background-color: #DDD;
 	border-bottom: 1px solid #888;
 	
 }
