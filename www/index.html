@@ -78,7 +78,7 @@
         	<div id="inner-popup">
         		
         		<ons-row>
-  					<ons-col width="90%"><span class="big-text">Settings</span></ons-icon></ons-col>
+  					<ons-col><span class="big-text">Settings</span></ons-col>
   					<ons-col>
   						<div class="right">
         					<ons-button style="background-color: #7c5599; color: white;" onclick="app.closeSettings();"><ons-icon icon="md-close" ></ons-icon></ons-button>
@@ -95,7 +95,7 @@
 	        		<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.saveServer();">Save this PC</ons-button>
 				</p>
 				<p>
-					<a href="javascript" onclick="app.clearOverride();">Reset Factory Settings</a>
+					<a class="small-text" href="javascript" onclick="return app.clearOverride();">Reset Factory Settings</a>
 				</p>
 			</div>
         </div>

@@ -364,7 +364,9 @@ var app = {
         this.defaultDir = null;
         this.overrideServer = null;
         document.getElementById("override").value = "";
-        navigator.notification.alert("Cleared all servers.");
+        alert("Cleared all saved PCs.");
+        
+        this.openSettings();
 		return false;
     },
     
