@@ -360,18 +360,20 @@ var app = {
     
     clearOverride: function() {
         //We have connected to a server OK
+        var _this = this;
+        
     		navigator.notification.confirm(
 	    		'Are you sure? All your saved PCs and other settings will be cleared.',  // message
 	    		function(buttonIndex) {
 	    			if(buttonIndex == 1) {
 						localStorage.clear();
-						this.foundServer = null;
-						this.defaultDir = null;
-						this.overrideServer = null;
+						_this.foundServer = null;
+						_this.defaultDir = null;
+						_this.overrideServer = null;
 						document.getElementById("override").value = "";
 						alert("Cleared all saved PCs.");
 		
-						this.openSettings();
+						_this.openSettings();
 					}
 	    		
 	    		},                  // callback to invoke
@@ -586,7 +588,7 @@ var app = {
 	    	html = html + "</ons-list>";
     	} else {
     		var html = "<ons-list><ons-list-header>PCs Stored</ons-list-header>";
-    		var html = html + "<ons-list-item><ons-list-item>None</ons-list-item><div class='right'><ons-icon icon='md-delete'></ons-icon></div></ons-list-item>";
+    		var html = html + "<ons-list-item><ons-list-item>Default</ons-list-item><div class='right'><ons-icon icon='md-delete'style='color:#AAA></ons-icon></div></ons-list-item>";
     		html = html + "</ons-list>";
     	}
     	return html;
@@ -661,7 +663,12 @@ var app = {
     	var _this = this;
     	errorThis = this;
     	
-    	if((this.overrideServer != "")&&(this.defaultDir != "")&&(this.foundServer != "")) 				{
+    	if((this.overrideServer != null)&&
+    			(this.defaultDir != null)&&
+    			(this.foundServer != null)&&
+    			(this.overrideServer != "")&&
+    			(this.defaultDir != "")&&
+    			(this.foundServer != "")) 				{
     	
     		//We have connected to a server OK
     		navigator.notification.prompt(
