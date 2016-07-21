@@ -607,8 +607,10 @@ var app = {
         
         //Save the current one
 	localStorage.removeItem("overrideServer");
-	alert("New Server");
+	
 	this.closeSettings();
+    	this.startup();
+    	
     },
     
     deleteServer: function(serverId) {
