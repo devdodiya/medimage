@@ -572,7 +572,7 @@ var app = {
     	} else {
     		var html = "";
     	}
-    	alert("Settings are:" + html);
+    	//alert("Settings are:" + html);
     	return html;
     },
     
@@ -620,11 +620,11 @@ var app = {
     		settings.splice(serverId, 1);  //Remove the entry entirely from array
     		
     		this.setArrayLocalStorage("settings", settings);
-    		alert("Deleted " + serverId);
+    		//alert("Deleted " + serverId);
    	} 
     	
-    	
-    	return false;
+    	this.closeSettings();
+
     },
     
     saveServer: function() {
@@ -660,7 +660,7 @@ var app = {
    			defaultDir: errorThis.defaultDir,
    			foundServer: errorThis.foundServer
    		};
-   		alert("About to save:" + JSON.stringify(newSetting));	
+   		//alert("About to save:" + JSON.stringify(newSetting));	
    		
    		if((settings == null)|| (settings == '')) {
    			//Creating an array for the first time
@@ -672,7 +672,7 @@ var app = {
     		
     		//Save back to the persistent settings
     		errorThis.setArrayLocalStorage("settings", settings);
-    		alert("Saved " + JSON.stringify(newSetting));
+    		//alert("Saved " + JSON.stringify(newSetting));
     		return;
     	} else {
     		//Clicked on 'Exit'. Do nothing.
@@ -685,12 +685,12 @@ var app = {
     
     //Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
     setArrayLocalStorage: function(mykey, myobj) {
-	    alert("About to set " + mykey + " to " + myobj);	
+	    //alert("About to set " + mykey + " to " + myobj);	
 	    return localStorage.setItem(mykey, JSON.stringify(myobj));
     },
     
     getArrayLocalStorage: function(mykey) {
-	    alert("About to get " + mykey);
+	    //alert("About to get " + mykey);
 	    return JSON.parse(localStorage.getItem(mykey));
     }
 
