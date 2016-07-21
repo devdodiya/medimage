@@ -359,14 +359,26 @@ var app = {
 
     
     clearOverride: function() {
-        localStorage.clear();
-        this.foundServer = null;
-        this.defaultDir = null;
-        this.overrideServer = null;
-        document.getElementById("override").value = "";
-        alert("Cleared all saved PCs.");
+        //We have connected to a server OK
+    		navigator.notification.confirm(
+	    		'Are you sure? All your saved PCs and other settings will be cleared.',  // message
+	    		function(buttonIndex) {
+	    			if(buttonIndex == 1) {
+						localStorage.clear();
+						this.foundServer = null;
+						this.defaultDir = null;
+						this.overrideServer = null;
+						document.getElementById("override").value = "";
+						alert("Cleared all saved PCs.");
+		
+						this.openSettings();
+					}
+	    		
+	    		},                  // callback to invoke
+	    		'Clear Settings',            // title
+	    		['Ok','Exit'],             // buttonLabels
+			);
         
-        this.openSettings();
 		return false;
     },
     
