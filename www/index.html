@@ -42,23 +42,28 @@
             &nbsp;<span id="status" class="notify-text"></span>
         </div>
 
-        <div style="text-align:center;" onclick="app.clearOverride();">
+        <!--<div style="text-align:center;" onclick="app.clearOverride();">
             <span class="small-text">Clear Server<br/></span>
-        </div>
+        </div>-->
         
-        <div style="text-align:center;" onclick="app.newServer();">
-            <span class="big-text">New<br/></span>
-        </div>
         
-        <div style="text-align:center;" onclick="app.saveServer();">
-            <span class="big-text">Save<br/></span>
-        </div>
         
         <div style="text-align:center;" onclick="app.openSettings();">
-            <span class="big-text">Show settings<br/></span>
+            <span class="big-text">Settings<br/></span>
         </div>
         
-        <div id="settings"></div>
+        <div id="settings-popup" style="display:none;">
+        	<a href="javascript:" onclick="app.closeSettings();">Close Settings</a>
+        	<div id="settings"></div>
+        	<div style="text-align:center;" onclick="app.newServer();">
+            		<span class="big-button">New</span>
+        	</div>
+        
+	        <div style="text-align:center;" onclick="app.saveServer();">
+	            <span class="big-button">Save</span>
+	        </div>
+        </div>
+        
 
         <div id="override-form" style="text-align:center; display:none;">
 
