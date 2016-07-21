@@ -561,17 +561,18 @@ var app = {
     	//List the available servers
     	var settings = this.getArrayLocalStorage("settings");
     	
+    	
     	if(settings) {
 	    	var html = "<ons-list><ons-list-header>PCs Stored</ons-list-header>";
 	    	
 	    	//Convert the array into html
 	    	for(var cnt=0; cnt< settings.length; cnt++) {
-	    		html = html + "<ons-list-item><ons-list-item onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</ons-list-item><div class='right'><ons-switch checked></ons-switch onclick='app.deleteServer(" + cnt + ");'></div></ons-list-item>";
+	    		html = html + "<ons-list-item><ons-list-item onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</ons-list-item><div class='right'><ons-icon icon='md-delete' onclick='app.deleteServer(" + cnt + ");'></ons-icon></div></ons-list-item>";
 	    	}
 	    	
 	    	html = html + "</ons-list>";
     	} else {
-    		var html = "";
+    		var html = "<ons-list-item><ons-list-item>None</ons-list-item><div class='right'><ons-icon icon='md-delete'></ons-icon></div></ons-list-item>";
     	}
     	return html;
     },
