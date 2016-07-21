@@ -28,6 +28,7 @@ var retryNum = 0;
 
 
 
+
 var app = {
 
 
@@ -35,7 +36,9 @@ var app = {
     initialize: function() {
 
 
-        this.bindEvents();     
+        this.bindEvents();  
+        
+        
         
 
     },
@@ -231,7 +234,7 @@ var app = {
 	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 	
 		  },
-		  function () { alert('Error getting dateString\n'); },
+		  function () { navigator.notification.alert('Error getting dateString\n'); },
 			{ formatLength:'medium', selector:'date and time'}
 		  ); //End of function in globalization date to string
 
@@ -355,6 +358,7 @@ var app = {
            });
     },
 
+    /* old code:
     clearOverride: function() {
         localStorage.clear();
         this.foundServer = null;
@@ -364,7 +368,7 @@ var app = {
         alert("Cleared default server.");
 	return false;
     },
-
+    */
 
     checkDefaultDir: function(server) {
         //Check if the default server has a default dir eg. http://123.123.123.123:5566/write/hello
@@ -526,9 +530,165 @@ var app = {
           });
        });
 
+    },
+    
+    
+    /* Settings Functions */ 
+    /*  localStorage.clear();
+        this.foundServer = null;
+        this.defaultDir = null;
+        this.overrideServer = null;
+        document.getElementById("override").value = "";
+        alert("Cleared default server.");
+	return false; */
+
+
+    openSettings: function() {
+    	//Open the settings screen
+    	var html = this.listServers();
+    	document.getElementById("settings").innerHTML = html;
+    	
+    	document.getElementById("settings-popup").style.display = "block";
+    	
+    },
+    
+    closeSettings: function() {
+    	//Close the settings screen
+    	document.getElementById("settings-popup").style.display = "none";
+    },
+
+    listServers: function() {
+    	//List the available servers
+    	var settings = this.getArrayLocalStorage("settings");
+    	
+    	if(settings) {
+	    	var html = "<ul>";
+	    	
+	    	//Convert the array into html
+	    	for(var cnt=0; cnt< settings.length; cnt++) {
+	    		html = html + "<li ><span class='big-text' onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='big-text' onclick='app.deleteServer(" + cnt + ");'>Remove</span></li>";
+	    	}
+	    	
+	    	html = html + "</ul>";
+    	} else {
+    		var html = "";
+    	}
+    	return html;
+    },
+    
+    
+    
+    setServer: function(serverId) {
+    	//Set the server to the input server id
+    	var settings = this.getArrayLocalStorage("settings");
+    
+    	this.overrideServer = settings[serverId].overrideServer;
+    	this.foundServer = settings[serverId].foundServer;			
+        this.defaultDir = settings[serverId].defaultDir;
+        
+        //Save the current server
+    	localStorage.setItem("overrideServer", this.overrideServer);
+    	
+    	navigator.notification.alert("Switched to: " +  settings[serverId].name, function() {}, "Changing PC");
+    	this.closeSettings();
+    	return false;
+    	
+    },
+    
+    newServer: function() {
+    	//Create a new server. 
+    	//This is actually effectively resetting, and we will allow the normal functions to input a new one
+        this.foundServer = null;
+        this.defaultDir = null;
+        this.overrideServer = null;
+        document.getElementById("override").value = "";
+        
+        //Save the current one
+	localStorage.removeItem("overrideServer");
+	
+	this.closeSettings();
+    	this.startup();
+    	
+    },
+    
+    deleteServer: function(serverId) {
+    	//Delete an existing server
+    	var settings = this.getArrayLocalStorage("settings");
+    	
+    	if((settings == null)|| (settings == '')) {
+   		//Nothing to delete 
+   	} else {
+    		settings.splice(serverId, 1);  //Remove the entry entirely from array
+    		
+    		this.setArrayLocalStorage("settings", settings);
+   	} 
+    	
+    	this.closeSettings();
+
+    },
+    
+    saveServer: function() {
+    	//Save the current server
+    	var _this = this;
+    	errorThis = this;
+    	
+    	
+    	navigator.notification.prompt(
+	    'Please enter a name for this PC',  // message
+	    _this.saveServerName,                  // callback to invoke
+	    'PC Name',            // title
+	    ['Ok','Exit'],             // buttonLabels
+	    'Main'                 // defaultText
+	);
+    	
+    	
+    	
+    },
+    
+    saveServerName: function(results) {
+    	//Save the server with a name
+    	//Get existing settings array
+    	if(results.buttonIndex == 1) {
+    		//Clicked on 'Ok'
+    		
+    		
+    		var settings = errorThis.getArrayLocalStorage("settings");
+   		//Create a new entry
+   		var newSetting = { 
+   			name: results.input1,		//As input by the user
+   			overrideServer: errorThis.overrideServer,	//The current override server as already found
+   			defaultDir: errorThis.defaultDir,
+   			foundServer: errorThis.foundServer
+   		};
+   		//alert("About to save:" + JSON.stringify(newSetting));	
+   		
+   		if((settings == null)|| (settings == '')) {
+   			//Creating an array for the first time
+   			var settings = [];
+   			settings.push(newSetting);  //Save back to the array
+   		} else {
+    			settings.push(newSetting);  //Save back to the array
+   		} 
+    		
+    		//Save back to the persistent settings
+    		errorThis.setArrayLocalStorage("settings", settings);
+    		return;
+    	} else {
+    		//Clicked on 'Exit'. Do nothing.
+     		return;
+    	}
+
+     	
+    },
+    
+    //Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
+    setArrayLocalStorage: function(mykey, myobj) {
+	    return localStorage.setItem(mykey, JSON.stringify(myobj));
+    },
+    
+    getArrayLocalStorage: function(mykey) {
+	    return JSON.parse(localStorage.getItem(mykey));
     }
-
-
 
 
 

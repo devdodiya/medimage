@@ -42,9 +42,27 @@
             &nbsp;<span id="status" class="notify-text"></span>
         </div>
 
-        <div style="text-align:center;" onclick="app.clearOverride();">
+        <!--<div style="text-align:center;" onclick="app.clearOverride();">
             <span class="small-text">Clear Server<br/></span>
+        </div>-->
+        
+        
+        
+        <div style="text-align:center;" onclick="app.openSettings();">
+            <span class="big-text">Settings<br/></span>
         </div>
+        
+        <div id="settings-popup" style="display:none;">
+        	<br/><div style="text-align:center;" class="big-text" onclick="app.closeSettings();">Close Settings</div><br/>
+        	<div id="settings"></div>
+        	<p>
+        		<div class="big-button" onclick="app.newServer();">Add a New PC</div>
+	        </p>
+	        <p>	
+			 <div class="big-button" onclick="app.saveServer();">Save this PC</div>
+		</p>
+        </div>
+        
 
         <div id="override-form" style="text-align:center; display:none;">
 
