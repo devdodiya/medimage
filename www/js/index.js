@@ -632,6 +632,7 @@ var app = {
     deleteServer: function(serverId) {
     	//Delete an existing server
     	var _this = this;
+    	this.myServerId = serverId;
     	
     	navigator.notification.confirm(
 	    		'Are you sure? This PC will be removed from memory.',  // message
@@ -642,7 +643,7 @@ var app = {
 						if((settings == null)|| (settings == '')) {
 							//Nothing to delete 
 						} else {
-							settings.splice(serverId, 1);  //Remove the entry entirely from array
+							settings.splice(errorThis.myServerId, 1);  //Remove the entry entirely from array
 			
 							errorThis.setArrayLocalStorage("settings", settings);
 						} 
