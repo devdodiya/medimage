@@ -631,7 +631,7 @@ var app = {
     
     deleteServer: function(serverId) {
     	//Delete an existing server
-    	var _this = this;
+    	errorThis = this;
     	this.myServerId = serverId;
     	
     	navigator.notification.confirm(
