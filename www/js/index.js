@@ -636,8 +636,8 @@ var app = {
     	
     	navigator.notification.confirm(
 	    		'Are you sure? This PC will be removed from memory.',  // message
-	    		function(results) {
-	    			if(results.buttonIndex == 1) {
+	    		function(buttonIndex) {
+	    			if(buttonIndex == 1) {
 						var settings = errorThis.getArrayLocalStorage("settings");
     	
 						if((settings == null)|| (settings == '')) {
