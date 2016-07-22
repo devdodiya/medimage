@@ -631,22 +631,23 @@ var app = {
     
     deleteServer: function(serverId) {
     	//Delete an existing server
+    	var _this = this;
     	
     	navigator.notification.confirm(
 	    		'Are you sure? This PC will be removed from memory.',  // message
 	    		function(buttonIndex) {
 	    			if(buttonIndex == 1) {
-						var settings = this.getArrayLocalStorage("settings");
+						var settings = _this.getArrayLocalStorage("settings");
     	
 						if((settings == null)|| (settings == '')) {
 							//Nothing to delete 
 						} else {
 							settings.splice(serverId, 1);  //Remove the entry entirely from array
 			
-							this.setArrayLocalStorage("settings", settings);
+							_this.setArrayLocalStorage("settings", settings);
 						} 
 		
-						this.openSettings();	//refresh
+						_this.openSettings();	//refresh
 					}
 	    		
 	    		},                  // callback to invoke
