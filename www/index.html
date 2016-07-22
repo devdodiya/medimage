@@ -21,16 +21,64 @@
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=high-dpi" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width" /> <!-- maximum-scale=1, minimum-scale=1 , height=device-height, target-densitydpi=high-dpi  ?? -->
         <meta http-equiv="Content-Security-Policy" content="default-src *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *; style-src  'self' 'unsafe-inline' *">
 
+	<link rel="stylesheet" href="css/onsenui.css"/>
+	<link rel="stylesheet" href="css/onsen-css-components-purple-theme.css">
+    	
+    	<link rel="stylesheet" type="text/css" href="css/ionicons/css/ionicons.css">
+    	<link rel="stylesheet" type="text/css" href="css/material-design-iconic-font/css/material-design-iconic-font.css">
+    	<script src="js/onsenui.js"></script>
+	    <script>
+	      ons.ready(function() {
+	        // Init code here
+	      });
+	      
+	      // This event fires when the keyboard will hide
+			window.addEventListener('native.keyboardshow', keyboardShowHandler);
+
+
+
+			function keyboardShowHandler(e){
+				//$("body").addClass("keyboardOn");
+				var deviceHeight = window.innerHeight;
+				var keyboardHeight = e.keyboardHeight;
+				var deviceHeightAdjusted = deviceHeight - keyboardHeight;//device height adjusted
+				deviceHeightAdjusted = deviceHeightAdjusted < 0 ? (deviceHeightAdjusted * -1) : deviceHeightAdjusted;//only positive number
+				document.getElementById('page').style.height = deviceHeightAdjusted + 'px';//set page height
+				document.getElementById('page').setAttribute('keyBoardHeight', keyboardHeight);//save keyboard height
+			}
+
+			// This event fires when the keyboard will show
+			window.addEventListener('native.keyboardhide', keyboardHideHandler);
+
+			function keyboardHideHandler(e){
+				   setTimeout(function () {
+						document.getElementById('page').style.height = 100 + '%';//device  100% height
+					}, 100);
+			}
+	      
+	    </script>
+	
 
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>MedImage</title>
     </head>
     <body>
+    	<style><item name="android:windowTranslucentStatus">true</item></style> <!-- Ensure clicking inside box scrolls down -->
+    	<ons-navigator>
+         <ons-page>
+	        
+		    <ons-fab style="z-index: 800;" position="bottom right" onclick="app.openSettings();">
+		      <ons-icon icon="md-menu" ></ons-icon>
+		    </ons-fab>
+		    
+		
+	
+ 
         <p style="text-align:center;">
-             <span class="big-text" onclick="alert('Optional: Enter a patient or image ID, which names the image. Put a # before the ID for a directory.');">Image ID <small >(e.g. NHI) ?</small><br/></span><input id="id-entered" type="text" size="9" class="resizedTextbox">
+             <span class="big-text" onclick="navigator.notification.alert('Enter a patient or image ID, which names the image. Put a '#' before the ID for a folder.', function(){}, 'Optional');">Image ID <small >(e.g. NHI) ?</small><br/></span><input id="id-entered" type="text" size="9" class="resizedTextbox">
         </p>
 
         <div class="logo" onclick="app.startup();">
@@ -42,9 +90,30 @@
             &nbsp;<span id="status" class="notify-text"></span>
         </div>
 
-        <div style="text-align:center;" onclick="app.clearOverride();">
-            <span class="small-text">Clear Server<br/></span>
+        
+        <div id="settings-popup" style="display:none;">
+        	<div id="inner-popup">
+        		
+        		<span class="big-text">Settings</span><br/><br/>
+        		
+        		<ons-fab position="top right" onclick="app.closeSettings();">
+		      		<ons-icon icon="md-close" ></ons-icon>
+		    	</ons-fab>
+        		
+        		
+        		<div id="settings"></div>
+        		<p>
+        			<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.newServer();">Add a New PC</ons-button>
+	        	</p>
+	        	<p>	
+	        		<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.saveServer();">Save this PC</ons-button>
+				</p>
+				<p>
+					<a class="small-text" href="javascript" onclick="return app.clearOverride();">Reset Factory Settings</a>
+				</p>
+			</div>
         </div>
+        
 
         <div id="override-form" style="text-align:center; display:none;">
 
@@ -55,5 +124,11 @@
         <script type="text/javascript">
             app.initialize();
           </script>
+          
+          
+     </ons-page>
+     
+     
+    </ons-navigator>  
     </body>
 </html>
