@@ -35,7 +35,7 @@
     <plugin source="git" spec="https://github.com/atomjump/cordova-plugin-dialogs.git" />
 
     
-    <!-- <platform name="ios"> </platform>  Once we support -->
+    
     
     
     <platform name="android">
