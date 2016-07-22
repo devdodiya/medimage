@@ -637,17 +637,17 @@ var app = {
 	    		'Are you sure? This PC will be removed from memory.',  // message
 	    		function(buttonIndex) {
 	    			if(buttonIndex == 1) {
-						var settings = _this.getArrayLocalStorage("settings");
+						var settings = errorThis.getArrayLocalStorage("settings");
     	
 						if((settings == null)|| (settings == '')) {
 							//Nothing to delete 
 						} else {
 							settings.splice(serverId, 1);  //Remove the entry entirely from array
 			
-							_this.setArrayLocalStorage("settings", settings);
+							errorThis.setArrayLocalStorage("settings", settings);
 						} 
 		
-						_this.openSettings();	//refresh
+						errorThis.openSettings();	//refresh
 					}
 	    		
 	    		},                  // callback to invoke
