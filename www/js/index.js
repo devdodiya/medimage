@@ -129,7 +129,7 @@ var app = {
 
 
       } else {
-
+		  //No lan detected
          cb(null,'Do you have a 4 digit code?');
       }
     },
@@ -295,7 +295,6 @@ var app = {
             	document.getElementById("notify").innerHTML = 'Image transferred. Success!';
             	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
 
-		//retryNum --;		//Count down the number of retry entries
 
             	//and delete phone version
             	deleteThisFile.remove();
@@ -350,25 +349,41 @@ var app = {
            }, 5000);
 
            networkinterface.getIPAddress(function(ip) {
-               _this.ip = ip;
-               var len =  ip.lastIndexOf('\.') + 1;
+                _this.ip = ip;
+                var len =  ip.lastIndexOf('\.') + 1;
                 _this.lan = ip.substr(0,len);
                 clearTimeout(iptime);
                 cb(null);
            });
     },
 
-    /* old code:
+    
     clearOverride: function() {
-        localStorage.clear();
-        this.foundServer = null;
-        this.defaultDir = null;
-        this.overrideServer = null;
-        document.getElementById("override").value = "";
-        alert("Cleared default server.");
-	return false;
+        //We have connected to a server OK
+        var _this = this;
+        
+    		navigator.notification.confirm(
+	    		'Are you sure? All your saved PCs and other settings will be cleared.',  // message
+	    		function(buttonIndex) {
+	    			if(buttonIndex == 1) {
+						localStorage.clear();
+						_this.foundServer = null;
+						_this.defaultDir = null;
+						_this.overrideServer = null;
+						document.getElementById("override").value = "";
+						alert("Cleared all saved PCs.");
+		
+						_this.openSettings();
+					}
+	    		
+	    		},                  // callback to invoke
+	    		'Clear Settings',            // title
+	    		['Ok','Exit']             // buttonLabels
+			);
+        
+		return false;
     },
-    */
+    
 
     checkDefaultDir: function(server) {
         //Check if the default server has a default dir eg. http://123.123.123.123:5566/write/hello
@@ -396,47 +411,47 @@ var app = {
 
         if(inOverrideServer) {
 	       localOverride = inOverrideServer;
-	} else {
+		} else {
 		
 		
 	        //Check if there is a saved server
 	        localOverride = localStorage.getItem("overrideServer");
 			   	     
-		if((localOverride == null)|| (localOverride == '')) {
+			if((localOverride == null)|| (localOverride == '')) {
 	
 		      	//no local storage of server already exists
-   		   	//Check if a user entered code
-			if((document.getElementById("override").value) &&
-			  (document.getElementById("override").value != '')) {
+   		   		//Check if a user entered code
+				if((document.getElementById("override").value) &&
+			  		(document.getElementById("override").value != '')) {
 
-			   overrideCode = document.getElementById("override").value;
-			   var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
-			   _this.notify("Pairing with " + pairUrl);
-			   _this.get(pairUrl, function(url, resp) {
+			   		overrideCode = document.getElementById("override").value;
+			   		var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
+			   		_this.notify("Pairing with " + pairUrl);
+			   		_this.get(pairUrl, function(url, resp) {
 
-		           resp = resp.replace('\n', '')
+		           	resp = resp.replace('\n', '')
 
-			   if(resp == 'nomatch') {
-				_this.notify("Sorry, there was no match for that code.");
-				return;
+			   		if(resp == 'nomatch') {
+						_this.notify("Sorry, there was no match for that code.");
+						return;
 
-			   } else {
+			   		} else {
 
-			        _this.notify("Paired success with " + resp);
-			        var server = resp;
+			        	_this.notify("Paired success with " + resp);
+			        	var server = resp;
 
-			        //And save this server
-				localStorage.setItem("overrideServer",server);
+			        	//And save this server
+						localStorage.setItem("overrideServer",server);
       
       
-			        //Clear any previous details
-			        this.foundServer = null;
-			        this.defaultDir = null;
+			        	//Clear any previous details
+			        	this.foundServer = null;
+			        	this.defaultDir = null;
   
-				//Rerun again, this time with new default
-				_this.startup(server);
-				return;
-			   }
+						//Rerun again, this time with new default
+						_this.startup(server);
+						return;
+			   		}
 
 			   }); //end of get
 			   
@@ -460,17 +475,17 @@ var app = {
 
         if((this.foundServer)&&(this.foundServer != null)) {
 
-          //We have already found the server
-          var server = this.foundServer;
+          	//We have already found the server
+          	var server = this.foundServer;
 
-	  //Take the picture and connect later
-	  _this.takePicture();
+	  		//Take the picture and connect later
+	  		_this.takePicture();
 
 
 
 
         } else {
-		//Otherwise, first time we are running the app this session	
+			//Otherwise, first time we are running the app this session	
 	    	_this.findServer(function(err) {
 	    		if(err) {
 	    			//An error finding server - likely need to enter a pairing code. Warn the user
@@ -561,17 +576,20 @@ var app = {
     	//List the available servers
     	var settings = this.getArrayLocalStorage("settings");
     	
+    	
     	if(settings) {
-	    	var html = "<ul>";
+	    	var html = "<ons-list><ons-list-header>Select a PC to use now:</ons-list-header>";
 	    	
 	    	//Convert the array into html
 	    	for(var cnt=0; cnt< settings.length; cnt++) {
-	    		html = html + "<li ><span class='big-text' onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='big-text' onclick='app.deleteServer(" + cnt + ");'>Remove</span></li>";
+	    		html = html + "<ons-list-item><ons-list-item onclick='app.setServer(" + cnt + ");'>" + settings[cnt].name + "</ons-list-item><div class='right'><ons-icon icon='md-delete' onclick='app.deleteServer(" + cnt + ");'></ons-icon></div></ons-list-item>";
 	    	}
 	    	
-	    	html = html + "</ul>";
+	    	html = html + "</ons-list>";
     	} else {
-    		var html = "";
+    		var html = "<ons-list><ons-list-header>PCs Stored</ons-list-header>";
+    		var html = html + "<ons-list-item><ons-list-item>Default</ons-list-item><div class='right'><ons-icon icon='md-delete'style='color:#AAA></ons-icon></div></ons-list-item>";
+    		html = html + "</ons-list>";
     	}
     	return html;
     },
@@ -604,26 +622,39 @@ var app = {
         document.getElementById("override").value = "";
         
         //Save the current one
-	localStorage.removeItem("overrideServer");
+		localStorage.removeItem("overrideServer");
 	
-	this.closeSettings();
+		this.closeSettings();
     	this.startup();
     	
     },
     
     deleteServer: function(serverId) {
     	//Delete an existing server
-    	var settings = this.getArrayLocalStorage("settings");
     	
-    	if((settings == null)|| (settings == '')) {
-   		//Nothing to delete 
-   	} else {
-    		settings.splice(serverId, 1);  //Remove the entry entirely from array
-    		
-    		this.setArrayLocalStorage("settings", settings);
-   	} 
+    	navigator.notification.confirm(
+	    		'Are you sure? This PC will be removed from memory.',  // message
+	    		function(buttonIndex) {
+	    			if(buttonIndex == 1) {
+						var settings = this.getArrayLocalStorage("settings");
     	
-    	this.closeSettings();
+						if((settings == null)|| (settings == '')) {
+							//Nothing to delete 
+						} else {
+							settings.splice(serverId, 1);  //Remove the entry entirely from array
+			
+							this.setArrayLocalStorage("settings", settings);
+						} 
+		
+						this.openSettings();	//refresh
+					}
+	    		
+	    		},                  // callback to invoke
+	    		'Remove PC',            // title
+	    		['Ok','Exit']             // buttonLabels
+		);
+    	
+    	
 
     },
     
@@ -632,15 +663,29 @@ var app = {
     	var _this = this;
     	errorThis = this;
     	
+    	if((this.overrideServer != null)&&
+    			(this.defaultDir != null)&&
+    			(this.foundServer != null)&&
+    			(this.overrideServer != "")&&
+    			(this.defaultDir != "")&&
+    			(this.foundServer != "")) 				{
     	
-    	navigator.notification.prompt(
-	    'Please enter a name for this PC',  // message
-	    _this.saveServerName,                  // callback to invoke
-	    'PC Name',            // title
-	    ['Ok','Exit'],             // buttonLabels
-	    'Main'                 // defaultText
-	);
-    	
+    		//We have connected to a server OK
+    		navigator.notification.prompt(
+	    		'Please enter a name for this PC',  // message
+	    		_this.saveServerName,                  // callback to invoke
+	    		'PC Name',            // title
+	    		['Ok','Exit'],             // buttonLabels
+	    		'Main'                 // defaultText
+			);
+    	} else {
+    		//We aren't currently connected - not much point in saving
+    		navigator.notification.alert(
+    		   'Sorry, you must have made a successful pairing before saving the connection.',
+    		   function() {},
+    		   'No connection to save'
+    		);
+    	}
     	
     	
     },
@@ -653,25 +698,27 @@ var app = {
     		
     		
     		var settings = errorThis.getArrayLocalStorage("settings");
-   		//Create a new entry
-   		var newSetting = { 
-   			name: results.input1,		//As input by the user
-   			overrideServer: errorThis.overrideServer,	//The current override server as already found
-   			defaultDir: errorThis.defaultDir,
-   			foundServer: errorThis.foundServer
-   		};
-   		//alert("About to save:" + JSON.stringify(newSetting));	
+   			//Create a new entry
+   			var newSetting = { 
+   				name: results.input1,		//As input by the user
+   				overrideServer: errorThis.overrideServer,	//The current override server as already found
+   				defaultDir: errorThis.defaultDir,
+   				foundServer: errorThis.foundServer
+   			};
    		
-   		if((settings == null)|| (settings == '')) {
-   			//Creating an array for the first time
-   			var settings = [];
-   			settings.push(newSetting);  //Save back to the array
-   		} else {
+   			if((settings == null)|| (settings == '')) {
+   				//Creating an array for the first time
+   				var settings = [];
+   				settings.push(newSetting);  //Save back to the array
+   			} else {
     			settings.push(newSetting);  //Save back to the array
-   		} 
+   			} 
     		
     		//Save back to the persistent settings
     		errorThis.setArrayLocalStorage("settings", settings);
+    		
+    		//Now refresh the openSettings page
+    		errorThis.openSettings();
     		return;
     	} else {
     		//Clicked on 'Exit'. Do nothing.
