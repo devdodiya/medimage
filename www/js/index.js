@@ -606,7 +606,7 @@ var app = {
                 
                 //Else can't communicate with the wifi server at this time.
 	   	  	  	//Try the remote server
-	   	  	  	if((foundRemoteServer)&&(foundRemoteServer != null) {
+	   	  	  	if((foundRemoteServer)&&(foundRemoteServer != null)) {
 	   	  	  		
 	   	  	  		var scanning = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
