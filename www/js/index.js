@@ -159,7 +159,7 @@ var app = {
 			//No remove server already connected to, find the server now. And then call upload again
 			_this.findServer(function(err) {
 				if(err) {
-					_this.notify("Sorry, we cannot connect to the server. Trying again in 10 seconds.");
+					errorThis.notify("Sorry, we cannot connect to the server. Trying again in 10 seconds.");
 					//Search again in 10 seconds:
 					setTimeout(function() {
 						errorThis.uploadPhoto(imageURIin)
@@ -238,7 +238,7 @@ var app = {
 						};
 						retryIfNeeded.push(repeatIfNeeded);
 
-							ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
+						ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
 
 					  },
 					function () { 
@@ -256,7 +256,7 @@ var app = {
     },
 	
     progress: function(progressEvent) {
-    		var statusDom = document.querySelector('#status');
+    	var statusDom = document.querySelector('#status');
     	
 		if (progressEvent.lengthComputable) {
 			var perc = Math.floor(progressEvent.loaded / progressEvent.total * 100);
@@ -738,21 +738,27 @@ var app = {
         this.usingServer = null;
         
         //Remove the current one
-		localStorage.removeItem("currentRemoteServer");
-    	localStorage.remoteItem("currentWifiServer");
+        var exists = localStorage.getItem("currentRemoteServer");
+        if((exists)&&(exists != null)) {
+        	localStorage.removeItem("currentRemoteServer");
+        }
+        var exists = localStorage.getItem("currentWifiServer");
+        if((exists)&&(exists != null)) {
+        	localStorage.removeItem("currentWifiServer");
+        }
+
         
 		//Ask for a name of the current Server:
 		navigator.notification.prompt(
 			'Please enter a name for this PC',  // message
-			_this.saveServerName,                  // callback to invoke
+			this.saveServerName,                  // callback to invoke
 			'PC Name',            // title
 			['Ok','Exit'],             // buttonLabels
 			'Main'                 // defaultText
 		);
 	
 	
-		this.closeSettings();
-    	this.bigButton();
+
     	
     },
     
