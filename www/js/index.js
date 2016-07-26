@@ -381,10 +381,13 @@ var app = {
 	    			if(buttonIndex == 1) {
 						localStorage.clear();
 						errorThis.usingServer = null;
-						
+						//Now refresh the current server display
+    					document.getElementById("currentPC").innerHTML = "";
+    		
 						alert("Cleared all saved PCs.");
 		
-						_this.openSettings();
+						errorThis.openSettings();
+						
 					}
 	    		
 	    		},                  // callback to invoke
@@ -489,7 +492,7 @@ var app = {
 						errorThis.notify(err);
 					} else {
 						//Ready to take a picture, rerun
-						errorThis.startup();
+						errorThis.bugButton();
 					}
 				});
     		break;
@@ -535,7 +538,7 @@ var app = {
 
 
 	checkWifi: function(cb) {
-	    _this.notify("Checking Wifi connection");
+	    errorThis.notify("Checking Wifi connection");
 
        this.getip(function(ip, err) {
 
@@ -544,9 +547,9 @@ var app = {
              return;
           }
 
-          _this.notify("Scanning Wifi");
+          errorThis.notify("Scanning Wifi");
 
-          _this.scanlan('5566', function(url, err) {
+          errorThis.scanlan('5566', function(url, err) {
 
              if(err) {
                cb(err);
