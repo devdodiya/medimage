@@ -417,15 +417,19 @@ var app = {
 
 
 	connect: function(results) {
+		
     	//Save the server with a name
     	//Get existing settings array
+    	
+    	
+    	
     	switch(results.buttonIndex) {
     	
     		case 1:
     			//Clicked on 'Ok'
     			//Start the pairing process
     			var pairUrl = centralPairingUrl + '?compare=' + results.input1;
-			   		errorThis.notify("Pairing with " + pairUrl);
+			   		errorThis.notify("Pairing..");
 			   		errorThis.get(pairUrl, function(url, resp) {
 
 		           	resp = resp.replace('\n', '')
@@ -436,6 +440,7 @@ var app = {
 
 			   		} else {
 
+						errorThis.notify("Pairing success.");
 						var server = resp;
 
 			        	//And save this server
@@ -457,6 +462,8 @@ var app = {
 											errorThis.bigButton();
 										}
 									});
+								} else {
+									errorThis.notify("Pairing success. No wifi.");
 								}
 				
 							},                  // callback to invoke
@@ -476,7 +483,7 @@ var app = {
     		case 2:
     			//Clicked on 'Wifi only'
     			//Otherwise, first time we are running the app this session	
-				_this.checkWifi(function(err) {
+				errorThis.checkWifi(function(err) {
 					if(err) {
 						//An error finding server - likely need to enter a pairing code. Warn the user
 						errorThis.notify(err);
@@ -846,7 +853,7 @@ var app = {
         	var currentRemoteServer = localStorage.getItem("currentRemoteServer");
     		var currentWifiServer = localStorage.getItem("currentWifiServer");
    		
-   			var settings = this.getArrayLocalStorage("settings");
+   			var settings = errorThis.getArrayLocalStorage("settings");
    			
    			//Create a new entry - which will be blank to being with
    			var newSetting = { 
@@ -864,7 +871,7 @@ var app = {
    			} 
     		
     		//Save back to the persistent settings
-    		this.setArrayLocalStorage("settings", settings);
+    		errorThis.setArrayLocalStorage("settings", settings);
     		return;
     
     },
