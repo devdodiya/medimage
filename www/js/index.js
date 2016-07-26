@@ -111,7 +111,11 @@ var app = {
           var url = 'http://' + lan + machine + ':' + port;
           this.get(url, function(goodurl, resp) {
               if(resp) {
-                 _this.foundServer = goodurl;
+                 
+                 //Save the first TODO: if more than one, open another screen here
+                 localStorage.setItem("currentWifiServer", goodurl);
+                 
+                 
                  clearTimeout(scanning);
                  cb(goodurl, null);
               }
@@ -386,7 +390,10 @@ var app = {
     
 
     checkDefaultDir: function(server) {
-        //Check if the default server has a default dir eg. http://123.123.123.123:5566/write/hello
+        //Check if the default server has a default dir eg. input:
+        //   http://123.123.123.123:5566/write/fshoreihtskhfv
+        //Where the defaultDir would be set to 'fshoreihtskhfv'
+        //Returns 'http://123.123.123.123:5566'
         var requiredStr = "/write/";
         var startsAt = server.indexOf(requiredStr);
         if(startsAt >= 0) {
@@ -401,129 +408,119 @@ var app = {
 
     },
 
-    startup: function(inOverrideServer) {
 
-
-
-        //First called at startup time.
-        var _this = this;
-        var localOverride = "";
-
-        if(inOverrideServer) {
-	       localOverride = inOverrideServer;
-		} else {
-		
-		
-	        //Check if there is a saved server
-	        localOverride = localStorage.getItem("overrideServer");
-			   	     
-			if((localOverride == null)|| (localOverride == '')) {
-	
-		      	//no local storage of server already exists
-   		   		//Check if a user entered code
-				if((document.getElementById("override").value) &&
-			  		(document.getElementById("override").value != '')) {
-
-			   		overrideCode = document.getElementById("override").value;
-			   		var pairUrl = centralPairingUrl + '?compare=' + overrideCode;
-			   		_this.notify("Pairing with " + pairUrl);
-			   		_this.get(pairUrl, function(url, resp) {
+	connect: function(results) {
+    	//Save the server with a name
+    	//Get existing settings array
+    	switch(results.buttonIndex) {
+    	
+    		case 1:
+    			//Clicked on 'Ok'
+    			//Start the pairing process
+    			var pairUrl = centralPairingUrl + '?compare=' + results.input1;
+			   		errorThis.notify("Pairing with " + pairUrl);
+			   		errorThis.get(pairUrl, function(url, resp) {
 
 		           	resp = resp.replace('\n', '')
 
 			   		if(resp == 'nomatch') {
-						_this.notify("Sorry, there was no match for that code.");
+						errorThis.notify("Sorry, there was no match for that code.");
 						return;
 
 			   		} else {
 
-			        	_this.notify("Paired success with " + resp);
-			        	var server = resp;
+						var server = resp;
 
 			        	//And save this server
-						localStorage.setItem("overrideServer",server);
+						localStorage.setItem("currentServer",server);
+
+
+						  navigator.notification.confirm(
+							'Do you want to connect via Wifi, if it is available, also?',  // message
+							function(buttonIndex) {
+								if(buttonIndex == 1) {
+									//yes, we also want to connect via wifi
+									errorThis.checkWifi(function(err) {
+										if(err) {
+											//An error finding wifi
+											errorThis.notify(err);
+										} else {
+											//Ready to take a picture, rerun with this
+											//wifi server
+											errorThis.startup();
+										}
+									});
+								}
+				
+							},                  // callback to invoke
+							'Pairing Success!',            // title
+							['Yes','No']             // buttonLabels
+						);
+			        	
       
-      
-			        	//Clear any previous details
-			        	this.foundServer = null;
-			        	this.defaultDir = null;
-  
-						//Rerun again, this time with new default
-						_this.startup(server);
 						return;
 			   		}
 
 			   }); //end of get
-			   
-			 } else {
-			    //No user entered code
-			    _this.notify('Please enter a 4 digit code from your PC.');
-			 }
+    			
+    			
+    		break;
+    	
+    		case 2:
+    			//Clicked on 'Wifi only'
+    			//Otherwise, first time we are running the app this session	
+				_this.checkWifi(function(err) {
+					if(err) {
+						//An error finding server - likely need to enter a pairing code. Warn the user
+						errorThis.notify(err);
+					} else {
+						//Ready to take a picture, rerun
+						errorThis.startup();
+					}
+				});
+    		break;
+    		
+    		default:
+    			//Clicked on 'Cancel'
+    		
+    		break;
+    	
+		}
+	},
 
-			
-		} //end of local override check
-	} //end of inoverride check
+    startup: function() {
+
+        //Called when pushing the big button
+        
+        var _this = this;
+
+		_this.findServer(function(err) {
+			if(err) {
+				//An error finding server - likely need to enter a pairing code. Warn the user
+				//No current server - first time with this new connection
+
+				//We have connected to a server OK
+				navigator.notification.prompt(
+					'Please enter the 4 letter pairing code from your PC.',  // message
+					_this.connect,                  // callback to invoke
+					'New Connection',            // title
+					['Ok','Use Wifi Only','Cancel'],             // buttonLabels
+					''                 // defaultText
+				);
+			} else {
+				//Ready to take a picture
+				_this.takePicture();
+			}
+		});
 		
-		
-        //Now process full localOverride into split and default dir
-        if((localOverride != "")&&(localOverride != null)) {
-          
-            localOverride = this.checkDefaultDir(localOverride);       //Check for a default upload directory
-            this.overrideServer = localOverride;
- 
-        }
-
-        if((this.foundServer)&&(this.foundServer != null)) {
-
-          	//We have already found the server
-          	var server = this.foundServer;
-
-	  		//Take the picture and connect later
-	  		_this.takePicture();
-
-
-
-
-        } else {
-			//Otherwise, first time we are running the app this session	
-	    	_this.findServer(function(err) {
-	    		if(err) {
-	    			//An error finding server - likely need to enter a pairing code. Warn the user
-	    			_this.notify(err);
-	    		} else {
-	    			//Ready to take a pitcure
-	    			_this.takePicture();
-	    		}
-	    	});
-
-            
-            
-            
-        }
-
 
 
 
     },
 
 
-    findServer: function(cb) {
-
-       var _this = this;
-
-       if((this.overrideServer)&&(this.overrideServer != "")) {
-           //on a user set override, or a dev set override
-
-           var goodurl = this.overrideServer;
-           this.foundServer = goodurl;
-
-           _this.notify("Using server: " + goodurl);
-           cb(null);
-           return;
-       }
-
-
-       _this.notify("Checking Wifi connection");
+	checkWifi: function(cb) {
+	    _this.notify("Checking Wifi connection");
 
        this.getip(function(ip, err) {
 
@@ -544,6 +541,47 @@ var app = {
 
           });
        });
+	
+	},
+
+    findServer: function(cb) {
+
+       var _this = this;
+       
+       var found = false;
+       //Clear off
+       this.foundServer = null;
+       this.foundWifiServer = null;
+       
+	   var currentServer = localStorage.getItem("currentServer");
+	   var currentWifiServer = localStorage.getItem("currentWifiServer");
+	   
+	   if((currentServer)&&(currentServer != null)) {
+	   		//Already found a remote server
+	   		//Generate the directory split, if any. Setting RAM foundServer and defaultDir
+	   		this.foundServer = this.checkDefaultDir(currentServer);
+	   		found = true;	
+
+	   } 
+
+		
+
+   	    //Check if we have a Wifi option		
+	   if((currentWifiServer)&&(currentWifiServer != null)) {
+			//Already found wifi
+			//Generate the directory split, if any. Setting RAM foundServer and defaultDir
+			this.foundWifiServer = this.checkDefaultDir(currentServer);
+			found = true;
+
+	   }
+
+
+		if(found == true) {
+			cb(null);
+		} else {
+			cb('Server not found.');
+		
+		}
 
     },
     
@@ -619,7 +657,6 @@ var app = {
         this.foundServer = null;
         this.defaultDir = null;
         this.overrideServer = null;
-        document.getElementById("override").value = "";
         
         //Save the current one
 		localStorage.removeItem("overrideServer");
