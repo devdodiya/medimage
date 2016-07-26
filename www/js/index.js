@@ -588,10 +588,16 @@ var app = {
 	   
 	   
 
+	   //Early out:
+	   if((foundWifiServer == null)&&(foundRemoteServer == null)) {
+	   		cb('No known server.');
+	   		return;
+	   }
+
 	   
 	   
 	   //Now try the wifi server as the first option to use if it exists:
-	   if(foundWifiServer) {
+	   if((foundWifiServer)&&(foundWifiServer != null)) {
 	   	  //Ping the wifi server
 	   	  
 	   	  //Timeout after 5 secs for the following ping
@@ -600,7 +606,7 @@ var app = {
                 
                 //Else can't communicate with the wifi server at this time.
 	   	  	  	//Try the remote server
-	   	  	  	if(foundRemoteServer) {
+	   	  	  	if((foundRemoteServer)&&(foundRemoteServer != null) {
 	   	  	  		
 	   	  	  		var scanning = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
