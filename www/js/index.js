@@ -39,6 +39,9 @@ var app = {
         this.bindEvents();  
         
         
+        //Set display name - TODO: check this is valid here
+        this.displayServerName();
+        
         
 
     },
@@ -127,7 +130,7 @@ var app = {
        //timeout after 5 secs
        var scanning = setTimeout(function() {
                 _this.notify('Timeout finding your Wifi server.');
-                document.getElementById('override-form').style.display = 'block';
+                //old: document.getElementById('override-form').style.display = 'block';
        }, 4000);
 
 
@@ -150,104 +153,106 @@ var app = {
     
 
         var _this = this;
-        errorThis = this;
+        errorThis = this;		//Set the global
 	
-	if(!_this.foundServer) {
-		//No server found in RAM, find the server now. And then call upload again
-		_this.findServer(function(err) {
-			if(err) {
-				_this.notify("Sorry, we cannot connect to the server. Trying again in 10 seconds.");
-				//Search again in 10 seconds:
-				setTimeout(function() {
-					errorThis.uploadPhoto(imageURIin)
-					}, 10000);
-			} else {
-				//Now we are connected, upload the photo again
-				errorThis.uploadPhoto(imageURIin);
-			}
-		});
-		return;
-	} else {
+		if(!_this.usingServer) {
+			//No remove server already connected to, find the server now. And then call upload again
+			_this.findServer(function(err) {
+				if(err) {
+					_this.notify("Sorry, we cannot connect to the server. Trying again in 10 seconds.");
+					//Search again in 10 seconds:
+					setTimeout(function() {
+						errorThis.uploadPhoto(imageURIin)
+						}, 10000);
+				} else {
+					//Now we are connected, upload the photo again
+					errorThis.uploadPhoto(imageURIin);
+				}
+			});
+			return;
+		} else {
 
-
+			//Have connected OK to a server
             window.resolveLocalFileSystemURI(imageURIin, function(fileEntry) {
 
-            deleteThisFile = fileEntry; //Store globally
-            
+				deleteThisFile = fileEntry; //Store globally
+			
 
 
 
-            var imageURI = fileEntry.toURL();
-            var options = new FileUploadOptions();
-            options.fileKey="file1";
+				var imageURI = fileEntry.toURL();
+				var options = new FileUploadOptions();
+				options.fileKey="file1";
 
-            var tempName = document.getElementById("id-entered").value;
-            if((tempName == '')||(tempName == null)) {
-                tempName = 'image';
-            }
+				var tempName = document.getElementById("id-entered").value;
+				if((tempName == '')||(tempName == null)) {
+					tempName = 'image';
+				}
 
-            if(_this.defaultDir) {
-                //A hash code signifies a directory to write to
-                tempName = "#" + _this.defaultDir + " " + tempName;
-            }
+				if(_this.defaultDir) {
+					//A hash code signifies a directory to write to
+					tempName = "#" + _this.defaultDir + " " + tempName;
+				}
 
-            var myoutFile = tempName.replace(/ /g,'-');
+				var myoutFile = tempName.replace(/ /g,'-');
 
-	    navigator.globalization.dateToString(
-		new Date(),
-		function (date) {
-         	    var mydt = date.value.replace(/:/g,'-');
-                    mydt = mydt.replace(/ /g,'-');
-                    mydt = mydt.replace(/\//g,'-');
+				navigator.globalization.dateToString(
+					new Date(),
+					function (date) {
+						var mydt = date.value.replace(/:/g,'-');
+						mydt = mydt.replace(/ /g,'-');
+						mydt = mydt.replace(/\//g,'-');
 
-                    var aDate = new Date();
-                    var seconds = aDate.getSeconds();
-                    mydt = mydt + "-" + seconds;
+						var aDate = new Date();
+						var seconds = aDate.getSeconds();
+						mydt = mydt + "-" + seconds;
 
-		    mydt = mydt.replace(/,/g,'');  //remove any commas from iphone
-	
-		    options.fileName = myoutFile + '-' + mydt + '.jpg';
-	
-		    options.mimeType="image/jpeg";
-	
-		    var params = new Object();
-		    params.title = document.getElementById("id-entered").value;
-	     	    if((params.title == '')||(params.title == null)) {
-	         	params.title = 'image';
-	     	    }
-	
-		    options.params = params;
-		    options.chunkedMode = false;
-	
-	
-		    var ft = new FileTransfer();
-	            _this.notify("Uploading " + params.title);
-	            
-	            ft.onprogress = _this.progress;
-	            
-					     
-		    var serverReq = _this.foundServer + '/api/photo';
-		    
-		    var repeatIfNeeded = {
-		    	"imageURI" : imageURI,
-		    	"serverReq" : serverReq,
-		    	"options" :options
-		    };
-		    retryIfNeeded.push(repeatIfNeeded);
+						mydt = mydt.replace(/,/g,'');  //remove any commas from iphone
 
-	            ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
-	
-		  },
-		  function () { navigator.notification.alert('Error getting dateString\n'); },
-			{ formatLength:'medium', selector:'date and time'}
-		  ); //End of function in globalization date to string
+						options.fileName = myoutFile + '-' + mydt + '.jpg';
+
+						options.mimeType="image/jpeg";
+
+						var params = new Object();
+						params.title = document.getElementById("id-entered").value;
+						if((params.title == '')||(params.title == null)) {
+							params.title = 'image';
+						}
+
+						options.params = params;
+						options.chunkedMode = false;
 
 
+						var ft = new FileTransfer();
+						_this.notify("Uploading " + params.title);
+			
+						ft.onprogress = _this.progress;
+			
+					 
+						var serverReq = _this.usingServer + '/api/photo';
+		
+						var repeatIfNeeded = {
+							"imageURI" : imageURI,
+							"serverReq" : serverReq,
+							"options" :options
+						};
+						retryIfNeeded.push(repeatIfNeeded);
+
+							ft.upload(imageURI, serverReq, _this.win, _this.fail, options);
+
+					  },
+					function () { 
+						navigator.notification.alert('Error getting dateString\n');
+					},
+					{ formatLength:'medium', selector:'date and time'}
+				); //End of function in globalization date to string
 
 
-          } );		//End of resolveLocalFileSystemURI
+
+
+          	});		//End of resolveLocalFileSystemURI
        
-        }
+         }		//End of connected to a server OK
     },
 	
     progress: function(progressEvent) {
@@ -298,6 +303,9 @@ var app = {
             if((r.responseCode == 200)||(r.response.indexOf("200") != -1)) {
             	document.getElementById("notify").innerHTML = 'Image transferred. Success!';
             	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
+            	
+            	//Save the current server settings for future reuse
+            	errorThis.saveServer();
 
 
             	//and delete phone version
@@ -313,7 +321,7 @@ var app = {
 
     fail: function(error) {
   
-  	document.querySelector('#status').innerHTML = "";	//Clear progress status
+  		document.querySelector('#status').innerHTML = "";	//Clear progress status
   
         switch(error.code)
         {
@@ -347,8 +355,8 @@ var app = {
 
            //timeout after 3 secs -rerun this.findServer()
            var iptime = setTimeout(function() {
-                  var err = "You don't appear to be connected to your wifi. Please connect and try again, or override with your server's url and port.";
-                  document.getElementById('override-form').style.display = 'block';
+                  var err = "You don't appear to be connected to your wifi. Please connect and try again.";
+                  
                   cb(err);
            }, 5000);
 
@@ -362,7 +370,7 @@ var app = {
     },
 
     
-    clearOverride: function() {
+    factoryReset: function() {
         //We have connected to a server OK
         var _this = this;
         
@@ -371,10 +379,8 @@ var app = {
 	    		function(buttonIndex) {
 	    			if(buttonIndex == 1) {
 						localStorage.clear();
-						_this.foundServer = null;
-						_this.defaultDir = null;
-						_this.overrideServer = null;
-						document.getElementById("override").value = "";
+						_this.usingServer = null;
+						
 						alert("Cleared all saved PCs.");
 		
 						_this.openSettings();
@@ -382,7 +388,7 @@ var app = {
 	    		
 	    		},                  // callback to invoke
 	    		'Clear Settings',            // title
-	    		['Ok','Exit']             // buttonLabels
+	    		['Ok','Cancel']             // buttonLabels
 			);
         
 		return false;
@@ -432,7 +438,7 @@ var app = {
 						var server = resp;
 
 			        	//And save this server
-						localStorage.setItem("currentServer",server);
+						localStorage.setItem("currentRemoteServer",server);
 
 
 						  navigator.notification.confirm(
@@ -447,7 +453,7 @@ var app = {
 										} else {
 											//Ready to take a picture, rerun with this
 											//wifi server
-											errorThis.startup();
+											errorThis.bigButton();
 										}
 									});
 								}
@@ -488,7 +494,7 @@ var app = {
 		}
 	},
 
-    startup: function() {
+    bigButton: function() {
 
         //Called when pushing the big button
         
@@ -546,42 +552,111 @@ var app = {
 
     findServer: function(cb) {
 
+	   //Check storage for any saved current servers, and set the remote and wifi servers
+	   //along with splitting any subdirectories, ready for use by the the uploader.
+	   //Then actually try to connect - if wifi is an option, use that first
        var _this = this;
+       errorThis = this;		//Set the global
        
        var found = false;
        //Clear off
-       this.foundServer = null;
-       this.foundWifiServer = null;
+       var foundRemoteServer = null;
+       var foundWifiServer = null;
+       this.usingServer = null;
        
-	   var currentServer = localStorage.getItem("currentServer");
-	   var currentWifiServer = localStorage.getItem("currentWifiServer");
+	   var foundRemoteServer = localStorage.getItem("currentRemoteServer");
+	   var foundWifiServer = localStorage.getItem("currentWifiServer");
 	   
-	   if((currentServer)&&(currentServer != null)) {
+	   if((foundRemoteServer)&&(foundRemoteServer != null)) {
 	   		//Already found a remote server
 	   		//Generate the directory split, if any. Setting RAM foundServer and defaultDir
-	   		this.foundServer = this.checkDefaultDir(currentServer);
-	   		found = true;	
+	   		foundRemoteServer = this.checkDefaultDir(foundRemoteServer);
+	   		
 
 	   } 
 
-		
-
    	    //Check if we have a Wifi option		
-	   if((currentWifiServer)&&(currentWifiServer != null)) {
+	   if((foundWifiServer)&&(foundWifiServer != null)) {
 			//Already found wifi
 			//Generate the directory split, if any. Setting RAM foundServer and defaultDir
-			this.foundWifiServer = this.checkDefaultDir(currentServer);
-			found = true;
+			foundWifiServer = this.checkDefaultDir(foundWifiServer);
+			
 
+	   }
+	   
+	   
+
+	   
+	   
+	   //Now try the wifi server as the first option to use if it exists:
+	   if(foundWifiServer) {
+	   	  //Ping the wifi server
+	   	  
+	   	  //Timeout after 5 secs for the following ping
+       	  var scanning = setTimeout(function() {
+                errorThis.notify('Timeout finding your wifi server. Trying remote server..');
+                
+                //Else can't communicate with the wifi server at this time.
+	   	  	  	//Try the remote server
+	   	  	  	if(foundRemoteServer) {
+	   	  	  		
+	   	  	  		var scanning = setTimeout(function() {
+	   	  	  			//Timed out connecting to the remote server - that was the
+	   	  	  			//last option.
+	   	  	  			cb('No server found');
+	   	  	  		
+	   	  	  		}, 4000);
+	   	  	  		
+	   	  	  		errorThis.get(foundRemoteServer, function(url, resp) {
+	   	  	  		
+	   	  	  			//Success, got a connection to the remote server
+	   	  	  			clearTimeout(scanning);		//Ensure we don't error out
+	   	  	  			errorThis.usingServer = foundRemoteServer;
+	   	  	  			cb(null);
+	   	  	  		});
+	   	  	  		
+	   	  	  	} else {
+                	//Only wifi existed
+                	cb('No server found');
+            	}
+                
+       	   }, 4000);
+	   	  
+	   	  //Ping the wifi server
+	   	  errorThis.get(foundWifiServer, function(url, resp) {
+	   	  	  
+	   	  	  //Success, got a connection to the wifi
+	   	  	  clearTimeout(scanning);		//Ensure we don't error out
+	   	  	  errorThis.usingServer = foundWifiServer;
+	   	  	  cb(null);			//Success found server
+	   	  	  
+	   	  
+	   	  });
+	   
+	   } else {
+	   		//OK - no wifi option - go straight to the remote server
+	   		//Try the remote server
+	   		var scanning = setTimeout(function() {
+	   	  	  			//Timed out connecting to the remote server - that was the
+	   	  	  			//last option.
+	   	  	  			cb('No server found');
+	   	  	  		
+	   	  	  		}, 4000);
+	   		
+			_this.get(foundRemoteServer, function(url, resp) {
+				
+					//Success, got a connection to the remote server
+					clearTimeout(scanning);		//Ensure we don't error out
+					_this.usingServer = foundRemoteServer;
+					cb(null);
+			});
+	   
+	   
 	   }
 
 
-		if(found == true) {
-			cb(null);
-		} else {
-			cb('Server not found.');
-		
-		}
+
+
 
     },
     
@@ -638,14 +713,18 @@ var app = {
     	//Set the server to the input server id
     	var settings = this.getArrayLocalStorage("settings");
     
-    	this.overrideServer = settings[serverId].overrideServer;
-    	this.foundServer = settings[serverId].foundServer;			
-        this.defaultDir = settings[serverId].defaultDir;
-        
-        //Save the current server
-    	localStorage.setItem("overrideServer", this.overrideServer);
+    	var currentRemoteServer = settings[serverId].currentRemoteServer;			
+        var currentWifiServer = settings[serverId].currentWifiServer;
+       
+        //Save the current server TODO: null handling here?
+    	localStorage.setItem("currentRemoteServer", currentRemoteServer);
+    	localStorage.setItem("currentWifiServer", currentWifiServer);
     	
     	navigator.notification.alert("Switched to: " +  settings[serverId].name, function() {}, "Changing PC");
+    	
+    	//Now refresh the current server display
+    	document.getElementById("currentPC").innerHTML = settings[serverId].name;
+    	
     	this.closeSettings();
     	return false;
     	
@@ -654,15 +733,24 @@ var app = {
     newServer: function() {
     	//Create a new server. 
     	//This is actually effectively resetting, and we will allow the normal functions to input a new one
-        this.foundServer = null;
-        this.defaultDir = null;
-        this.overrideServer = null;
+        this.usingServer = null;
         
-        //Save the current one
-		localStorage.removeItem("overrideServer");
+        //Remove the current one
+		localStorage.removeItem("currentRemoteServer");
+    	localStorage.remoteItem("currentWifiServer");
+        
+		//Ask for a name of the current Server:
+		navigator.notification.prompt(
+			'Please enter a name for this PC',  // message
+			_this.saveServerName,                  // callback to invoke
+			'PC Name',            // title
+			['Ok','Exit'],             // buttonLabels
+			'Main'                 // defaultText
+		);
+	
 	
 		this.closeSettings();
-    	this.startup();
+    	this.bigButton();
     	
     },
     
@@ -697,52 +785,60 @@ var app = {
 
     },
     
-    saveServer: function() {
-    	//Save the current server
-    	var _this = this;
-    	errorThis = this;
-    	
-    	if((this.overrideServer != null)&&
-    			(this.defaultDir != null)&&
-    			(this.foundServer != null)&&
-    			(this.overrideServer != "")&&
-    			(this.defaultDir != "")&&
-    			(this.foundServer != "")) 				{
-    	
-    		//We have connected to a server OK
-    		navigator.notification.prompt(
-	    		'Please enter a name for this PC',  // message
-	    		_this.saveServerName,                  // callback to invoke
-	    		'PC Name',            // title
-	    		['Ok','Exit'],             // buttonLabels
-	    		'Main'                 // defaultText
-			);
-    	} else {
-    		//We aren't currently connected - not much point in saving
-    		navigator.notification.alert(
-    		   'Sorry, you must have made a successful pairing before saving the connection.',
-    		   function() {},
-    		   'No connection to save'
-    		);
-    	}
-    	
-    	
-    },
+
     
     saveServerName: function(results) {
-    	//Save the server with a name
+    	//Save the server with a name - but since this is new,
     	//Get existing settings array
     	if(results.buttonIndex == 1) {
     		//Clicked on 'Ok'
     		
+    		localStorage.setItem("currentServerName", results.input1);
+ 
+    		//Now refresh the current server display
+    		document.getElementById("currentPC").innerHTML = results.input1;
     		
-    		var settings = errorThis.getArrayLocalStorage("settings");
-   			//Create a new entry
+    		errorThis.closeSettings();
+    		return;
+    	} else {
+    		//Clicked on 'Exit'. Do nothing.
+     		return;
+    	}
+
+     	
+    },
+    
+    displayServerName: function() {
+    	//Call this during initialisation on app startup
+    	var currentServerName = localStorage.getItem("currentServerName");
+    	
+    	if((currentServerName) && (currentServerName != null)) {
+    		//Now refresh the current server display
+    		document.getElementById("currentPC").innerHTML = currentServerName;
+    	} else {
+    	
+    		document.getElementById("currentPC").innerHTML = "";
+    	}
+    
+    
+    
+    },
+    
+    saveServer: function() {
+        	//Run this after a successful upload
+        	
+        	var currentServerName = localStorage.getItem("currentServerName");
+        	
+        	var currentRemoteServer = localStorage.getItem("currentRemoteServer");
+    		var currentWifiServer = localStorage.getItem("currentWifiServer");
+   		
+   			var settings = this.getArrayLocalStorage("settings");
+   			
+   			//Create a new entry - which will be blank to being with
    			var newSetting = { 
-   				name: results.input1,		//As input by the user
-   				overrideServer: errorThis.overrideServer,	//The current override server as already found
-   				defaultDir: errorThis.defaultDir,
-   				foundServer: errorThis.foundServer
+   				name: currentServerName,		//As input by the user
+   				currentRemoteServer: currentRemoteServer
+   				currentWifiServer: currentWifiServer
    			};
    		
    			if((settings == null)|| (settings == '')) {
@@ -754,18 +850,10 @@ var app = {
    			} 
     		
     		//Save back to the persistent settings
-    		errorThis.setArrayLocalStorage("settings", settings);
-    		
-    		//Now refresh the openSettings page
-    		errorThis.openSettings();
+    		this.setArrayLocalStorage("settings", settings);
     		return;
-    	} else {
-    		//Clicked on 'Exit'. Do nothing.
-     		return;
-    	}
-
-     	
-    },
+    
+    }
     
     //Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
     setArrayLocalStorage: function(mykey, myobj) {

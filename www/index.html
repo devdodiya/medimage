@@ -89,6 +89,12 @@
             <span id="notify" class="notify-text"></span>
             &nbsp;<span id="status" class="notify-text"></span>
         </div>
+        
+        <br/><br/><br/>
+        <div style="text-align:center;">
+            <span id="currentPC" class="notify-text"></span>
+        </div>
+        
 
         
         <div id="settings-popup" style="display:none;">
@@ -105,11 +111,9 @@
         		<p>
         			<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.newServer();">Add a New PC</ons-button>
 	        	</p>
-	        	<p>	
-	        		<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.saveServer();">Save this PC</ons-button>
-				</p>
+	        	
 				<p>
-					<a class="small-text" href="javascript" onclick="return app.clearOverride();">Reset Factory Settings</a>
+					<a class="small-text" href="javascript" onclick="return app.resetFactory();">Reset Factory Settings</a>
 				</p>
 			</div>
         </div>
