@@ -373,13 +373,14 @@ var app = {
     factoryReset: function() {
         //We have connected to a server OK
         var _this = this;
+        errorThis = this;		//Set the global
         
     		navigator.notification.confirm(
 	    		'Are you sure? All your saved PCs and other settings will be cleared.',  // message
 	    		function(buttonIndex) {
 	    			if(buttonIndex == 1) {
 						localStorage.clear();
-						_this.usingServer = null;
+						errorThis.usingServer = null;
 						
 						alert("Cleared all saved PCs.");
 		
@@ -499,6 +500,7 @@ var app = {
         //Called when pushing the big button
         
         var _this = this;
+        errorThis = this;  //set global
 
 		_this.findServer(function(err) {
 			if(err) {
@@ -508,7 +510,7 @@ var app = {
 				//We have connected to a server OK
 				navigator.notification.prompt(
 					'Please enter the 4 letter pairing code from your PC.',  // message
-					_this.connect,                  // callback to invoke
+					errorThis.connect,                  // callback to invoke
 					'New Connection',            // title
 					['Ok','Use Wifi Only','Cancel'],             // buttonLabels
 					''                 // defaultText
