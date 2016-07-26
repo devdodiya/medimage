@@ -836,9 +836,9 @@ var app = {
    			
    			//Create a new entry - which will be blank to being with
    			var newSetting = { 
-   				name: currentServerName,		//As input by the user
-   				currentRemoteServer: currentRemoteServer
-   				currentWifiServer: currentWifiServer
+   				"name": currentServerName,		//As input by the user
+   				"currentRemoteServer": currentRemoteServer,
+   				"currentWifiServer": currentWifiServer
    			};
    		
    			if((settings == null)|| (settings == '')) {
@@ -853,7 +853,7 @@ var app = {
     		this.setArrayLocalStorage("settings", settings);
     		return;
     
-    }
+    },
     
     //Array storage for app permanent settings (see http://inflagrantedelicto.memoryspiral.com/2013/05/phonegap-saving-arrays-in-local-storage/)
     setArrayLocalStorage: function(mykey, myobj) {
