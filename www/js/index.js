@@ -797,7 +797,10 @@ var app = {
  
         localStorage.removeItem("usingServer"); //reset the currently used server
        
-        //Save the current server TODO: null handling here?
+        //Save the current server
+        localStorage.removeItem("usingServer");
+        localStorage.removeItem("defaultDir");
+        
     	localStorage.setItem("currentRemoteServer", currentRemoteServer);
     	localStorage.setItem("currentWifiServer", currentWifiServer);
     	
