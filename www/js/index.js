@@ -74,10 +74,10 @@ var app = {
       var _this = this;
 
       navigator.camera.getPicture( function( imageURI ) {
-          _this.uploadPhoto(imageURI);
+          errorThis.uploadPhoto(imageURI);
         },
        function( message ) {
-        _this.notify( message );
+         errorThis.notify( message );
        },
        {
         quality: 100,
