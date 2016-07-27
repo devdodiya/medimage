@@ -866,15 +866,20 @@ var app = {
     saveServer: function() {
         	//Run this after a successful upload
         	
+        	alert("Trying to save");
+        	
         	var currentServerName = localStorage.getItem("currentServerName");
         	
         	var currentRemoteServer = localStorage.getItem("currentRemoteServer");
     		var currentWifiServer = localStorage.getItem("currentWifiServer");
    			
+   			alert("Got values");
+   			
    			if((!currentServerName) ||(currentServerName == null)) currentServerName = "Default";
-   			if((!currentRemoteServer) ||(currentRemoteServer == null)) currentRemoteServer = null;
-   			if((!currentWifiServer) ||(currentWifiServer == null)) currentWifiServer = null;	
+   			if((!currentRemoteServer) ||(currentRemoteServer == null)) currentRemoteServer = "";
+   			if((!currentWifiServer) ||(currentWifiServer == null)) currentWifiServer = "";	
    		
+   			alert("About to get current settings");
    		
    			var settings = errorThis.getArrayLocalStorage("settings");
    			
@@ -884,6 +889,8 @@ var app = {
    				"currentRemoteServer": currentRemoteServer,
    				"currentWifiServer": currentWifiServer
    			};
+   			
+   			alert("New settings:" + JSON.stringify(newSetting));
    		
    			if((settings == null)|| (settings == '')) {
    				//Creating an array for the first time
@@ -893,8 +900,12 @@ var app = {
     			settings.push(newSetting);  //Save back to the array
    			} 
     		
+    		alert("Pushed settings to array");
+    		
     		//Save back to the persistent settings
     		errorThis.setArrayLocalStorage("settings", settings);
+    		
+    		alert("Back to persistent storage");
     		return;
     
     },
