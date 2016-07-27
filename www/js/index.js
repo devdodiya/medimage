@@ -840,7 +840,7 @@ var app = {
 	    		
 	    		},                  // callback to invoke
 	    		'Remove PC',            // title
-	    		['Ok','Exit']             // buttonLabels
+	    		['Ok','Cancel']             // buttonLabels
 		);
     	
     	
