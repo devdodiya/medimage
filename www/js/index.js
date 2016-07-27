@@ -282,15 +282,20 @@ var app = {
 	    	 	errorThis.notify(existingText + " Retrying " + repeatIfNeeded.options.params.title + " in 10 seconds.");
 	    	
 	    		repeatIfNeeded.failureCount += 1;		//Increase this
-	    		if(repeatIfNeeded.failureCount > 3) {
+	    		if(repeatIfNeeded.failureCount > 2) {
 	    			//Have tried too many attempts - try to reconnect completely (i.e. go
 	    			//from wifi to network and vica versa
 	    			localStorage.removeItem("usingServer");		//This will force a reconnection
 	    			errorThis.uploadPhoto(repeatIfNeeded.imageURI);
 	    			
+	    			//Clear any existing timeouts
+	    			if(repeatIfNeeded.retryTimeout) {
+	    				clearTimeout(repeatIfNeeded.retryTimeout);
+	    			}
+	    			return;
 	    		} else {
 	    			//OK in the first few attempts - keep the current connection and try again
-					setTimeout(function() {
+					repeatIfNeeded.retryTimeout = setTimeout(function() {
 						var ft = new FileTransfer();
 					
 						ft.onprogress = errorThis.progress;
