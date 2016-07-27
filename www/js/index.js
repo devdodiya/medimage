@@ -841,6 +841,9 @@ var app = {
         } else {
         	localStorage.setItem("currentRemoteServer", currentRemoteServer);
         }
+        
+        //Set the localstorage
+        localStorage.setItem("currentServerName", settings[serverId].name);
  	
     	
     	navigator.notification.alert("Switched to: " +  settings[serverId].name, function() {}, "Changing PC");
