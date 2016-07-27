@@ -677,10 +677,11 @@ var app = {
 	   		return;
 	   }
 
-	   
+	   alert("findServer() 2 foundRemoteServer:" + foundRemoteServer);
+	   alert("findServer() 2 foundWifiServer:" + foundWifiServer);
 	   
 	   //Now try the wifi server as the first option to use if it exists:
-	   if((foundWifiServer)&&(foundWifiServer != null)) {
+	   if((foundWifiServer)&&(foundWifiServer != null)&&(foundWifiServer != "null")) {
 	   	  //Ping the wifi server
 	   	  
 	   	  errorThis.notify('Trying to connect to the wifi server..');
@@ -692,7 +693,7 @@ var app = {
                 
                 //Else can't communicate with the wifi server at this time.
 	   	  	  	//Try the remote server
-	   	  	  	if((foundRemoteServer)&&(foundRemoteServer != null)) {
+	   	  	  	if((foundRemoteServer)&&(foundRemoteServer != null)&&(foundWifiServer != "null")) {
 	   	  	  		
 	   	  	  		var scanning = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
