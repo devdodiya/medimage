@@ -641,8 +641,6 @@ var app = {
 	   foundRemoteServer = localStorage.getItem("currentRemoteServer");
 	   foundWifiServer = localStorage.getItem("currentWifiServer");
 	   
-	   alert("findServer() foundRemoteServer:" + foundRemoteServer);
-	   alert("findServer() foundWifiServer:" + foundWifiServer);
 	   
 	   if((foundRemoteServer)&&(foundRemoteServer != null)&&(foundRemoteServer != "")) {
 	   		//Already found a remote server
@@ -677,8 +675,6 @@ var app = {
 	   		return;
 	   }
 
-	   alert("findServer() 2 foundRemoteServer:" + foundRemoteServer);
-	   alert("findServer() 2 foundWifiServer:" + foundWifiServer);
 	   
 	   //Now try the wifi server as the first option to use if it exists:
 	   if((foundWifiServer)&&(foundWifiServer != null)&&(foundWifiServer != "null")) {
@@ -770,13 +766,7 @@ var app = {
     
     
     /* Settings Functions */ 
-    /*  localStorage.clear();
-        this.foundServer = null;
-        this.defaultDir = null;
-        this.overrideServer = null;
-        document.getElementById("override").value = "";
-        alert("Cleared default server.");
-	return false; */
+
 
 
     openSettings: function() {
@@ -981,7 +971,6 @@ var app = {
    				"currentWifiServer": currentWifiServer
    			};
    			
-   			alert("New setting=" + JSON.stringify(newSetting));
    			
    		
    			if((settings == null)|| (settings == '')) {
