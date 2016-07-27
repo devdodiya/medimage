@@ -801,13 +801,13 @@ var app = {
         localStorage.removeItem("defaultDir");
         
         //Remove if one of these doesn't exist, and use the other.
-        if((!currentWifiServer)||(currentWifiServer == null)) {
+        if((!currentWifiServer)||(currentWifiServer == null)||(currentWifiServer =="")) {
         	localStorage.removeItem("currentWifiServer");
         } else {
         	localStorage.setItem("currentWifiServer", currentWifiServer);
         }
         
-        if((!currentRemoteServer)||(currentRemoteServer == null)) {
+        if((!currentRemoteServer)||(currentRemoteServer == null)||(currentRemoteServer == "")) {
         	localStorage.removeItem("currentRemoteServer");
         } else {
         	localStorage.setItem("currentRemoteServer", currentRemoteServer);
@@ -935,8 +935,8 @@ var app = {
    			
    			
    			if((!currentServerName) ||(currentServerName == null)) currentServerName = "Default";
-   			if((!currentRemoteServer) ||(currentRemoteServer == null)) currentRemoteServer = null;
-   			if((!currentWifiServer) ||(currentWifiServer == null)) currentWifiServer = null;	
+   			if((!currentRemoteServer) ||(currentRemoteServer == null)) currentRemoteServer = "";
+   			if((!currentWifiServer) ||(currentWifiServer == null)) currentWifiServer = "";	
    		
    			
    		
