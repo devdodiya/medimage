@@ -497,6 +497,9 @@ var app = {
 								} else {
 									errorThis.notify("Pairing success, without WiFi.");
 									errorThis.bigButton();
+									
+									//Clear the wifi
+									localStorage.removeItem("currentWifiServer");
 								}
 				
 							},                  // callback to invoke
@@ -523,6 +526,10 @@ var app = {
 					} else {
 						//Ready to take a picture, rerun
 						errorThis.notify("Wifi paired successfully.");
+						
+						//Clear the remote
+						localStorage.removeItem("currentRemoteServer");
+						
 						errorThis.bigButton();
 					}
 				});
