@@ -597,7 +597,6 @@ var app = {
        usingServer = localStorage.getItem("usingServer");
        
        if((usingServer)&&(usingServer != null)) {
-       		//alert("usingServer=" + usingServer);
        		cb(null);
        		return;
        	
@@ -802,6 +801,7 @@ var app = {
         	localStorage.removeItem("currentWifiServer");
         }
 
+		this.notify("Click above to activate.");			//Clear off old notifications
         
 		//Ask for a name of the current Server:
 		navigator.notification.prompt(
