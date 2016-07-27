@@ -578,7 +578,7 @@ var app = {
        var foundWifiServer = null;
        
        //Early out
-       if((this.usingServer)&&(this.usingServer != null) {
+       if((this.usingServer)&&(this.usingServer != null)) {
        		cb(null);
        		return;
        	
