@@ -42,7 +42,7 @@ var app = {
         //Set display name - TODO: check this is valid here
         this.displayServerName();
         
-        
+        errorThis = this;
 
     },
     // Bind Event Listeners
@@ -153,7 +153,6 @@ var app = {
     
 
         var _this = this;
-        errorThis = this;		//Set the global
 	
 		if(!_this.usingServer) {
 			//No remove server already connected to, find the server now. And then call upload again
@@ -373,7 +372,6 @@ var app = {
     factoryReset: function() {
         //We have connected to a server OK
         var _this = this;
-        errorThis = this;		//Set the global
         
     		navigator.notification.confirm(
 	    		'Are you sure? All your saved PCs and other settings will be cleared.',  // message
@@ -512,7 +510,6 @@ var app = {
         //Called when pushing the big button
         
         var _this = this;
-        errorThis = this;  //set global
 
 		_this.findServer(function(err) {
 			if(err) {
@@ -570,7 +567,6 @@ var app = {
 	   //along with splitting any subdirectories, ready for use by the the uploader.
 	   //Then actually try to connect - if wifi is an option, use that first
        var _this = this;
-       errorThis = this;		//Set the global
        
        var found = false;
        //Clear off
@@ -795,7 +791,6 @@ var app = {
     
     deleteServer: function(serverId) {
     	//Delete an existing server
-    	errorThis = this;
     	this.myServerId = serverId;
     	
     	navigator.notification.confirm(
