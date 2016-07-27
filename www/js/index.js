@@ -830,14 +830,8 @@ var app = {
     	localStorage.removeItem("usingServer");
         
         //Remove the current one
-        var exists = localStorage.getItem("currentRemoteServer");
-        if((exists)&&(exists != null)) {
-        	localStorage.removeItem("currentRemoteServer");
-        }
-        var exists = localStorage.getItem("currentWifiServer");
-        if((exists)&&(exists != null)) {
-        	localStorage.removeItem("currentWifiServer");
-        }
+       	localStorage.removeItem("currentRemoteServer");
+        localStorage.removeItem("currentWifiServer");
 
 		this.notify("Click above to activate.");			//Clear off old notifications
         
