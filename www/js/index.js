@@ -870,6 +870,11 @@ var app = {
         	
         	var currentRemoteServer = localStorage.getItem("currentRemoteServer");
     		var currentWifiServer = localStorage.getItem("currentWifiServer");
+   			
+   			if((!currentServerName) ||(currentServerName == null)) currentServerName = "Default";
+   			if((!currentRemoteServer) ||(currentRemoteServer == null)) currentRemoteServer = null;
+   			if((!currentWifiServer) ||(currentWifiServer == null)) currentWifiServer = null;	
+   		
    		
    			var settings = errorThis.getArrayLocalStorage("settings");
    			
