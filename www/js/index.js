@@ -301,8 +301,7 @@ var app = {
             console.log("Sent = " + r.bytesSent);
             if((r.responseCode == 200)||(r.response.indexOf("200") != -1)) {
             	document.getElementById("notify").innerHTML = 'Image transferred. Success!';
-            	document.getElementById("override-form").style.display = 'none';    //Hide any url entry
-            	
+            	            	
             	//Save the current server settings for future reuse
             	errorThis.saveServer();
 
