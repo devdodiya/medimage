@@ -466,14 +466,14 @@ var app = {
 						
 						var server = resp;
 						
-						errorThis.notify("Pairing success with " + server);
+						errorThis.notify("Pairing success.");
 						
 			        	//And save this server
 						localStorage.setItem("currentRemoteServer",server);
 
 
 						  navigator.notification.confirm(
-							'Do you want to connect via Wifi, if it is available, also?',  // message
+							'Do you want to connect via WiFi, if it is available, also?',  // message
 							function(buttonIndex) {
 								if(buttonIndex == 1) {
 									//yes, we also want to connect via wifi
@@ -484,12 +484,13 @@ var app = {
 										} else {
 											//Ready to take a picture, rerun with this
 											//wifi server
-											errorThis.notify("Wifi paired successfully.");
+											errorThis.notify("WiFi paired successfully.");
 											errorThis.bigButton();
 										}
 									});
 								} else {
-									errorThis.notify("Pairing success. No WiFi.");
+									errorThis.notify("Pairing success, without WiFi.");
+									errorThis.bigButton();
 								}
 				
 							},                  // callback to invoke
