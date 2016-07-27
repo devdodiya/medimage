@@ -392,6 +392,9 @@ var app = {
 						localStorage.clear();
 						
 						localStorage.setItem("usingServer", null);		//Init it
+						localStorage.setItem("currentRemoteServer", null);
+	   					localStorage.setItem("currentWifiServer", null);
+						
 						
 						//Now refresh the current server display
     					document.getElementById("currentPC").innerHTML = "";
