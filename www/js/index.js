@@ -391,7 +391,7 @@ var app = {
 	    			if(buttonIndex == 1) {
 						localStorage.clear();
 						
-						
+						localStorage.setItem("usingServer", null);		//Init it
 						
 						//Now refresh the current server display
     					document.getElementById("currentPC").innerHTML = "";
