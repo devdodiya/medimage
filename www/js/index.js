@@ -190,9 +190,10 @@ var app = {
 					tempName = 'image';
 				}
 
-				if(_this.defaultDir) {
+				var defaultDir = localStorage.getItem("defaultDir");
+				if((defaultDir)&&(defaultDir != null)) {
 					//A hash code signifies a directory to write to
-					tempName = "#" + _this.defaultDir + " " + tempName;
+					tempName = "#" + defaultDir + " " + tempName;
 				}
 
 				var myoutFile = tempName.replace(/ /g,'-');
@@ -422,18 +423,18 @@ var app = {
     checkDefaultDir: function(server) {
         //Check if the default server has a default dir eg. input:
         //   http://123.123.123.123:5566/write/fshoreihtskhfv
-        //Where the defaultDir would be set to 'fshoreihtskhfv'
-        //Returns 'http://123.123.123.123:5566'
+        //Where the defaultDir would be 'fshoreihtskhfv'
+        //Returns '{ server: "http://123.123.123.123:5566", dir: "fshoreihtskhfv"'
         var requiredStr = "/write/";
         var startsAt = server.indexOf(requiredStr);
         if(startsAt >= 0) {
             //Get the default dir after the /write/ string
             var startFrom = startsAt + requiredStr.length;
-            this.defaultDir = server.substr(startFrom);
+            var defaultDir = server.substr(startFrom);
             var properServer = server.substr(0, startsAt);
-            return properServer;
+            return { server: properServer, dir: defaultDir };
         } else {
-            return server;
+            return { server: server, dir: "" };
         }
 
     },
@@ -599,6 +600,8 @@ var app = {
        //Clear off
        var foundRemoteServer = null;
        var foundWifiServer = null;
+       var foundRemoteDir = null;
+       var foundWifiDir = null;
        var usingServer = null;
        
        //Early out
@@ -617,17 +620,19 @@ var app = {
 	   if((foundRemoteServer)&&(foundRemoteServer != null)) {
 	   		//Already found a remote server
 	   		//Generate the directory split, if any. Setting RAM foundServer and defaultDir
-	   		foundRemoteServer = this.checkDefaultDir(foundRemoteServer);
-	   		
-
+	   		 
+	   		var split = this.checkDefaultDir(foundRemoteServer);
+	   		foundRemoteServer = split.server;
+	   		foundRemoteDir = split.dir;		
 	   } 
 
    	    //Check if we have a Wifi option		
 	   if((foundWifiServer)&&(foundWifiServer != null)) {
 			//Already found wifi
 			//Generate the directory split, if any. Setting RAM foundServer and defaultDir
-			foundWifiServer = this.checkDefaultDir(foundWifiServer);
-			
+			var split = this.checkDefaultDir(foundWifiServer);
+	   		foundWifiServer = split.server;
+	   		foundWifiDir = split.dir;	
 
 	   }
 	   
@@ -660,6 +665,7 @@ var app = {
 	   	  	  			//Timed out connecting to the remote server - that was the
 	   	  	  			//last option.
 	   	  	  			localStorage.removeItem("usingServer");
+	   	  	  			localStorage.removeItem("defaultDir");
 	   	  	  			cb('No server found');
 	   	  	  			
 	   	  	  		
@@ -669,6 +675,7 @@ var app = {
 	   	  	  		
 	   	  	  			//Success, got a connection to the remote server
 	   	  	  			clearTimeout(scanning);		//Ensure we don't error out
+	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
 	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
 	   	  	  			cb(null);
 	   	  	  		});
@@ -676,6 +683,7 @@ var app = {
 	   	  	  	} else {
                 	//Only wifi existed
                 	localStorage.removeItem("usingServer");
+                	localStorage.removeItem("defaultDir");
                 	cb('No server found');
             	}
                 
@@ -687,6 +695,8 @@ var app = {
 	   	  	  //Success, got a connection to the wifi
 	   	  	  clearTimeout(scanning);		//Ensure we don't error out
 	   	  	  localStorage.setItem("usingServer", foundWifiServer);
+	   	  	  localStorage.setItem("defaultDir", foundWifiDir);
+	   	  	  
 	   	  	  cb(null);			//Success found server
 	   	  	  
 	   	  
@@ -701,6 +711,7 @@ var app = {
 	   	  	  			//Timed out connecting to the remote server - that was the
 	   	  	  			//last option.
 	   	  	  			localStorage.removeItem("usingServer");
+	   	  	  			localStorage.removeItem("defaultDir");
 	   	  	  			cb('No server found');
 	   	  	  		
 	   	  	  		}, 4000);
@@ -710,6 +721,7 @@ var app = {
 					//Success, got a connection to the remote server
 					clearTimeout(scanning);		//Ensure we don't error out
 					localStorage.setItem("usingServer", foundRemoteServer);
+					localStorage.setItem("defaultDir", foundRemoteDir);
 					cb(null);
 			});
 	   
