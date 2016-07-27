@@ -463,7 +463,7 @@ var app = {
 
 			   		} else {
 
-						errorThis.notify("Pairing success.");
+						errorThis.notify("Pairing success with " + server);
 						var server = resp;
 
 			        	//And save this server
