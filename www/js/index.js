@@ -860,20 +860,20 @@ var app = {
     saveServer: function() {
         	//Run this after a successful upload
         	
-        	alert("Trying to save");
+        	
         	
         	var currentServerName = localStorage.getItem("currentServerName");
         	
         	var currentRemoteServer = localStorage.getItem("currentRemoteServer");
     		var currentWifiServer = localStorage.getItem("currentWifiServer");
    			
-   			alert("Got values");
+   			
    			
    			if((!currentServerName) ||(currentServerName == null)) currentServerName = "Default";
-   			if((!currentRemoteServer) ||(currentRemoteServer == null)) currentRemoteServer = "";
-   			if((!currentWifiServer) ||(currentWifiServer == null)) currentWifiServer = "";	
+   			if((!currentRemoteServer) ||(currentRemoteServer == null)) currentRemoteServer = null;
+   			if((!currentWifiServer) ||(currentWifiServer == null)) currentWifiServer = null;	
    		
-   			alert("About to get current settings");
+   			
    		
    			var settings = errorThis.getArrayLocalStorage("settings");
    			
@@ -884,22 +884,32 @@ var app = {
    				"currentWifiServer": currentWifiServer
    			};
    			
-   			alert("New settings:" + JSON.stringify(newSetting));
+   			
    		
    			if((settings == null)|| (settings == '')) {
    				//Creating an array for the first time
    				var settings = [];
    				settings.push(newSetting);  //Save back to the array
    			} else {
-    			settings.push(newSetting);  //Save back to the array
+   				//Check if we are writing over the existing entries
+   				var writeOver = false;
+   				for(cnt = 0; cnt< settings.length; cnt++) {
+   					if(settings[cnt].name == currentServerName) {
+   						writeOver = true;
+   						settings[cnt] = newSetting;
+   					}
+   				}
+   			
+   				if(writeOver == false) {
+    				settings.push(newSetting);  //Save back to the array
+    			}
    			} 
-    		
-    		alert("Pushed settings to array");
+
     		
     		//Save back to the persistent settings
     		errorThis.setArrayLocalStorage("settings", settings);
     		
-    		alert("Back to persistent storage");
+    		
     		return;
     
     },
