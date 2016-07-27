@@ -403,6 +403,7 @@ var app = {
 						localStorage.clear();
 						
 						localStorage.removeItem("usingServer");		//Init it
+						localStorage.removeItem("defaultDir");		//Init it
 						localStorage.removeItem("currentRemoteServer");
 	   					localStorage.removeItem("currentWifiServer");
 						
@@ -476,6 +477,9 @@ var app = {
 						
 			        	//And save this server
 						localStorage.setItem("currentRemoteServer",server);
+						localStorage.removeItem("currentWifiServer");  //Clear the wifi
+						localStorage.removeItem("usingServer");		//Init it
+						localStorage.removeItem("defaultDir");		//Init it
 
 
 						  navigator.notification.confirm(
@@ -495,11 +499,13 @@ var app = {
 										}
 									});
 								} else {
+								
+
+								
 									errorThis.notify("Pairing success, without WiFi.");
 									errorThis.bigButton();
 									
-									//Clear the wifi
-									localStorage.removeItem("currentWifiServer");
+									
 								}
 				
 							},                  // callback to invoke
@@ -519,6 +525,11 @@ var app = {
     		case 2:
     			//Clicked on 'Wifi only'
     			//Otherwise, first time we are running the app this session	
+    			localStorage.removeItem("currentWifiServer");  //Clear the wifi
+				localStorage.removeItem("currentRemoteServer");  //Clear the wifi
+				localStorage.removeItem("usingServer");		//Init it
+				localStorage.removeItem("defaultDir");		//Init it
+				
 				errorThis.checkWifi(function(err) {
 					if(err) {
 						//An error finding server - likely need to enter a pairing code. Warn the user
@@ -526,9 +537,6 @@ var app = {
 					} else {
 						//Ready to take a picture, rerun
 						errorThis.notify("Wifi paired successfully.");
-						
-						//Clear the remote
-						localStorage.removeItem("currentRemoteServer");
 						
 						errorThis.bigButton();
 					}
