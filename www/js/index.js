@@ -519,7 +519,7 @@ var app = {
 
 			   }); //end of get
     			
-    			
+    			return;
     		break;
     	
     		case 2:
@@ -978,6 +978,7 @@ var app = {
    				"currentWifiServer": currentWifiServer
    			};
    			
+   			alert("New setting=" + JSON.stringify(newSetting));
    			
    		
    			if((settings == null)|| (settings == '')) {
