@@ -798,11 +798,21 @@ var app = {
         localStorage.removeItem("usingServer"); //reset the currently used server
        
         //Save the current server
-        localStorage.removeItem("usingServer");
         localStorage.removeItem("defaultDir");
         
-    	localStorage.setItem("currentRemoteServer", currentRemoteServer);
-    	localStorage.setItem("currentWifiServer", currentWifiServer);
+        //Remove if one of these doesn't exist, and use the other.
+        if((!currentWifiServer)||(currentWifiServer == null)) {
+        	localStorage.removeItem("currentWifiServer");
+        } else {
+        	localStorage.setItem("currentWifiServer", currentWifiServer);
+        }
+        
+        if((!currentRemoteServer)||(currentRemoteServer == null)) {
+        	localStorage.removeItem("currentRemoteServer");
+        } else {
+        	localStorage.setItem("currentRemoteServer", currentRemoteServer);
+        }
+ 	
     	
     	navigator.notification.alert("Switched to: " +  settings[serverId].name, function() {}, "Changing PC");
     	
