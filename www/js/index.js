@@ -154,7 +154,9 @@ var app = {
 
         var _this = this;
 	
-		if(!_this.usingServer) {
+		var usingServer = localStorage.getItem("usingServer");
+	
+		if((!usingServer)||(usingServer == null)) {
 			//No remove server already connected to, find the server now. And then call upload again
 			_this.findServer(function(err) {
 				if(err) {
@@ -228,12 +230,13 @@ var app = {
 						ft.onprogress = _this.progress;
 			
 					 
-						var serverReq = _this.usingServer + '/api/photo';
+						var serverReq = usingServer + '/api/photo';
 		
 						var repeatIfNeeded = {
 							"imageURI" : imageURI,
 							"serverReq" : serverReq,
-							"options" :options
+							"options" :options,
+							"failureCount": 0
 						};
 						retryIfNeeded.push(repeatIfNeeded);
 
@@ -278,17 +281,27 @@ var app = {
 	    	 	//Resend within a minute here
 	    	 	errorThis.notify(existingText + " Retrying " + repeatIfNeeded.options.params.title + " in 10 seconds.");
 	    	
-		    	setTimeout(function() {
-		    		var ft = new FileTransfer();
-		        	
-		        	ft.onprogress = errorThis.progress;
-		        	
-		        	errorThis.notify("Trying to upload " + repeatIfNeeded.options.params.title);
-		        	
-		        	retryIfNeeded.push(repeatIfNeeded);
-		        	
-		    		ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
-		    	}, 10000);		//Wait 10 seconds before trying again	
+	    		repeatIfNeeded.failureCount += 1;		//Increase this
+	    		if(repeatIfNeeded.failureCount > 3) {
+	    			//Have tried too many attempts - try to reconnect completely (i.e. go
+	    			//from wifi to network and vica versa
+	    			localStorage.setItem("usingServer", null);		//This will force a reconnection
+	    			errorThis.uploadPhoto(repeatIfNeeded.imageURI);
+	    			
+	    		} else {
+	    			//OK in the first few attempts - keep the current connection and try again
+					setTimeout(function() {
+						var ft = new FileTransfer();
+					
+						ft.onprogress = errorThis.progress;
+					
+						errorThis.notify("Trying to upload " + repeatIfNeeded.options.params.title);
+					
+						retryIfNeeded.push(repeatIfNeeded);
+					
+						ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
+					}, 10000);		//Wait 10 seconds before trying again	
+				}
 	     	}
       },
 
@@ -377,7 +390,9 @@ var app = {
 	    		function(buttonIndex) {
 	    			if(buttonIndex == 1) {
 						localStorage.clear();
-						errorThis.usingServer = null;
+						
+						
+						
 						//Now refresh the current server display
     					document.getElementById("currentPC").innerHTML = "";
     		
@@ -575,7 +590,8 @@ var app = {
        var foundWifiServer = null;
        
        //Early out
-       if((this.usingServer)&&(this.usingServer != null)) {
+       var usingServer = localStorage.getItem("usingServer");
+       if((usingServer)&&(usingServer != null)) {
        		cb(null);
        		return;
        	
@@ -630,7 +646,7 @@ var app = {
 	   	  	  		var scanning = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
 	   	  	  			//last option.
-	   	  	  			errorThis.usingServer = null;
+	   	  	  			localStorage.setItem("usingServer", null);
 	   	  	  			cb('No server found');
 	   	  	  			
 	   	  	  		
@@ -640,13 +656,13 @@ var app = {
 	   	  	  		
 	   	  	  			//Success, got a connection to the remote server
 	   	  	  			clearTimeout(scanning);		//Ensure we don't error out
-	   	  	  			errorThis.usingServer = foundRemoteServer;
+	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
 	   	  	  			cb(null);
 	   	  	  		});
 	   	  	  		
 	   	  	  	} else {
                 	//Only wifi existed
-                	errorThis.usingServer = null;
+                	localStorage.setItem("usingServer", null);
                 	cb('No server found');
             	}
                 
@@ -657,7 +673,7 @@ var app = {
 	   	  	  
 	   	  	  //Success, got a connection to the wifi
 	   	  	  clearTimeout(scanning);		//Ensure we don't error out
-	   	  	  errorThis.usingServer = foundWifiServer;
+	   	  	  localStorage.setItem("usingServer", foundWifiServer);
 	   	  	  cb(null);			//Success found server
 	   	  	  
 	   	  
@@ -671,7 +687,7 @@ var app = {
 	   		var scanning = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
 	   	  	  			//last option.
-	   	  	  			errorThis.usingServer = null;
+	   	  	  			localStorage.setItem("usingServer", null);
 	   	  	  			cb('No server found');
 	   	  	  		
 	   	  	  		}, 4000);
@@ -680,7 +696,7 @@ var app = {
 				
 					//Success, got a connection to the remote server
 					clearTimeout(scanning);		//Ensure we don't error out
-					_this.usingServer = foundRemoteServer;
+					localStorage.setItem("usingServer", foundRemoteServer);
 					cb(null);
 			});
 	   
@@ -747,8 +763,9 @@ var app = {
     	var settings = this.getArrayLocalStorage("settings");
     
     	var currentRemoteServer = settings[serverId].currentRemoteServer;			
-        var currentWifiServer = settings[serverId].currentWifiServer;
-        this.usingServer = null;		//reset the currently used server
+        var currentWifiServer = settings[serverId].currentWifiServer;	
+ 
+        localStorage.setItem("usingServer", null); //reset the currently used server
        
         //Save the current server TODO: null handling here?
     	localStorage.setItem("currentRemoteServer", currentRemoteServer);
@@ -767,7 +784,7 @@ var app = {
     newServer: function() {
     	//Create a new server. 
     	//This is actually effectively resetting, and we will allow the normal functions to input a new one
-        this.usingServer = null;
+    	localStorage.setItem("usingServer", null);
         
         //Remove the current one
         var exists = localStorage.getItem("currentRemoteServer");
@@ -854,6 +871,10 @@ var app = {
     	if((currentServerName) && (currentServerName != null)) {
     		//Now refresh the current server display
     		document.getElementById("currentPC").innerHTML = currentServerName;
+    		
+    		
+    		
+    		
     	} else {
     	
     		document.getElementById("currentPC").innerHTML = "";
