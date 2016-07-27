@@ -463,9 +463,11 @@ var app = {
 
 			   		} else {
 
-						errorThis.notify("Pairing success with " + server);
+						
 						var server = resp;
-
+						
+						errorThis.notify("Pairing success with " + server);
+						
 			        	//And save this server
 						localStorage.setItem("currentRemoteServer",server);
 
@@ -487,7 +489,7 @@ var app = {
 										}
 									});
 								} else {
-									errorThis.notify("Pairing success. No wifi.");
+									errorThis.notify("Pairing success. No WiFi.");
 								}
 				
 							},                  // callback to invoke
