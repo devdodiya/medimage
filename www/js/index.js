@@ -494,6 +494,8 @@ var app = {
 						errorThis.bigButton();
 					}
 				});
+				
+				return;
     		break;
     		
     		default:
@@ -628,7 +630,9 @@ var app = {
 	   	  	  		var scanning = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
 	   	  	  			//last option.
+	   	  	  			errorThis.usingServer = null;
 	   	  	  			cb('No server found');
+	   	  	  			
 	   	  	  		
 	   	  	  		}, 4000);
 	   	  	  		
@@ -642,6 +646,7 @@ var app = {
 	   	  	  		
 	   	  	  	} else {
                 	//Only wifi existed
+                	errorThis.usingServer = null;
                 	cb('No server found');
             	}
                 
@@ -666,6 +671,7 @@ var app = {
 	   		var scanning = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
 	   	  	  			//last option.
+	   	  	  			errorThis.usingServer = null;
 	   	  	  			cb('No server found');
 	   	  	  		
 	   	  	  		}, 4000);
