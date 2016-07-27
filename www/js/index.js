@@ -591,18 +591,21 @@ var app = {
        //Clear off
        var foundRemoteServer = null;
        var foundWifiServer = null;
+       var usingServer = null;
        
        //Early out
-       var usingServer = localStorage.getItem("usingServer");
+       usingServer = localStorage.getItem("usingServer");
+       
        if((usingServer)&&(usingServer != null)) {
+       		alert("usingServer=" + usingServer);
        		cb(null);
        		return;
        	
        }
        
        
-	   var foundRemoteServer = localStorage.getItem("currentRemoteServer");
-	   var foundWifiServer = localStorage.getItem("currentWifiServer");
+	   foundRemoteServer = localStorage.getItem("currentRemoteServer");
+	   foundWifiServer = localStorage.getItem("currentWifiServer");
 	   
 	   if((foundRemoteServer)&&(foundRemoteServer != null)) {
 	   		//Already found a remote server
