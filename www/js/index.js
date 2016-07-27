@@ -644,7 +644,10 @@ var app = {
 	   		var split = this.checkDefaultDir(foundRemoteServer);
 	   		foundRemoteServer = split.server;
 	   		foundRemoteDir = split.dir;		
-	   } 
+	   } else {
+	   		foundRemoteServer = null;
+	   		foundRemoteDir = null;
+	   }
 
    	    //Check if we have a Wifi option		
 	   if((foundWifiServer)&&(foundWifiServer != null)&&(foundWifiServer != "")) {
@@ -654,6 +657,9 @@ var app = {
 	   		foundWifiServer = split.server;
 	   		foundWifiDir = split.dir;	
 
+	   } else {
+	   		foundWifiServer = null;
+	   		foundWifiDir = null;
 	   }
 	   
 	   
