@@ -637,7 +637,7 @@ var app = {
 	   foundRemoteServer = localStorage.getItem("currentRemoteServer");
 	   foundWifiServer = localStorage.getItem("currentWifiServer");
 	   
-	   if((foundRemoteServer)&&(foundRemoteServer != null)) {
+	   if((foundRemoteServer)&&(foundRemoteServer != null)&&(foundRemoteServer != "")) {
 	   		//Already found a remote server
 	   		//Generate the directory split, if any. Setting RAM foundServer and defaultDir
 	   		 
@@ -647,7 +647,7 @@ var app = {
 	   } 
 
    	    //Check if we have a Wifi option		
-	   if((foundWifiServer)&&(foundWifiServer != null)) {
+	   if((foundWifiServer)&&(foundWifiServer != null)&&(foundWifiServer != "")) {
 			//Already found wifi
 			//Generate the directory split, if any. Setting RAM foundServer and defaultDir
 			var split = this.checkDefaultDir(foundWifiServer);
