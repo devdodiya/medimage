@@ -576,7 +576,14 @@ var app = {
        //Clear off
        var foundRemoteServer = null;
        var foundWifiServer = null;
-       this.usingServer = null;
+       
+       //Early out
+       if((this.usingServer)&&(this.usingServer != null) {
+       		cb(null);
+       		return;
+       	
+       }
+       
        
 	   var foundRemoteServer = localStorage.getItem("currentRemoteServer");
 	   var foundWifiServer = localStorage.getItem("currentWifiServer");
@@ -612,6 +619,9 @@ var app = {
 	   if((foundWifiServer)&&(foundWifiServer != null)) {
 	   	  //Ping the wifi server
 	   	  
+	   	  errorThis.notify('Trying to connect to the wifi server..');
+	   	  
+	   	  
 	   	  //Timeout after 5 secs for the following ping
        	  var scanning = setTimeout(function() {
                 errorThis.notify('Timeout finding your wifi server. Trying remote server..');
@@ -640,7 +650,7 @@ var app = {
                 	cb('No server found');
             	}
                 
-       	   }, 4000);
+       	   }, 2000);
 	   	  
 	   	  //Ping the wifi server
 	   	  errorThis.get(foundWifiServer, function(url, resp) {
@@ -656,6 +666,8 @@ var app = {
 	   } else {
 	   		//OK - no wifi option - go straight to the remote server
 	   		//Try the remote server
+	   		errorThis.notify('Trying to connect to the remote server....');
+	   		
 	   		var scanning = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
 	   	  	  			//last option.
@@ -735,6 +747,7 @@ var app = {
     
     	var currentRemoteServer = settings[serverId].currentRemoteServer;			
         var currentWifiServer = settings[serverId].currentWifiServer;
+        this.usingServer = null;		//reset the currently used server
        
         //Save the current server TODO: null handling here?
     	localStorage.setItem("currentRemoteServer", currentRemoteServer);
@@ -771,7 +784,7 @@ var app = {
 			'Please enter a name for this PC',  // message
 			this.saveServerName,                  // callback to invoke
 			'PC Name',            // title
-			['Ok','Exit'],             // buttonLabels
+			['Ok','Cancel'],             // buttonLabels
 			'Main'                 // defaultText
 		);
 	
