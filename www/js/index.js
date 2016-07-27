@@ -627,7 +627,11 @@ var app = {
        //Early out
        usingServer = localStorage.getItem("usingServer");
        
+       
+       
        if((usingServer)&&(usingServer != null)) {
+       
+       		alert("findServer() usingServer:" + usingServer);
        		cb(null);
        		return;
        	
@@ -636,6 +640,9 @@ var app = {
        
 	   foundRemoteServer = localStorage.getItem("currentRemoteServer");
 	   foundWifiServer = localStorage.getItem("currentWifiServer");
+	   
+	   alert("findServer() foundRemoteServer:" + foundRemoteServer);
+	   alert("findServer() foundWifiServer:" + foundWifiServer);
 	   
 	   if((foundRemoteServer)&&(foundRemoteServer != null)&&(foundRemoteServer != "")) {
 	   		//Already found a remote server
