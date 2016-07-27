@@ -287,25 +287,30 @@ var app = {
 	    			//Have tried too many attempts - try to reconnect completely (i.e. go
 	    			//from wifi to network and vica versa
 	    			localStorage.removeItem("usingServer");		//This will force a reconnection
+	    			localStorage.removeItem("defaultDir");
 	    			errorThis.uploadPhoto(repeatIfNeeded.imageURI);
 	    			
 	    			//Clear any existing timeouts
 	    			if(repeatIfNeeded.retryTimeout) {
 	    				clearTimeout(repeatIfNeeded.retryTimeout);
 	    			}
+	    			
+	    			//Clear the current transfer too
+	    			repeatIfNeeded.ft.abort();
 	    			return;
 	    		} else {
 	    			//OK in the first few attempts - keep the current connection and try again
+	    			//Wait 10 seconds here before trying the next upload
 					repeatIfNeeded.retryTimeout = setTimeout(function() {
-						var ft = new FileTransfer();
+						repeatIfNeeded.ft = new FileTransfer();
 					
-						ft.onprogress = errorThis.progress;
+						repeatIfNeeded.ft.onprogress = errorThis.progress;
 					
 						errorThis.notify("Trying to upload " + repeatIfNeeded.options.params.title);
 					
 						retryIfNeeded.push(repeatIfNeeded);
 					
-						ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
+						repeatIfNeeded.ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
 					}, 10000);		//Wait 10 seconds before trying again	
 				}
 	     	}
@@ -343,7 +348,7 @@ var app = {
         switch(error.code)
         {
             case 1:
-                errorThis.notify("Sorry the photo file was not found on your phone.");
+                errorThis.notify("The photo was uploaded.");
             break;
 
             case 2:
