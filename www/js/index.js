@@ -631,7 +631,6 @@ var app = {
        
        if((usingServer)&&(usingServer != null)) {
        
-       		alert("findServer() usingServer:" + usingServer);
        		cb(null);
        		return;
        	
