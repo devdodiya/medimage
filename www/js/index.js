@@ -462,6 +462,7 @@ var app = {
 										} else {
 											//Ready to take a picture, rerun with this
 											//wifi server
+											errorThis.notify("Wifi paired successfully.");
 											errorThis.bigButton();
 										}
 									});
@@ -492,7 +493,8 @@ var app = {
 						errorThis.notify(err);
 					} else {
 						//Ready to take a picture, rerun
-						errorThis.bugButton();
+						errorThis.notify("Wifi paired successfully.");
+						errorThis.bigButton();
 					}
 				});
     		break;
