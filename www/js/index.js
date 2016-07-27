@@ -285,7 +285,7 @@ var app = {
 	    		if(repeatIfNeeded.failureCount > 3) {
 	    			//Have tried too many attempts - try to reconnect completely (i.e. go
 	    			//from wifi to network and vica versa
-	    			localStorage.setItem("usingServer", null);		//This will force a reconnection
+	    			localStorage.removeItem("usingServer");		//This will force a reconnection
 	    			errorThis.uploadPhoto(repeatIfNeeded.imageURI);
 	    			
 	    		} else {
@@ -391,9 +391,9 @@ var app = {
 	    			if(buttonIndex == 1) {
 						localStorage.clear();
 						
-						localStorage.setItem("usingServer", null);		//Init it
-						localStorage.setItem("currentRemoteServer", null);
-	   					localStorage.setItem("currentWifiServer", null);
+						localStorage.removeItem("usingServer");		//Init it
+						localStorage.removeItem("currentRemoteServer");
+	   					localStorage.removeItem("currentWifiServer");
 						
 						
 						//Now refresh the current server display
@@ -597,7 +597,7 @@ var app = {
        usingServer = localStorage.getItem("usingServer");
        
        if((usingServer)&&(usingServer != null)) {
-       		alert("usingServer=" + usingServer);
+       		//alert("usingServer=" + usingServer);
        		cb(null);
        		return;
        	
@@ -652,7 +652,7 @@ var app = {
 	   	  	  		var scanning = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
 	   	  	  			//last option.
-	   	  	  			localStorage.setItem("usingServer", null);
+	   	  	  			localStorage.removeItem("usingServer");
 	   	  	  			cb('No server found');
 	   	  	  			
 	   	  	  		
@@ -668,7 +668,7 @@ var app = {
 	   	  	  		
 	   	  	  	} else {
                 	//Only wifi existed
-                	localStorage.setItem("usingServer", null);
+                	localStorage.removeItem("usingServer");
                 	cb('No server found');
             	}
                 
@@ -693,7 +693,7 @@ var app = {
 	   		var scanning = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
 	   	  	  			//last option.
-	   	  	  			localStorage.setItem("usingServer", null);
+	   	  	  			localStorage.removeItem("usingServer");
 	   	  	  			cb('No server found');
 	   	  	  		
 	   	  	  		}, 4000);
@@ -771,7 +771,7 @@ var app = {
     	var currentRemoteServer = settings[serverId].currentRemoteServer;			
         var currentWifiServer = settings[serverId].currentWifiServer;	
  
-        localStorage.setItem("usingServer", null); //reset the currently used server
+        localStorage.removeItem("usingServer"); //reset the currently used server
        
         //Save the current server TODO: null handling here?
     	localStorage.setItem("currentRemoteServer", currentRemoteServer);
@@ -790,7 +790,7 @@ var app = {
     newServer: function() {
     	//Create a new server. 
     	//This is actually effectively resetting, and we will allow the normal functions to input a new one
-    	localStorage.setItem("usingServer", null);
+    	localStorage.removeItem("usingServer");
         
         //Remove the current one
         var exists = localStorage.getItem("currentRemoteServer");
