@@ -74,7 +74,24 @@ var app = {
       var _this = this;
 
       navigator.camera.getPicture( function( imageURI ) {
-          errorThis.uploadPhoto(imageURI);
+      
+      	  //Temporary test
+      	  _this.findServer(function(err) {
+				if(err) {
+					errorThis.notify("Sorry, we cannot connect to the server. Trying again in 10 seconds.");
+					//Search again in 10 seconds:
+					setTimeout(function() {
+						localStorage.removeItem("usingServer");		//This will force a reconnection
+	    				localStorage.removeItem("defaultDir");
+						errorThis.uploadPhoto(imageURI);
+						}, 10000);
+				} else {
+					//Now we are connected, upload the photo again
+					errorThis.uploadPhoto(imageURI);
+				}
+			});
+          //Working version:!! TEMPOUT
+          //errorThis.uploadPhoto(imageURI);
         },
        function( message ) {
          errorThis.notify( message );
@@ -222,7 +239,7 @@ var app = {
 						}
 
 						options.params = params;
-						options.chunkedMode = true;		//chunkedMode = false does work, but still having some issues. =true may only work on newer systems?
+						options.chunkedMode = false;		//chunkedMode = false does work, but still having some issues. =true may only work on newer systems?
 						options.headers = {		//Trying this.
 							Connection: "close"
 						}
