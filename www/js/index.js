@@ -75,7 +75,10 @@ var app = {
 
       navigator.camera.getPicture( function( imageURI ) {
       
-      	  //Temporary test
+      	  //Reconnect once
+      	  localStorage.removeItem("usingServer");		//This will force a reconnection
+	      localStorage.removeItem("defaultDir");
+      	  
       	  _this.findServer(function(err) {
 				if(err) {
 					errorThis.notify("Sorry, we cannot connect to the server. Trying again in 10 seconds.");
