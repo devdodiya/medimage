@@ -222,7 +222,7 @@ var app = {
 						}
 
 						options.params = params;
-						options.chunkedMode = false;
+						options.chunkedMode = true;		//chunkedMode = false does work, but still having some issues. =true may only work on newer systems?
 						options.headers = {		//Trying this.
 							Connection: "close"
 						}
@@ -311,7 +311,7 @@ var app = {
 	    			return;
 	    		} else {
 	    			//OK in the first few attempts - keep the current connection and try again
-	    			//Wait 10 seconds here before trying the next upload
+	    			//Wait 10 seconds+ here before trying the next upload
 					
 					
 					repeatIfNeeded.retryTimeout = setTimeout(function() {
