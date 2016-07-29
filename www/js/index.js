@@ -286,6 +286,7 @@ var app = {
 	    	 	//Resend within a minute here
 	    	 	var t = new Date();
 				t.setSeconds(t.getSeconds() + repeatIfNeeded.nextAttemptSec);
+				var timein = (repeatIfNeeded.nextAttemptSec*1000);		//In microseconds
 	    	 	repeatIfNeeded.nextAttemptSec *= 3;	//Increase the delay between attempts each time to save battery
 	    	 	if(repeatIfNeeded.nextAttemptSec > 21600) repeatIfNeeded.nextAttemptSec = 21600;		//If longer than 6 hours gap, make 6 hours (that is 60x60x6)
 	    	 	var hrMin =  t.getHours() + ":" + t.getMinutes();
@@ -311,7 +312,7 @@ var app = {
 	    		} else {
 	    			//OK in the first few attempts - keep the current connection and try again
 	    			//Wait 10 seconds here before trying the next upload
-					var timein = (repeatIfNeeded.nextAttemptSec*1000);
+					
 					
 					repeatIfNeeded.retryTimeout = setTimeout(function() {
 						repeatIfNeeded.ft = new FileTransfer();
