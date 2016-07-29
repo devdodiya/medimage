@@ -241,7 +241,7 @@ var app = {
 							"serverReq" : serverReq,
 							"options" :options,
 							"failureCount": 0,
-							"nextAttemptSec": 30
+							"nextAttemptSec": 15
 						};
 						retryIfNeeded.push(repeatIfNeeded);
 
