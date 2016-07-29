@@ -223,6 +223,9 @@ var app = {
 
 						options.params = params;
 						options.chunkedMode = false;
+						options.headers = {		//Trying this.
+							Connection: "close"
+						}
 
 
 						var ft = new FileTransfer();
@@ -237,7 +240,8 @@ var app = {
 							"imageURI" : imageURI,
 							"serverReq" : serverReq,
 							"options" :options,
-							"failureCount": 0
+							"failureCount": 0,
+							"nextAttemptSec": 60
 						};
 						retryIfNeeded.push(repeatIfNeeded);
 
@@ -280,7 +284,13 @@ var app = {
 	     	
 	     	if(repeatIfNeeded) {
 	    	 	//Resend within a minute here
-	    	 	errorThis.notify(existingText + " Retrying " + repeatIfNeeded.options.params.title + " in 10 seconds.");
+	    	 	var t = new Date();
+				t.setSeconds(t.getSeconds() + repeatIfNeeded.nextAttemptSec);
+	    	 	repeatIfNeeded.nextAttemptSec *= 3;	//Increase the delay between attempts each time to save battery
+	    	 	if(repeatIfNeeded.nextAttemptSec > 21600) repeatIfNeeded.nextAttemptSec = 21600;		//If longer than 6 hours gap, make 6 hours (that is 60x60x6)
+	    	 	var hrMin =  t.getHours() + ":" + t.getMinutes();
+	    	 	
+	    	 	errorThis.notify(existingText + " Retrying " + repeatIfNeeded.options.params.title + " at " + hrMin);
 	    	
 	    		repeatIfNeeded.failureCount += 1;		//Increase this
 	    		if(repeatIfNeeded.failureCount > 2) {
@@ -301,6 +311,8 @@ var app = {
 	    		} else {
 	    			//OK in the first few attempts - keep the current connection and try again
 	    			//Wait 10 seconds here before trying the next upload
+					var timein = (repeatIfNeeded.nextAttemptSec*1000);
+					
 					repeatIfNeeded.retryTimeout = setTimeout(function() {
 						repeatIfNeeded.ft = new FileTransfer();
 					
@@ -311,7 +323,7 @@ var app = {
 						retryIfNeeded.push(repeatIfNeeded);
 					
 						repeatIfNeeded.ft.upload(repeatIfNeeded.imageURI, repeatIfNeeded.serverReq, errorThis.win, errorThis.fail, repeatIfNeeded.options);
-					}, 10000);		//Wait 10 seconds before trying again	
+					}, timein);		//Wait 10 seconds before trying again	
 				}
 	     	}
       },
@@ -356,8 +368,8 @@ var app = {
             break;
 
             case 3:
-                errorThis.notify("You cannot connect to the server at this time.");
-                errorThis.retry("You cannot connect to the server at this time.</br>");
+                errorThis.notify("Waiting for better reception..");
+                errorThis.retry("Waiting for better reception...</br>");
             break;
 
             case 4:
