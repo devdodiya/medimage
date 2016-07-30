@@ -28,7 +28,7 @@
     </author>
 
 
-	<preference name="phonegap-version" value="cli-5.2.0" /> <!-- the latest version has a build error at 30 July 2016 -->
+	
   
     <gap:plugin name="org.apache.cordova.core.camera" />
     <gap:plugin name="org.apache.cordova.file-transfer"  source="npm"/> 
@@ -52,7 +52,7 @@
     </platform>
     
     <platform name="ios">
-    	
+    	<preference name="phonegap-version" value="cli-5.2.0" /> <!-- the latest version has a build error at 30 July 2016 -->
         <preference name="permissions" value="none" />
         <preference name="orientation" value="portrait" />
         <icon src="icon.png" width="128" height="128" />
