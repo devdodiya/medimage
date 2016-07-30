@@ -28,7 +28,7 @@
     </author>
 
 
-	<preference name="phonegap-version" value="cli-6.0.0" /> <!-- the latest version has a build error at 30 July 2016 -->
+	<preference name="phonegap-version" value="cli-5.2.0" /> <!-- the latest version has a build error at 30 July 2016 -->
   
     <gap:plugin name="org.apache.cordova.core.camera" />
     <gap:plugin name="org.apache.cordova.file-transfer"  source="npm"/> 
