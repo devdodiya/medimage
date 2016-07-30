@@ -11,8 +11,6 @@
 
         
     <!-- When ready add ios|winphone|wp8|android -->    
-    <!--<platform name="android" />
-    <platform name="ios" />-->
 
 
     <name>MedImage</name>
