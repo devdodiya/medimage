@@ -52,7 +52,7 @@
     </platform>
     
     <platform name="ios">
-    	<preference name="phonegap-version" value="cli-6.1.0" /> <!-- the latest version has a build error at 30 July 2016 -->
+    	<preference name="phonegap-version" value="cli-4.0.0" /> <!-- the latest version has a build error at 30 July 2016 -->
         <preference name="permissions" value="none" />
         <preference name="orientation" value="portrait" />
         <icon src="icon.png" width="128" height="128" />
