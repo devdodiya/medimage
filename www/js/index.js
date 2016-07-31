@@ -603,7 +603,7 @@ var app = {
 
 
 		if((!foundRemoteServer)||(foundRemoteServer == null)||(foundRemoteServer == "")||
-		    (!foundWifiServer)||(foundWifiServer == null)||(foundWifiServer == "")||
+		    (!foundWifiServer)||(foundWifiServer == null)||(foundWifiServer == "")) {
 				//Likely need to enter a pairing code. Warn the user
 				//No current server - first time with this new connection
 
