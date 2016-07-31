@@ -72,6 +72,7 @@ var app = {
 
     takePicture: function() {
       var _this = this;
+      errorThis = this;
 
       navigator.camera.getPicture( function( imageURI ) {
       
@@ -79,22 +80,25 @@ var app = {
       	  localStorage.removeItem("usingServer");		//This will force a reconnection
 	      localStorage.removeItem("defaultDir");
       	  
+      	  var thisImageURI = imageURI;
+      	  
       	  _this.findServer(function(err) {
 				if(err) {
 					errorThis.notify("Sorry, we cannot connect to the server. Trying again in 10 seconds.");
 					//Search again in 10 seconds:
+					var passedImageURI = thisImageURI;
+					
 					setTimeout(function() {
 						localStorage.removeItem("usingServer");		//This will force a reconnection
 	    				localStorage.removeItem("defaultDir");
-						errorThis.uploadPhoto(imageURI);
+						errorThis.uploadPhoto(passedImageURI);
 						}, 10000);
 				} else {
 					//Now we are connected, upload the photo again
-					errorThis.uploadPhoto(imageURI);
+					errorThis.uploadPhoto(thisImageURI);
 				}
 			});
-          //Working version:!! TEMPOUT
-          //errorThis.uploadPhoto(imageURI);
+          
         },
        function( message ) {
          errorThis.notify( message );
