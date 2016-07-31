@@ -596,9 +596,15 @@ var app = {
         
         var _this = this;
 
-		_this.findServer(function(err) {
-			if(err) {
-				//An error finding server - likely need to enter a pairing code. Warn the user
+       var foundRemoteServer = null;
+       var foundWifiServer = null;
+	   foundRemoteServer = localStorage.getItem("currentRemoteServer");
+	   foundWifiServer = localStorage.getItem("currentWifiServer");
+
+
+		if((!foundRemoteServer)||(foundRemoteServer == null)||(foundRemoteServer == "")||
+		    (!foundWifiServer)||(foundWifiServer == null)||(foundWifiServer == "")||
+				//Likely need to enter a pairing code. Warn the user
 				//No current server - first time with this new connection
 
 				//We have connected to a server OK
