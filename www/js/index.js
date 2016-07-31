@@ -615,11 +615,11 @@ var app = {
 					['Ok','Use Wifi Only','Cancel'],             // buttonLabels
 					''                 // defaultText
 				);
-			} else {
-				//Ready to take a picture
-				_this.takePicture();
-			}
-		});
+		} else {
+			//Ready to take a picture
+			_this.takePicture();
+		}
+
 		
 
 
