@@ -602,8 +602,9 @@ var app = {
 	   foundWifiServer = localStorage.getItem("currentWifiServer");
 
 
-		if((!foundRemoteServer)||(foundRemoteServer == null)||(foundRemoteServer == "")||
-		    (!foundWifiServer)||(foundWifiServer == null)||(foundWifiServer == "")) {
+		if(((foundRemoteServer == null)||(foundRemoteServer == ""))&&
+		    ((foundWifiServer == null)||(foundWifiServer == ""))) {
+		    
 				//Likely need to enter a pairing code. Warn the user
 				//No current server - first time with this new connection
 
@@ -617,7 +618,7 @@ var app = {
 				);
 		} else {
 			//Ready to take a picture
-			_this.takePicture();
+		    _this.takePicture();			
 		}
 
 		
