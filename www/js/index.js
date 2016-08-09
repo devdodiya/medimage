@@ -729,7 +729,7 @@ var app = {
 	   	  
 	   	  //Timeout after 5 secs for the following ping
        	  var scanning = setTimeout(function() {
-                errorThis.notify('Timeout finding your wifi server. Trying remote server..');
+                errorThis.notify('Timeout finding your wifi server.</br>Trying remote server..');
                 
                 //Else can't communicate with the wifi server at this time.
 	   	  	  	//Try the remote server
@@ -950,6 +950,20 @@ var app = {
 						if((settings == null)|| (settings == '')) {
 							//Nothing to delete 
 						} else {
+						
+							//Check if it is deleting the current entry
+							var deleteName = settings[errorThis.myServerId].name;
+							var currentServerName = localStorage.getItem("currentServerName");
+    	
+    						if((currentServerName) && (deleteName) && (currentServerName == deleteName)) {
+    							//Now refresh the current server display
+    							document.getElementById("currentPC").innerHTML = "";
+    							localStorage.removeItem("currentRemoteServer");
+    							localStorage.removeItem("currentWifiServer");
+    							localStorage.removeItem("currentServerName");
+    						}
+
+						
 							settings.splice(errorThis.myServerId, 1);  //Remove the entry entirely from array
 			
 							errorThis.setArrayLocalStorage("settings", settings);
