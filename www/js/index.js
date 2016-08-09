@@ -371,9 +371,6 @@ var app = {
             	deleteThisFile.remove();
             } else {
             	//Retry sending
-            	//Testing in:
-            	alert("Code = " + r.responseCode + "  Response = " + r.response + " Sent = " + r.bytesSent);
-            	
             	errorThis.retry("");
             	
             }
@@ -397,7 +394,7 @@ var app = {
 
             case 3:
                 errorThis.notify("Waiting for better reception..");
-                //TEMPOUT - we allow connection errors, because it should reattempt after a while. errorThis.retry("Waiting for better reception...</br>");
+                errorThis.retry("Waiting for better reception...</br>");
             break;
 
             case 4:
@@ -663,6 +660,7 @@ var app = {
 	   //Then actually try to connect - if wifi is an option, use that first
        var _this = this;
        
+       var alreadyReturned = false;
        var found = false;
        //Clear off
        var foundRemoteServer = null;
@@ -737,12 +735,15 @@ var app = {
 	   	  	  	//Try the remote server
 	   	  	  	if((foundRemoteServer)&&(foundRemoteServer != null)&&(foundWifiServer != "null")) {
 	   	  	  		
-	   	  	  		var scanning = setTimeout(function() {
+	   	  	  		var scanningB = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
 	   	  	  			//last option.
 	   	  	  			localStorage.removeItem("usingServer");
 	   	  	  			localStorage.removeItem("defaultDir");
-	   	  	  			cb('No server found');
+	   	  	  			if(alreadyReturned == false) {
+	   	  	  				alreadyReturned = true;
+	   	  	  				cb('No server found');
+	   	  	  			}
 	   	  	  			
 	   	  	  		
 	   	  	  		}, 4000);
@@ -751,16 +752,24 @@ var app = {
 	   	  	  		
 	   	  	  			//Success, got a connection to the remote server
 	   	  	  			clearTimeout(scanning);		//Ensure we don't error out
+	   	  	  			clearTimeout(scanningB);		//Ensure we don't error out
 	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
 	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
-	   	  	  			cb(null);
+	   	  	  			if(alreadyReturned == false) {
+	   	  	  				alreadyReturned = true;
+	   	  	  				cb(null);
+	   	  	  			}
 	   	  	  		});
 	   	  	  		
 	   	  	  	} else {
                 	//Only wifi existed
                 	localStorage.removeItem("usingServer");
                 	localStorage.removeItem("defaultDir");
-                	cb('No server found');
+                	if(alreadyReturned == false) {
+                		alreadyReturned = true;
+                		cb('No server found');
+                	}
+                		
             	}
                 
        	   }, 2000);
@@ -773,7 +782,10 @@ var app = {
 	   	  	  localStorage.setItem("usingServer", foundWifiServer);
 	   	  	  localStorage.setItem("defaultDir", foundWifiDir);
 	   	  	  
-	   	  	  cb(null);			//Success found server
+	   	  	  if(alreadyReturned == false) {
+	   	  	  	  alreadyReturned = true;
+	   	  	  	  cb(null);			//Success found server
+	   	  	  }
 	   	  	  
 	   	  
 	   	  });
@@ -788,7 +800,11 @@ var app = {
 	   	  	  			//last option.
 	   	  	  			localStorage.removeItem("usingServer");
 	   	  	  			localStorage.removeItem("defaultDir");
-	   	  	  			cb('No server found');
+	   	  	  			
+	   	  	  			if(alreadyReturned == false) {
+	   	  	  				alreadyReturned = true;
+	   	  	  				cb('No server found');
+	   	  	  			}
 	   	  	  		
 	   	  	  		}, 4000);
 	   		
@@ -798,7 +814,11 @@ var app = {
 					clearTimeout(scanning);		//Ensure we don't error out
 					localStorage.setItem("usingServer", foundRemoteServer);
 					localStorage.setItem("defaultDir", foundRemoteDir);
-					cb(null);
+					
+					if(alreadyReturned == false) {
+						alreadyReturned = true;
+						cb(null);
+					}
 			});
 	   
 	   
