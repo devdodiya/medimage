@@ -394,7 +394,7 @@ var app = {
 
             case 3:
                 errorThis.notify("Waiting for better reception..");
-                errorThis.retry("Waiting for better reception...</br>");
+                //TEMPOUT - we allow connection errors, because it should reattempt after a while. errorThis.retry("Waiting for better reception...</br>");
             break;
 
             case 4:
