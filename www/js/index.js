@@ -371,6 +371,9 @@ var app = {
             	deleteThisFile.remove();
             } else {
             	//Retry sending
+            	//Testing in:
+            	alert("Code = " + r.responseCode + "  Response = " + r.response + " Sent = " + r.bytesSent);
+            	
             	errorThis.retry("");
             	
             }
