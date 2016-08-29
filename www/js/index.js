@@ -758,15 +758,14 @@ var app = {
 	   	  	  			clearTimeout(scanningB);		//Ensure we don't error out
 	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
 	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
-	   	  	  			var myCb = cb;
-	   	  	  			var myAlreadyReturned = alreadyReturned;
-	   	  	  			setTimeout(function(myCb) {
+	   	  	  			
+	   	  	  			setTimeout(function() {
 	   	  	  				 alert("Found remote server, and waited 2 seconds. Already returned = " + myAlreadyReturned);	//TEMPORARY TESTING
 	   	  	  			
-	   	  	  			     if(myAlreadyReturned == false) {
-	   	  	  				     myAlreadyReturned = true;
+	   	  	  			     if(alreadyReturned == false) {
+	   	  	  				     alreadyReturned = true;
 	   	  	  				     
-	   	  	  				     myCb(null);	//Wait for a couple of seconds 
+	   	  	  				     cb(null);	//Wait for a couple of seconds 
 	   	  	  								//now that we're connected for
 	   	  	  								//the connection to properly establish
 	   	  	  				
