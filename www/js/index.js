@@ -729,10 +729,10 @@ var app = {
 	   	  
 	   	  //Timeout after 5 secs for the following ping
        	        var scanning = setTimeout(function() {
-                errorThis.notify('Timeout finding your wifi server.</br>Trying remote server..');
+                    errorThis.notify('Timeout finding your wifi server.</br>Trying remote server..');
                 
-                //Else can't communicate with the wifi server at this time.
-	   	  	  	//Try the remote server
+                    //Else can't communicate with the wifi server at this time.
+	   	  	//Try the remote server
 	   	  	  	if((foundRemoteServer)&&(foundRemoteServer != null)&&(foundWifiServer != "null")) {
 	   	  	  		
 	   	  	  		var scanningB = setTimeout(function() {
@@ -755,17 +755,21 @@ var app = {
 	   	  	  			clearTimeout(scanningB);		//Ensure we don't error out
 	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
 	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
-	   	  	  			if(alreadyReturned == false) {
+	   	  	  			setTimeout(function() {
+	   	  	  			     if(alreadyReturned == false) {
 	   	  	  				alreadyReturned = true;
-	   	  	  				setTimeout(cb(null), 2000);	//Wait for a couple of seconds 
+	   	  	  				cb(null);	//Wait for a couple of seconds 
 	   	  	  								//now that we're connected for
 	   	  	  								//the connection to properly establish
 	   	  	  				
-	   	  	  			}
+	   	  	  			     }	
+	   	  	  				
+	   	  	  			}, 2000);
+	   	  	  			
 	   	  	  		});
 	   	  	  		
 	   	  	  	} else {
-                	//Only wifi existed
+                	          //Only wifi existed
                 	localStorage.removeItem("usingServer");
                 	localStorage.removeItem("defaultDir");
                 	if(alreadyReturned == false) {
@@ -809,7 +813,7 @@ var app = {
 	   	  	  				cb('No server found');
 	   	  	  			}
 	   	  	  		
-	   	  	  		}, 4000);
+	   	  	  		}, 6000);
 	   		
 			_this.get(foundRemoteServer, function(url, resp) {
 				
@@ -818,12 +822,18 @@ var app = {
 					localStorage.setItem("usingServer", foundRemoteServer);
 					localStorage.setItem("defaultDir", foundRemoteDir);
 					
-					if(alreadyReturned == false) {
-						alreadyReturned = true;
-						setTimeout(cb(null), 2000);	//Wait for a couple of seconds 
+					
+					setTimeout(function() {
+	   	  	  			     if(alreadyReturned == false) {
+	   	  	  				alreadyReturned = true;
+	   	  	  				cb(null);	//Wait for a couple of seconds 
 	   	  	  								//now that we're connected for
 	   	  	  								//the connection to properly establish
-					}
+	   	  	  				
+	   	  	  			     }	
+	   	  	  				
+	   	  	  			}, 2000);
+				
 			});
 	   
 	   
