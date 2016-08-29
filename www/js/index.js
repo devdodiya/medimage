@@ -759,6 +759,7 @@ var app = {
 	   	  	  			clearTimeout(scanningB);		//Ensure we don't error out
 	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
 	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
+	   	  	  			alert(JSON.stringify(resp));
 	   	  	  			if(resp.indexOf("200") != -1) {
 	   	  	  			
 	   	  	  				 alert("Found remote server, and waited 2 seconds. Already returned = " + myAlreadyReturned);	//TEMPORARY TESTING
