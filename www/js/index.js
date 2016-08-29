@@ -754,21 +754,22 @@ var app = {
 	   	  	  		
 	   	  	  		errorThis.get(foundRemoteServer, function(url, resp) {
 	   	  	  		
-	   	  	  			//Success, got a connection to the remote server
-	   	  	  			clearTimeout(scanning);		//Ensure we don't error out
-	   	  	  			clearTimeout(scanningB);		//Ensure we don't error out
-	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
-	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
-	   	  	  			
-						 alert("Found remote server, and waited 2 seconds. Already returned = " + myAlreadyReturned);	//TEMPORARY TESTING
+	   	  	  		    if(resp != "") {
+							//Success, got a connection to the remote server
+							clearTimeout(scanning);		//Ensure we don't error out
+							clearTimeout(scanningB);		//Ensure we don't error out
+							localStorage.setItem("usingServer", foundRemoteServer);
+							localStorage.setItem("defaultDir", foundRemoteDir);
+						
+							 alert("Found remote server, and waited 2 seconds. Already returned = " + myAlreadyReturned);	//TEMPORARY TESTING
 				
-						 if(alreadyReturned == false) {
-							 alreadyReturned = true;
+							 if(alreadyReturned == false) {
+								 alreadyReturned = true;
 						 
-							 cb(null);	
+								 cb(null);	
 					
-						 }	
-	   	  	  				
+							 }	
+						}	   	  	  				
 	   	  	  			
 	   	  	  		});
 	   	  	  		
@@ -790,19 +791,20 @@ var app = {
 	   	  //Ping the wifi server
 	   	  errorThis.get(foundWifiServer, function(url, resp) {
 	   	  	  
-	   	  	  alert("Wifi resp=" + resp);
+	   	  	  if(resp != "") {
 	   	  	  
-			  //Success, got a connection to the wifi
-			  clearTimeout(scanning);		//Ensure we don't error out
-			  localStorage.setItem("usingServer", foundWifiServer);
-			  localStorage.setItem("defaultDir", foundWifiDir);
+				  //Success, got a connection to the wifi
+				  clearTimeout(scanning);		//Ensure we don't error out
+				  localStorage.setItem("usingServer", foundWifiServer);
+				  localStorage.setItem("defaultDir", foundWifiDir);
 		  
-			  alert("Connected to wifi server. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
+				  alert("Connected to wifi server. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
 					
 		  
-			  if(alreadyReturned == false) {
-				  alreadyReturned = true;
-				  cb(null);			//Success found server
+				  if(alreadyReturned == false) {
+					  alreadyReturned = true;
+					  cb(null);			//Success found server
+				  }
 			  }
 	   	  
 	   	  });
@@ -827,18 +829,19 @@ var app = {
 	   		
 			_this.get(foundRemoteServer, function(url, resp) {
 				
+				if(resp != "") {
+					//Success, got a connection to the remote server
+					clearTimeout(scanning);		//Ensure we don't error out
+					localStorage.setItem("usingServer", foundRemoteServer);
+					localStorage.setItem("defaultDir", foundRemoteDir);
 				
-				//Success, got a connection to the remote server
-				clearTimeout(scanning);		//Ensure we don't error out
-				localStorage.setItem("usingServer", foundRemoteServer);
-				localStorage.setItem("defaultDir", foundRemoteDir);
 				
 				
-				
-				if(alreadyReturned == false) {
-					alreadyReturned = true;
-					cb(null);	
+					if(alreadyReturned == false) {
+						alreadyReturned = true;
+						cb(null);	
 					
+					}
 				}
 			});
 	   
