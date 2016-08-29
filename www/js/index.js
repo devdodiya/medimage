@@ -729,7 +729,7 @@ var app = {
 	   	  
 	   	  //Timeout after 5 secs for the following ping
        	  var scanning = setTimeout(function() {
-                clearTimeout(scanning);		//Ensure we don't error out
+                
                 
                 errorThis.notify('Timeout finding your wifi server.</br>Trying remote server..');
                 
@@ -753,14 +753,13 @@ var app = {
 	   	  	  		errorThis.get(foundRemoteServer, function(url, resp) {
 	   	  	  		
 	   	  	  			//Success, got a connection to the remote server
-	   	  	  			clearTimeout(scanning);		//Ensure we don't error out
 	   	  	  			clearTimeout(scanningB);		//Ensure we don't error out
 	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
 	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
 	   	  	  			setTimeout(function() {
 	   	  	  			     if(alreadyReturned == false) {
-	   	  	  				alreadyReturned = true;
-	   	  	  				cb(null);	//Wait for a couple of seconds 
+	   	  	  				     alreadyReturned = true;
+	   	  	  				     cb(null);	//Wait for a couple of seconds 
 	   	  	  								//now that we're connected for
 	   	  	  								//the connection to properly establish
 	   	  	  				
