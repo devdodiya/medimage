@@ -794,19 +794,21 @@ var app = {
 	   	  //Ping the wifi server
 	   	  errorThis.get(foundWifiServer, function(url, resp) {
 	   	  	  
-	   	  	  //Success, got a connection to the wifi
-	   	  	  clearTimeout(scanning);		//Ensure we don't error out
-	   	  	  localStorage.setItem("usingServer", foundWifiServer);
-	   	  	  localStorage.setItem("defaultDir", foundWifiDir);
+	   	  	  if(resp.indexOf("200") != -1) {
 	   	  	  
-	   	  	  alert("Connected to wifi server. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
-	   	  	  			
-	   	  	  
-	   	  	  if(alreadyReturned == false) {
-	   	  	  	  alreadyReturned = true;
-	   	  	  	  cb(null);			//Success found server
+				  //Success, got a connection to the wifi
+				  clearTimeout(scanning);		//Ensure we don't error out
+				  localStorage.setItem("usingServer", foundWifiServer);
+				  localStorage.setItem("defaultDir", foundWifiDir);
+			  
+				  alert("Connected to wifi server. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
+						
+			  
+				  if(alreadyReturned == false) {
+					  alreadyReturned = true;
+					  cb(null);			//Success found server
+				  }
 	   	  	  }
-	   	  	  
 	   	  
 	   	  });
 	   
