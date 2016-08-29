@@ -755,11 +755,12 @@ var app = {
 	   	  	  		errorThis.get(foundRemoteServer, function(url, resp) {
 	   	  	  		
 	   	  	  			//Success, got a connection to the remote server
+	   	  	  			clearTimeout(scanning);		//Ensure we don't error out
 	   	  	  			clearTimeout(scanningB);		//Ensure we don't error out
 	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
 	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
+	   	  	  			if(resp.indexOf("200") != -1) {
 	   	  	  			
-	   	  	  			setTimeout(function() {
 	   	  	  				 alert("Found remote server, and waited 2 seconds. Already returned = " + myAlreadyReturned);	//TEMPORARY TESTING
 	   	  	  			
 	   	  	  			     if(alreadyReturned == false) {
@@ -771,7 +772,7 @@ var app = {
 	   	  	  				
 	   	  	  			     }	
 	   	  	  				
-	   	  	  			}, 2000);
+	   	  	  			}
 	   	  	  			
 	   	  	  		});
 	   	  	  		
@@ -831,23 +832,25 @@ var app = {
 	   		
 			_this.get(foundRemoteServer, function(url, resp) {
 				
+				 if(resp.indexOf("200") != -1) {
+				
 					//Success, got a connection to the remote server
 					clearTimeout(scanning);		//Ensure we don't error out
 					localStorage.setItem("usingServer", foundRemoteServer);
 					localStorage.setItem("defaultDir", foundRemoteDir);
 					
 					
-					setTimeout(function() {
-	   	  	  			     if(alreadyReturned == false) {
-	   	  	  				alreadyReturned = true;
-	   	  	  				cb(null);	//Wait for a couple of seconds 
-	   	  	  								//now that we're connected for
-	   	  	  								//the connection to properly establish
-	   	  	  				
-	   	  	  			     }	
-	   	  	  				
-	   	  	  			}, 2000);
-				
+					
+					if(alreadyReturned == false) {
+						alreadyReturned = true;
+						cb(null);	//Wait for a couple of seconds 
+										//now that we're connected for
+										//the connection to properly establish
+						
+						 }	
+						
+					}
+				}
 			});
 	   
 	   
