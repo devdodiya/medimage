@@ -742,7 +742,6 @@ var app = {
 	   	  	  			//last option.
 	   	  	  			localStorage.removeItem("usingServer");
 	   	  	  			localStorage.removeItem("defaultDir");
-	   	  	  			alert("Timed out after 6 seconds connecting to remote server. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
 	   	  	  			
 	   	  	  			if(alreadyReturned == false) {
 	   	  	  				alreadyReturned = true;
@@ -754,7 +753,6 @@ var app = {
 	   	  	  		
 	   	  	  		errorThis.get(foundRemoteServer, function(url, resp) {
 	   	  	  		
-	   	  	  			alert("remote server " + url + " said:" + resp);
 	   	  	  		    if(resp != "") {
 							//Success, got a connection to the remote server
 							
@@ -762,7 +760,6 @@ var app = {
 							localStorage.setItem("usingServer", foundRemoteServer);
 							localStorage.setItem("defaultDir", foundRemoteDir);
 						
-							 alert("Found remote server, and waited 2 seconds. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
 				
 							 if(alreadyReturned == false) {
 								 alreadyReturned = true;
@@ -777,9 +774,7 @@ var app = {
 	   	  	  		});
 	   	  	  		
 	   	  	  	} else {
-                	//Only wifi existed
-                	alert("Only wifi existed. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
-	   	  	  			
+                	//Only wifi existed	   	  	  			
                 	localStorage.removeItem("usingServer");
                 	localStorage.removeItem("defaultDir");
                 	if(alreadyReturned == false) {
@@ -799,10 +794,7 @@ var app = {
 				  //Success, got a connection to the wifi
 				  clearTimeout(scanning);		//Ensure we don't error out
 				  localStorage.setItem("usingServer", foundWifiServer);
-				  localStorage.setItem("defaultDir", foundWifiDir);
-		  
-				  alert("Connected to wifi server. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
-					
+				  localStorage.setItem("defaultDir", foundWifiDir);					
 		  
 				  if(alreadyReturned == false) {
 					  alreadyReturned = true;
@@ -834,10 +826,8 @@ var app = {
 				
 				if(resp != "") {
 					//Success, got a connection to the remote server
-					clearTimeout(scanning);		//Ensure we don't error out
 					localStorage.setItem("usingServer", foundRemoteServer);
 					localStorage.setItem("defaultDir", foundRemoteDir);
-				
 				
 				
 					if(alreadyReturned == false) {
@@ -845,6 +835,9 @@ var app = {
 						cb(null);	
 					
 					}
+					
+					clearTimeout(scanning);		//Ensure we don't error out
+
 				}
 			});
 	   
