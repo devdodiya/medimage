@@ -735,7 +735,7 @@ var app = {
                 
                 //Else can't communicate with the wifi server at this time.
 	   	  	    //Try the remote server
-	   	  	  	if((foundRemoteServer)&&(foundRemoteServer != null)&&(foundWifiServer != "null")) {
+	   	  	  	if((foundRemoteServer)&&(foundRemoteServer != null)&&(foundRemoteServer != "null")) {
 	   	  	  		
 	   	  	  		var scanningB = setTimeout(function() {
 	   	  	  			//Timed out connecting to the remote server - that was the
@@ -748,14 +748,14 @@ var app = {
 	   	  	  			}
 	   	  	  			
 	   	  	  		
-	   	  	  		}, 4000);
+	   	  	  		}, 6000);
 	   	  	  		
 	   	  	  		errorThis.get(foundRemoteServer, function(url, resp) {
 	   	  	  		
 	   	  	  			//Success, got a connection to the remote server
 	   	  	  			clearTimeout(scanningB);		//Ensure we don't error out
-	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
 	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
+	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
 	   	  	  			setTimeout(function() {
 	   	  	  			     if(alreadyReturned == false) {
 	   	  	  				     alreadyReturned = true;
@@ -770,7 +770,7 @@ var app = {
 	   	  	  		});
 	   	  	  		
 	   	  	  	} else {
-                	          //Only wifi existed
+                	//Only wifi existed
                 	localStorage.removeItem("usingServer");
                 	localStorage.removeItem("defaultDir");
                 	if(alreadyReturned == false) {
