@@ -754,6 +754,7 @@ var app = {
 	   	  	  		
 	   	  	  		errorThis.get(foundRemoteServer, function(url, resp) {
 	   	  	  		
+	   	  	  			alert("remote server " + url + " said:" + resp);
 	   	  	  		    if(resp != "") {
 							//Success, got a connection to the remote server
 							clearTimeout(scanning);		//Ensure we don't error out
