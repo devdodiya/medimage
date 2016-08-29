@@ -790,6 +790,7 @@ var app = {
 	   	  //Ping the wifi server
 	   	  errorThis.get(foundWifiServer, function(url, resp) {
 	   	  	  
+	   	  	  alert("Wifi resp=" + resp);
 	   	  	  
 			  //Success, got a connection to the wifi
 			  clearTimeout(scanning);		//Ensure we don't error out
