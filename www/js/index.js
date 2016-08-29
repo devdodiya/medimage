@@ -757,12 +757,12 @@ var app = {
 	   	  	  			alert("remote server " + url + " said:" + resp);
 	   	  	  		    if(resp != "") {
 							//Success, got a connection to the remote server
-							clearTimeout(scanning);		//Ensure we don't error out
+							
 							clearTimeout(scanningB);		//Ensure we don't error out
 							localStorage.setItem("usingServer", foundRemoteServer);
 							localStorage.setItem("defaultDir", foundRemoteDir);
 						
-							 alert("Found remote server, and waited 2 seconds. Already returned = " + myAlreadyReturned);	//TEMPORARY TESTING
+							 alert("Found remote server, and waited 2 seconds. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
 				
 							 if(alreadyReturned == false) {
 								 alreadyReturned = true;
@@ -770,6 +770,8 @@ var app = {
 								 cb(null);	
 					
 							 }	
+							 
+							 clearTimeout(scanning);		//Ensure we don't error out
 						}	   	  	  				
 	   	  	  			
 	   	  	  		});
