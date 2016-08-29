@@ -742,6 +742,8 @@ var app = {
 	   	  	  			//last option.
 	   	  	  			localStorage.removeItem("usingServer");
 	   	  	  			localStorage.removeItem("defaultDir");
+	   	  	  			alert("Timed out after 6 seconds connecting to remote server. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
+	   	  	  			
 	   	  	  			if(alreadyReturned == false) {
 	   	  	  				alreadyReturned = true;
 	   	  	  				cb('No server found');
@@ -756,10 +758,15 @@ var app = {
 	   	  	  			clearTimeout(scanningB);		//Ensure we don't error out
 	   	  	  			localStorage.setItem("usingServer", foundRemoteServer);
 	   	  	  			localStorage.setItem("defaultDir", foundRemoteDir);
-	   	  	  			setTimeout(function() {
-	   	  	  			     if(alreadyReturned == false) {
-	   	  	  				     alreadyReturned = true;
-	   	  	  				     cb(null);	//Wait for a couple of seconds 
+	   	  	  			var myCb = cb;
+	   	  	  			var myAlreadyReturned = alreadyReturned;
+	   	  	  			setTimeout(function(myCb) {
+	   	  	  				 alert("Found remote server, and waited 2 seconds. Already returned = " + myAlreadyReturned);	//TEMPORARY TESTING
+	   	  	  			
+	   	  	  			     if(myAlreadyReturned == false) {
+	   	  	  				     myAlreadyReturned = true;
+	   	  	  				     
+	   	  	  				     myCb(null);	//Wait for a couple of seconds 
 	   	  	  								//now that we're connected for
 	   	  	  								//the connection to properly establish
 	   	  	  				
@@ -771,6 +778,8 @@ var app = {
 	   	  	  		
 	   	  	  	} else {
                 	//Only wifi existed
+                	alert("Only wifi existed. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
+	   	  	  			
                 	localStorage.removeItem("usingServer");
                 	localStorage.removeItem("defaultDir");
                 	if(alreadyReturned == false) {
@@ -789,6 +798,9 @@ var app = {
 	   	  	  clearTimeout(scanning);		//Ensure we don't error out
 	   	  	  localStorage.setItem("usingServer", foundWifiServer);
 	   	  	  localStorage.setItem("defaultDir", foundWifiDir);
+	   	  	  
+	   	  	  alert("Connected to wifi server. Already returned = " + alreadyReturned);	//TEMPORARY TESTING
+	   	  	  			
 	   	  	  
 	   	  	  if(alreadyReturned == false) {
 	   	  	  	  alreadyReturned = true;
