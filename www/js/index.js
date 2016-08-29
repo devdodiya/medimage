@@ -766,9 +766,7 @@ var app = {
 	   	  	  			     if(alreadyReturned == false) {
 	   	  	  				     alreadyReturned = true;
 	   	  	  				     
-	   	  	  				     cb(null);	//Wait for a couple of seconds 
-	   	  	  								//now that we're connected for
-	   	  	  								//the connection to properly establish
+	   	  	  				     cb(null);	
 	   	  	  				
 	   	  	  			     }	
 	   	  	  				
@@ -843,11 +841,7 @@ var app = {
 					
 					if(alreadyReturned == false) {
 						alreadyReturned = true;
-						cb(null);	//Wait for a couple of seconds 
-										//now that we're connected for
-										//the connection to properly establish
-						
-						 }	
+						cb(null);	
 						
 					}
 				}
