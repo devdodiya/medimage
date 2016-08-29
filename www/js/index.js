@@ -728,11 +728,13 @@ var app = {
 	   	  
 	   	  
 	   	  //Timeout after 5 secs for the following ping
-       	        var scanning = setTimeout(function() {
-                    errorThis.notify('Timeout finding your wifi server.</br>Trying remote server..');
+       	  var scanning = setTimeout(function() {
+                clearTimeout(scanning);		//Ensure we don't error out
                 
-                    //Else can't communicate with the wifi server at this time.
-	   	  	//Try the remote server
+                errorThis.notify('Timeout finding your wifi server.</br>Trying remote server..');
+                
+                //Else can't communicate with the wifi server at this time.
+	   	  	    //Try the remote server
 	   	  	  	if((foundRemoteServer)&&(foundRemoteServer != null)&&(foundWifiServer != "null")) {
 	   	  	  		
 	   	  	  		var scanningB = setTimeout(function() {
