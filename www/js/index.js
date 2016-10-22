@@ -354,6 +354,38 @@ var app = {
 	     	}
       },
 
+
+
+	  check: function(){
+			this.loopCnt --;
+		 
+			if(this.loopCnt <= 0) {
+				//Have finished - remove interval and report back
+				clearInterval(errorThis.check.checkOnPC);
+				document.getElementById("notify").innerHTML = 'Either your PC is not on (your photo will be transferred when your PC is on), or your PC cannot connect to the server.';
+			 
+			} else {
+				//Try a get request to the check
+				//Get the current file data
+			
+				errorThis.get(this.fullGet, function(url, resp) {
+					alert('url=' + url + 'response=' + resp);
+					if((resp == 'true')||(resp === true)) {
+						//The file exists on the server still - try again in a few moments
+					} else {
+						//File no longer exists, success!
+						document.getElementById("notify").innerHTML = 'Image transferred. Success!';
+						clearInterval(errorThis.check.checkOnPC);
+					}
+				
+				
+				});
+			}
+									
+								
+	},
+						
+
     win: function(r) {
     	    
     	    document.querySelector('#status').innerHTML = "";	//Clear progress status
@@ -388,34 +420,8 @@ var app = {
 	     				alert("Full get:" + fullGet);
 	     				
 						var loopCnt = 5;
-						var checkOnPC = setInterval(function(){
-							loopCnt --;
-						 
-							if(loopCnt <= 0) {
-								//Have finished - remove interval and report back
-								clearInterval(checkOnPC);
-							 	document.getElementById("notify").innerHTML = 'Either your PC is not on (your photo will be transferred when your PC is on), or your PC cannot connect to the server.';
-							 
-							} else {
-								//Try a get request to the check
-								//Get the current file data
-							
-								errorThis.get(fullGet, function(url, resp) {
-									alert('url=' + url + 'response=' + resp);
-									if((resp == 'true')||(resp === true)) {
-										//The file exists on the server still - try again in a few moments
-									} else {
-										//File no longer exists, success!
-										document.getElementById("notify").innerHTML = 'Image transferred. Success!';
-										clearInterval(checkOnPC);
-									}
-								
-								
-								});
-									
-								
-							}
-						}, 2000, fullGet);
+						errorThis.check.fullGet = fullGet;
+						errorThis.check.checkOnPC = setInterval(errorThis.check, 2000);
 					} else {
 						alert("Trying to check, but no file on stack");		//TEMPIN REMOVE ME		
 					}
