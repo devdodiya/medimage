@@ -816,7 +816,7 @@ var app = {
 							
 							clearTimeout(scanningB);		//Ensure we don't error out
 							localStorage.setItem("usingServer", foundRemoteServer);
-							localStorage.setItem("serverRemote", true);
+							localStorage.setItem("serverRemote", 'true');
 							localStorage.setItem("defaultDir", foundRemoteDir);
 						
 				
@@ -855,7 +855,7 @@ var app = {
 				  clearTimeout(scanning);		//Ensure we don't error out
 				  localStorage.setItem("usingServer", foundWifiServer);
 				  localStorage.setItem("defaultDir", foundWifiDir);	
-				  localStorage.setItem("serverRemote", false);				
+				  localStorage.setItem("serverRemote", 'false');				
 		  
 				  if(alreadyReturned == false) {
 					  alreadyReturned = true;
@@ -890,7 +890,7 @@ var app = {
 					//Success, got a connection to the remote server
 					localStorage.setItem("usingServer", foundRemoteServer);
 					localStorage.setItem("defaultDir", foundRemoteDir);
-				    localStorage.setItem("serverRemote", true);
+				    localStorage.setItem("serverRemote", 'true');
 				
 					if(alreadyReturned == false) {
 						alreadyReturned = true;
