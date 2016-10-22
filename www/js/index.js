@@ -388,7 +388,7 @@ var app = {
 	     				alert("Full get:" + fullGet);
 	     				
 						var loopCnt = 5;
-						var checkOnPC = setInterval(function(fullGet){
+						var checkOnPC = setInterval(function(){
 							loopCnt --;
 						 
 							if(loopCnt <= 0) {
@@ -415,7 +415,7 @@ var app = {
 									
 								
 							}
-						}, 2000);
+						}, 2000, fullGet);
 					} else {
 						alert("Trying to check, but no file on stack");		//TEMPIN REMOVE ME		
 					}
