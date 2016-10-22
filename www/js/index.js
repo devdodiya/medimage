@@ -323,6 +323,7 @@ var app = {
 	    			//from wifi to network and vica versa
 	    			localStorage.removeItem("usingServer");		//This will force a reconnection
 	    			localStorage.removeItem("defaultDir");
+	    			localStorage.removeItem("serverRemote");
 	    			errorThis.uploadPhoto(repeatIfNeeded.imageURI);
 	    			
 	    			//Clear any existing timeouts
@@ -357,11 +358,67 @@ var app = {
     	    
     	    document.querySelector('#status').innerHTML = "";	//Clear progress status
     	    
+    	    
+    	    
+ 
+    	    //Check if this was a transfer to the remote server
+    	    
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
             if((r.responseCode == 200)||(r.response.indexOf("200") != -1)) {
-            	document.getElementById("notify").innerHTML = 'Image transferred. Success!';
+            
+            	var remoteServer = localStorage.getItem("serverRemote");
+            	if(remoteServer == false) {
+            
+            		document.getElementById("notify").innerHTML = 'Image transferred. Success!';
+            	} else {
+            		//Onto remote server - now do some pings to check we have got to the PC
+            		document.getElementById("notify").innerHTML = 'Image on server. Transferring to PC..';
+            		
+            		var repeatIfNeeded = retryIfNeeded.pop();
+	     			
+	     	
+	     			if(repeatIfNeeded) {
+	     				var thisFile = repeatIfNeeded.options.fileName;
+	     				alert("Checking:" + thisFile);
+	     				var usingServer = localStorage.getItem("usingServer");
+	     				
+	     				var fullGet = usingServer + '/check/' + thisFile;
+	     				alert("Full get:" + fullGet);
+	     				
+						var loopCnt = 5;
+						var checkOnPC = setInterval(function(){
+							loopCnt --;
+						 
+							if(loopCnt <= 0) {
+								//Have finished - remove interval and report back
+								clearInterval(checkOnPC);
+							 	document.getElementById("notify").innerHTML = 'Either your PC is not on - your photo will be transferred when your PC is on, or your PC cannot connect to the server.';
+							 
+							} else {
+								//Try a get request to the check
+								//Get the current file data
+							
+								errorThis.get(fullget, function(url, resp) {
+									if((resp == 'true')||(resp === true)) {
+										//The file exists on the server still - try again in a few moments
+									} else {
+										//File no longer exists, success!
+										document.getElementById("notify").innerHTML = 'Image transferred. Success!';
+									}
+								
+								
+								});
+									
+								
+							}
+						}, 2000);
+					} else {
+						alert("Trying to check, but no file on stack");		//TEMPIN REMOVE ME		
+					}
+            	
+            	}
             	            	
             	//Save the current server settings for future reuse
             	errorThis.saveServer();
@@ -742,6 +799,7 @@ var app = {
 	   	  	  			//last option.
 	   	  	  			localStorage.removeItem("usingServer");
 	   	  	  			localStorage.removeItem("defaultDir");
+	   	  	  			localStorage.removeItem("serverRemote");
 	   	  	  			
 	   	  	  			if(alreadyReturned == false) {
 	   	  	  				alreadyReturned = true;
@@ -758,6 +816,7 @@ var app = {
 							
 							clearTimeout(scanningB);		//Ensure we don't error out
 							localStorage.setItem("usingServer", foundRemoteServer);
+							localStorage.setItem("serverRemote", true);
 							localStorage.setItem("defaultDir", foundRemoteDir);
 						
 				
@@ -777,6 +836,7 @@ var app = {
                 	//Only wifi existed	   	  	  			
                 	localStorage.removeItem("usingServer");
                 	localStorage.removeItem("defaultDir");
+                	localStorage.removeItem("serverRemote");
                 	if(alreadyReturned == false) {
                 		alreadyReturned = true;
                 		cb('No server found');
@@ -794,7 +854,8 @@ var app = {
 				  //Success, got a connection to the wifi
 				  clearTimeout(scanning);		//Ensure we don't error out
 				  localStorage.setItem("usingServer", foundWifiServer);
-				  localStorage.setItem("defaultDir", foundWifiDir);					
+				  localStorage.setItem("defaultDir", foundWifiDir);	
+				  localStorage.setItem("serverRemote", false);				
 		  
 				  if(alreadyReturned == false) {
 					  alreadyReturned = true;
@@ -814,6 +875,7 @@ var app = {
 	   	  	  			//last option.
 	   	  	  			localStorage.removeItem("usingServer");
 	   	  	  			localStorage.removeItem("defaultDir");
+	   	  	  			localStorage.removeItem("serverRemote");
 	   	  	  			
 	   	  	  			if(alreadyReturned == false) {
 	   	  	  				alreadyReturned = true;
@@ -828,7 +890,7 @@ var app = {
 					//Success, got a connection to the remote server
 					localStorage.setItem("usingServer", foundRemoteServer);
 					localStorage.setItem("defaultDir", foundRemoteDir);
-				
+				    localStorage.setItem("serverRemote", true);
 				
 					if(alreadyReturned == false) {
 						alreadyReturned = true;
