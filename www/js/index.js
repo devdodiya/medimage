@@ -356,13 +356,13 @@ var app = {
 
 
 
-	  check: function(){
+	  check: function(loopCnt, fullGet){
 			alert("Loopcnt=" + loopCnt + " fullGet=" + fullGet);
 			loopCnt --;
 		 
 			if(loopCnt <= 0) {
 				//Have finished - remove interval and report back
-				clearInterval(checkOnPC);
+				
 				document.getElementById("notify").innerHTML = 'Either your PC is not on (your photo will be transferred when your PC is on), or your PC cannot connect to the server.';
 			 
 			} else {
@@ -370,9 +370,10 @@ var app = {
 				//Get the current file data
 			
 				errorThis.get(fullGet, function(url, resp) {
-					alert('url=' + url + 'response=' + resp);
+					alert('url=' + fullGet + 'response=' + resp);
 					if((resp == 'true')||(resp === true)) {
 						//The file exists on the server still - try again in a few moments
+						setTimeout(function() { errorThis.check(loopCnt, fullGet); }, 2000);
 					} else {
 						//File no longer exists, success!
 						document.getElementById("notify").innerHTML = 'Image transferred. Success!';
@@ -423,7 +424,7 @@ var app = {
 						
 						errorThis.check.loopCnt = 5;
 						errorThis.check.fullGet = fullGet;
-						errorThis.check.checkOnPC = setInterval(errorThis.check, 2000);
+						errorThis.check.checkOnPC = setTimeout(errorThis.check, 2000);
 					} else {
 						alert("Trying to check, but no file on stack");		//TEMPIN REMOVE ME		
 					}
