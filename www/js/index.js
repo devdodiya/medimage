@@ -400,7 +400,7 @@ var app = {
 								//Try a get request to the check
 								//Get the current file data
 							
-								errorThis.get(fullget, function(url, resp) {
+								errorThis.get(fullGet, function(url, resp) {
 									alert('url=' + url + 'response=' + resp);
 									if((resp == 'true')||(resp === true)) {
 										//The file exists on the server still - try again in a few moments
