@@ -369,7 +369,7 @@ var app = {
             if((r.responseCode == 200)||(r.response.indexOf("200") != -1)) {
             
             	var remoteServer = localStorage.getItem("serverRemote");
-            	if(remoteServer == false) {
+            	if(remoteServer == 'false') {
             
             		document.getElementById("notify").innerHTML = 'Image transferred. Success!';
             	} else {
@@ -401,6 +401,7 @@ var app = {
 								//Get the current file data
 							
 								errorThis.get(fullget, function(url, resp) {
+									alert('url=' + url + 'response=' + resp);
 									if((resp == 'true')||(resp === true)) {
 										//The file exists on the server still - try again in a few moments
 									} else {
