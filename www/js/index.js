@@ -394,7 +394,7 @@ var app = {
 							if(loopCnt <= 0) {
 								//Have finished - remove interval and report back
 								clearInterval(checkOnPC);
-							 	document.getElementById("notify").innerHTML = 'Either your PC is not on - your photo will be transferred when your PC is on, or your PC cannot connect to the server.';
+							 	document.getElementById("notify").innerHTML = 'Either your PC is not on (your photo will be transferred when your PC is on), or your PC cannot connect to the server.';
 							 
 							} else {
 								//Try a get request to the check
@@ -406,6 +406,7 @@ var app = {
 									} else {
 										//File no longer exists, success!
 										document.getElementById("notify").innerHTML = 'Image transferred. Success!';
+										clearInterval(checkOnPC);
 									}
 								
 								
