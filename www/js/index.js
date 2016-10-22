@@ -388,7 +388,7 @@ var app = {
 	     				alert("Full get:" + fullGet);
 	     				
 						var loopCnt = 5;
-						var checkOnPC = setInterval(function(){
+						var checkOnPC = setInterval(function(fullGet){
 							loopCnt --;
 						 
 							if(loopCnt <= 0) {
