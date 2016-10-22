@@ -357,25 +357,26 @@ var app = {
 
 
 	  check: function(){
-			this.loopCnt --;
+			alert("Loopcnt=" + loopCnt + " fullGet=" + fullGet);
+			loopCnt --;
 		 
-			if(this.loopCnt <= 0) {
+			if(loopCnt <= 0) {
 				//Have finished - remove interval and report back
-				clearInterval(errorThis.check.checkOnPC);
+				clearInterval(checkOnPC);
 				document.getElementById("notify").innerHTML = 'Either your PC is not on (your photo will be transferred when your PC is on), or your PC cannot connect to the server.';
 			 
 			} else {
 				//Try a get request to the check
 				//Get the current file data
 			
-				errorThis.get(this.fullGet, function(url, resp) {
+				errorThis.get(fullGet, function(url, resp) {
 					alert('url=' + url + 'response=' + resp);
 					if((resp == 'true')||(resp === true)) {
 						//The file exists on the server still - try again in a few moments
 					} else {
 						//File no longer exists, success!
 						document.getElementById("notify").innerHTML = 'Image transferred. Success!';
-						clearInterval(errorThis.check.checkOnPC);
+						clearInterval(checkOnPC);
 					}
 				
 				
@@ -419,7 +420,8 @@ var app = {
 	     				var fullGet = usingServer + '/check/' + thisFile;
 	     				alert("Full get:" + fullGet);
 	     				
-						var loopCnt = 5;
+						
+						errorThis.check.loopCnt = 5;
 						errorThis.check.fullGet = fullGet;
 						errorThis.check.checkOnPC = setInterval(errorThis.check, 2000);
 					} else {
