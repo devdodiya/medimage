@@ -421,7 +421,7 @@ var app = {
 	     				
 	     				var nowChecking = {};
 						
-						nowChecking.loopCnt = 5;
+						nowChecking.loopCnt = 7; //Max timeout = 7*2 = 14 secs
 						nowChecking.fullGet = fullGet;
 						checkComplete.push(nowChecking);
 						
