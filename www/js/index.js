@@ -39,8 +39,11 @@ var app = {
         this.bindEvents();  
         
         
-        //Set display name - TODO: check this is valid here
+        //Set display name
         this.displayServerName();
+        
+        //Initialise the id field
+        this.displayIdInput();
         
         errorThis = this;
 
@@ -1043,6 +1046,21 @@ var app = {
     
     
     },
+    
+    displayIdInput: function() {
+    	//Call this during initialisation on app startup
+    	var intialHash = localStorage.getItem("intialHash");
+    	
+    	if((intialHash) && (intialHash != null)) {
+    		//Now refresh the current ID field
+    		document.getElementById("id-entered").value = "#";
+     	} else {
+    	
+    		document.getElementById("id-entered").innerHTML = "";
+    	}
+    },
+    
+    
     
     saveServer: function() {
         	//Run this after a successful upload

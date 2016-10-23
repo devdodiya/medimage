@@ -78,7 +78,7 @@
 	
  
         <p style="text-align:center;">
-             <span class="big-text" onclick="navigator.notification.alert('Enter a patient or image ID, which names the image. Put a # before the ID for a folder.', function(){}, 'Optional');">Image ID <small >(e.g. NHI) <ons-icon icon="ion-ios-help" size="20px" fixed-width="true"></small><br/></span><input id="id-entered" type="text" size="9" class="resizedTextbox" value="#">
+             <span class="big-text" onclick="navigator.notification.alert('Enter a patient or image ID, which names the image. Put a # before the ID for a folder.', function(){}, 'Optional');">Image ID <small >(e.g. NHI) <ons-icon icon="ion-ios-help" size="20px" fixed-width="true"></small><br/></span><input id="id-entered" type="text" size="9" class="resizedTextbox">
         </p>
 
  		<div style="text-align:center;">
@@ -113,6 +113,18 @@
         			<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.newServer();">Add a New PC</ons-button>
 	        	</p>
 	        	
+	        	 <ons-list>
+					<ons-list-item>
+					  <div class="center">
+						Always create folder
+					  </div>
+					  <div class="right">
+						<ons-switch id="always-create-folder"></ons-switch>
+					  </div>
+					</ons-list-item>
+				  </ons-list>
+	        	
+	        	
 				<p>
 					<a class="small-text" href="javascript" onclick="return app.factoryReset();">Reset Factory Settings</a>
 				</p>
@@ -127,6 +139,14 @@
         <script type="text/javascript">
             app.initialize();
           </script>
+          
+          <script>
+          	 var mySwitch = document.getElementById("always-create-folder");
+
+			mySwitch.addEventListener('switch', function(event) {
+    			alert("switched" + JSON.stringify(event));
+  			});
+		  </script>
           
           
      </ons-page>
