@@ -430,7 +430,9 @@ var app = {
 						nowChecking.fullGet = fullGet;
 						checkComplete.push(nowChecking);
 						
-						errorThis.check.checkOnPC = setTimeout(errorThis.check, 2000);
+						setTimeout(function() {
+							errorThis.check();
+						}, 2000);
 					} else {
 						alert("Trying to check, but no file on stack");		//TEMPIN REMOVE ME		
 					}
