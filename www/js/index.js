@@ -358,7 +358,7 @@ var app = {
 
 
 	  check: function(){
-			nowChecking = checkComplete.pop();
+			var nowChecking = checkComplete.pop();
 			alert("Loopcnt=" + nowChecking.loopCnt + " fullGet=" + nowChecking.fullGet);
 			nowChecking.loopCnt --;
 		 
