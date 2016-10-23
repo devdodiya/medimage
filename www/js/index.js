@@ -359,7 +359,6 @@ var app = {
 
 	  check: function(){
 			var nowChecking = checkComplete.pop();
-			alert("Loopcnt=" + nowChecking.loopCnt + " fullGet=" + nowChecking.fullGet);
 			nowChecking.loopCnt --;
 		 
 			if(nowChecking.loopCnt <= 0) {
@@ -372,14 +371,9 @@ var app = {
 				//Get the current file data
 				checkComplete.push(nowChecking);
 			
-				alert("Just before check:" + nowChecking.fullGet)
 				errorThis.get(nowChecking.fullGet, function(url, resp) {
-					alert('url=' + url + 'response=' + resp);
 					if((resp == 'true')||(resp === true)) {
 						//The file exists on the server still - try again in a few moments
-						
-						
-						
 						setTimeout(errorThis.check, 2000);
 					} else {
 						//File no longer exists, success!
@@ -421,11 +415,9 @@ var app = {
 	     	
 	     			if(repeatIfNeeded) {
 	     				var thisFile = repeatIfNeeded.options.fileName;
-	     				alert("Checking:" + thisFile);
 	     				var usingServer = localStorage.getItem("usingServer");
 	     				
 	     				var fullGet = usingServer + '/check=' + encodeURIComponent(thisFile);
-	     				alert("Full get:" + fullGet);
 	     				
 	     				var nowChecking = {};
 						
@@ -437,7 +429,7 @@ var app = {
 							errorThis.check();
 						}, 2000);
 					} else {
-						alert("Trying to check, but no file on stack");		//TEMPIN REMOVE ME		
+						//Trying to check, but no file on stack	
 					}
             	
             	}
