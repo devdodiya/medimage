@@ -119,7 +119,7 @@
 						Always create folder
 					  </div>
 					  <div class="right">
-						<ons-switch id="always-create-folder"></ons-switch>
+						<ons-switch style="background-color: #7c5599; color: white;" id="always-create-folder"></ons-switch>
 					  </div>
 					</ons-list-item>
 				  </ons-list>
@@ -143,8 +143,8 @@
           <script>
           	 var mySwitch = document.getElementById("always-create-folder");
 
-			mySwitch.addEventListener('switch', function(event) {
-    			alert("switched" + JSON.stringify(event));
+			mySwitch.addEventListener('change', function(event) {
+    			alert("switched checked=" + document.getElementById("always-create-folder").checked);
   			});
 		  </script>
           
