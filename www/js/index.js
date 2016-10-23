@@ -40,8 +40,11 @@ var app = {
         this.bindEvents();  
         
         
-        //Set display name - TODO: check this is valid here
+        //Set display name
         this.displayServerName();
+        
+        //Initialise the id field
+        this.displayIdInput();
         
         errorThis = this;
 
@@ -1119,6 +1122,52 @@ var app = {
     
     
     },
+    
+    
+	saveIdInput: function(status) {
+    	//Save the idInput. input true/false   true = 'start with a hash'
+    	//                                     false = 'start with blank'
+    	//Get existing settings array
+    	if(status == true) {
+    		//Show a hash by default    		
+    		localStorage.setItem("intialHash", 'true');
+ 
+ 			if(document.getElementById("id-entered").value == "") {
+ 				document.getElementById("id-entered").value = "#";
+ 			}
+    		
+    	} else {
+    		//Remove the hash by default
+     		localStorage.setItem("intialHash", 'false');
+     		if(document.getElementById("id-entered").value == "#") {
+ 				document.getElementById("id-entered").value = "";
+ 			}
+     		
+    	}
+
+     	
+    },
+    
+    
+    displayIdInput: function() {
+    	//Call this during initialisation on app startup
+    	var intialHash = localStorage.getItem("intialHash");
+    	
+    	if((intialHash) && (intialHash != null)) {
+    		//Now refresh the current ID field
+    		if(intialHash == 'true') {
+    			document.getElementById("id-entered").value = "#";
+    			document.getElementById("always-create-folder").checked = true;
+    		} else {
+    			document.getElementById("id-entered").value = "";
+    		}
+     	} else {
+    	
+    		document.getElementById("id-entered").value = "";
+    	}
+    },
+    
+    
     
     saveServer: function() {
         	//Run this after a successful upload

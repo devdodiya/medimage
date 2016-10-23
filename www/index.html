@@ -113,6 +113,18 @@
         			<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.newServer();">Add a New PC</ons-button>
 	        	</p>
 	        	
+	        	 <ons-list>
+					<ons-list-item>
+					  <div class="center">
+						Create folder #
+					  </div>
+					  <div class="right">
+						<ons-switch style="color: #7c5599;" id="always-create-folder"></ons-switch>
+					  </div>
+					</ons-list-item>
+				  </ons-list>
+	        	
+	        	
 				<p>
 					<a class="small-text" href="javascript" onclick="return app.factoryReset();">Reset Factory Settings</a>
 				</p>
@@ -127,6 +139,14 @@
         <script type="text/javascript">
             app.initialize();
           </script>
+          
+          <script>
+          	 var mySwitch = document.getElementById("always-create-folder");
+
+			mySwitch.addEventListener('change', function(event) {
+    			app.saveIdInput(document.getElementById("always-create-folder").checked);
+  			});
+		  </script>
           
           
      </ons-page>
