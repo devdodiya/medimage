@@ -111,7 +111,6 @@ var app = {
     },
 
    get: function(url, cb) {
-        alert("Getting " + url);
         var request = new XMLHttpRequest();
         request.open("GET", url, true);
 
@@ -423,7 +422,7 @@ var app = {
 	     				alert("Checking:" + thisFile);
 	     				var usingServer = localStorage.getItem("usingServer");
 	     				
-	     				var fullGet = usingServer + '/check/' + thisFile;
+	     				var fullGet = usingServer + '/check=' + thisFile;
 	     				alert("Full get:" + fullGet);
 	     				
 	     				var nowChecking = {};
