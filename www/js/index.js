@@ -111,6 +111,7 @@ var app = {
     },
 
    get: function(url, cb) {
+        alert("Getting " + url);
         var request = new XMLHttpRequest();
         request.open("GET", url, true);
 
