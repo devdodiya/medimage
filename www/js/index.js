@@ -364,7 +364,7 @@ var app = {
 			if(nowChecking.loopCnt <= 0) {
 				//Have finished - remove interval and report back
 				
-				document.getElementById("notify").innerHTML = 'Either your PC is not on (your photo will be transferred when your PC is on), or your PC cannot connect to the server.';
+				document.getElementById("notify").innerHTML = "When you switch on your PC, your image will appear there. (If it is on already, please check your PC's internet connection)";
 			 
 			} else {
 				//Try a get request to the check
