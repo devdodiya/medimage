@@ -1081,6 +1081,7 @@ var app = {
     		//Now refresh the current ID field
     		if(intialHash == 'true') {
     			document.getElementById("id-entered").value = "#";
+    			document.getElementById("always-create-folder").checked = true;
     		} else {
     			document.getElementById("id-entered").value = "";
     		}
