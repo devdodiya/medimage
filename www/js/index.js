@@ -21,6 +21,7 @@ var deleteThisFile = {}; //Global object for image taken, to be deleted
 var centralPairingUrl = "https://atomjump.com/med-genid.php";
 var errorThis = {};  //Used as a global error handler
 var retryIfNeeded = [];	//A global pushable list with the repeat attempts
+var checkComplete = [];	//A global pushable list with the repeat checks to see if image is on PC
 var retryNum = 0;
 
 
@@ -39,8 +40,11 @@ var app = {
         this.bindEvents();  
         
         
-        //Set display name - TODO: check this is valid here
+        //Set display name
         this.displayServerName();
+        
+        //Initialise the id field
+        this.displayIdInput();
         
         errorThis = this;
 
@@ -323,6 +327,7 @@ var app = {
 	    			//from wifi to network and vica versa
 	    			localStorage.removeItem("usingServer");		//This will force a reconnection
 	    			localStorage.removeItem("defaultDir");
+	    			localStorage.removeItem("serverRemote");
 	    			errorThis.uploadPhoto(repeatIfNeeded.imageURI);
 	    			
 	    			//Clear any existing timeouts
@@ -353,15 +358,84 @@ var app = {
 	     	}
       },
 
+
+
+	  check: function(){
+			var nowChecking = checkComplete.pop();
+			nowChecking.loopCnt --;
+		 
+			if(nowChecking.loopCnt <= 0) {
+				//Have finished - remove interval and report back
+				
+				document.getElementById("notify").innerHTML = "When you switch on your PC, your image will appear there. (If it is on already, please check your PC's internet connection)";
+			 
+			} else {
+				//Try a get request to the check
+				//Get the current file data
+				checkComplete.push(nowChecking);
+			
+				errorThis.get(nowChecking.fullGet, function(url, resp) {
+					if((resp == 'true')||(resp === true)) {
+						//The file exists on the server still - try again in a few moments
+						setTimeout(errorThis.check, 2000);
+					} else {
+						//File no longer exists, success!
+						checkComplete.pop();
+						document.getElementById("notify").innerHTML = 'Image transferred. Success!';
+						
+					}
+				});
+			}
+									
+								
+	},
+						
+
     win: function(r) {
     	    
     	    document.querySelector('#status').innerHTML = "";	//Clear progress status
+    	    
+    	    
+    	    
+ 
+    	    //Check if this was a transfer to the remote server
     	    
             console.log("Code = " + r.responseCode);
             console.log("Response = " + r.response);
             console.log("Sent = " + r.bytesSent);
             if((r.responseCode == 200)||(r.response.indexOf("200") != -1)) {
-            	document.getElementById("notify").innerHTML = 'Image transferred. Success!';
+            
+            	var remoteServer = localStorage.getItem("serverRemote");
+            	if(remoteServer == 'false') {
+            
+            		document.getElementById("notify").innerHTML = 'Image transferred. Success!';
+            	} else {
+            		//Onto remote server - now do some pings to check we have got to the PC
+            		document.getElementById("notify").innerHTML = 'Image on server. Transferring to PC..';
+            		
+            		var repeatIfNeeded = retryIfNeeded.pop();
+	     			
+	     	
+	     			if(repeatIfNeeded) {
+	     				var thisFile = repeatIfNeeded.options.fileName;
+	     				var usingServer = localStorage.getItem("usingServer");
+	     				
+	     				var fullGet = usingServer + '/check=' + encodeURIComponent(thisFile);
+	     				
+	     				var nowChecking = {};
+						
+						nowChecking.loopCnt = 7; //Max timeout = 7*2 = 14 secs
+						nowChecking.fullGet = fullGet;
+						checkComplete.push(nowChecking);
+						
+						setTimeout(function() {
+							errorThis.check();
+						}, 2000);
+					} else {
+						//Trying to check, but no file on stack	
+					}
+            	
+            	}
             	            	
             	//Save the current server settings for future reuse
             	errorThis.saveServer();
@@ -742,6 +816,7 @@ var app = {
 	   	  	  			//last option.
 	   	  	  			localStorage.removeItem("usingServer");
 	   	  	  			localStorage.removeItem("defaultDir");
+	   	  	  			localStorage.removeItem("serverRemote");
 	   	  	  			
 	   	  	  			if(alreadyReturned == false) {
 	   	  	  				alreadyReturned = true;
@@ -758,6 +833,7 @@ var app = {
 							
 							clearTimeout(scanningB);		//Ensure we don't error out
 							localStorage.setItem("usingServer", foundRemoteServer);
+							localStorage.setItem("serverRemote", 'true');
 							localStorage.setItem("defaultDir", foundRemoteDir);
 						
 				
@@ -777,6 +853,7 @@ var app = {
                 	//Only wifi existed	   	  	  			
                 	localStorage.removeItem("usingServer");
                 	localStorage.removeItem("defaultDir");
+                	localStorage.removeItem("serverRemote");
                 	if(alreadyReturned == false) {
                 		alreadyReturned = true;
                 		cb('No server found');
@@ -794,7 +871,8 @@ var app = {
 				  //Success, got a connection to the wifi
 				  clearTimeout(scanning);		//Ensure we don't error out
 				  localStorage.setItem("usingServer", foundWifiServer);
-				  localStorage.setItem("defaultDir", foundWifiDir);					
+				  localStorage.setItem("defaultDir", foundWifiDir);	
+				  localStorage.setItem("serverRemote", 'false');				
 		  
 				  if(alreadyReturned == false) {
 					  alreadyReturned = true;
@@ -814,6 +892,7 @@ var app = {
 	   	  	  			//last option.
 	   	  	  			localStorage.removeItem("usingServer");
 	   	  	  			localStorage.removeItem("defaultDir");
+	   	  	  			localStorage.removeItem("serverRemote");
 	   	  	  			
 	   	  	  			if(alreadyReturned == false) {
 	   	  	  				alreadyReturned = true;
@@ -828,7 +907,7 @@ var app = {
 					//Success, got a connection to the remote server
 					localStorage.setItem("usingServer", foundRemoteServer);
 					localStorage.setItem("defaultDir", foundRemoteDir);
-				
+				    localStorage.setItem("serverRemote", 'true');
 				
 					if(alreadyReturned == false) {
 						alreadyReturned = true;
@@ -1043,6 +1122,52 @@ var app = {
     
     
     },
+    
+    
+	saveIdInput: function(status) {
+    	//Save the idInput. input true/false   true = 'start with a hash'
+    	//                                     false = 'start with blank'
+    	//Get existing settings array
+    	if(status == true) {
+    		//Show a hash by default    		
+    		localStorage.setItem("intialHash", 'true');
+ 
+ 			if(document.getElementById("id-entered").value == "") {
+ 				document.getElementById("id-entered").value = "#";
+ 			}
+    		
+    	} else {
+    		//Remove the hash by default
+     		localStorage.setItem("intialHash", 'false');
+     		if(document.getElementById("id-entered").value == "#") {
+ 				document.getElementById("id-entered").value = "";
+ 			}
+     		
+    	}
+
+     	
+    },
+    
+    
+    displayIdInput: function() {
+    	//Call this during initialisation on app startup
+    	var intialHash = localStorage.getItem("intialHash");
+    	
+    	if((intialHash) && (intialHash != null)) {
+    		//Now refresh the current ID field
+    		if(intialHash == 'true') {
+    			document.getElementById("id-entered").value = "#";
+    			document.getElementById("always-create-folder").checked = true;
+    		} else {
+    			document.getElementById("id-entered").value = "";
+    		}
+     	} else {
+    	
+    		document.getElementById("id-entered").value = "";
+    	}
+    },
+    
+    
     
     saveServer: function() {
         	//Run this after a successful upload
