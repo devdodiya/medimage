@@ -21,6 +21,7 @@ var deleteThisFile = {}; //Global object for image taken, to be deleted
 var centralPairingUrl = "https://atomjump.com/med-genid.php";
 var errorThis = {};  //Used as a global error handler
 var retryIfNeeded = [];	//A global pushable list with the repeat attempts
+var checkComplete = [];	//A global pushable list with the repeat checks to see if image is on PC
 var retryNum = 0;
 
 
@@ -356,11 +357,12 @@ var app = {
 
 
 
-	  check: function(loopCnt, fullGet){
-			alert("Loopcnt=" + loopCnt + " fullGet=" + fullGet);
-			loopCnt --;
+	  check: function(){
+			nowChecking = checkComplete.pop();
+			alert("Loopcnt=" + nowChecking.loopCnt + " fullGet=" + nowChecking.fullGet);
+			nowChecking.loopCnt --;
 		 
-			if(loopCnt <= 0) {
+			if(nowChecking.loopCnt <= 0) {
 				//Have finished - remove interval and report back
 				
 				document.getElementById("notify").innerHTML = 'Either your PC is not on (your photo will be transferred when your PC is on), or your PC cannot connect to the server.';
@@ -369,18 +371,19 @@ var app = {
 				//Try a get request to the check
 				//Get the current file data
 			
-				errorThis.get(fullGet, function(url, resp) {
-					alert('url=' + fullGet + 'response=' + resp);
+				errorThis.get(nowChecking.fullGet, function(url, resp) {
+					alert('url=' + nowChecking.fullGet + 'response=' + resp);
 					if((resp == 'true')||(resp === true)) {
 						//The file exists on the server still - try again in a few moments
-						setTimeout(function() { errorThis.check(loopCnt, fullGet); }, 2000);
+						
+						
+						checkComplete.push(nowChecking);
+						setTimeout(errorThis.check, 2000);
 					} else {
 						//File no longer exists, success!
 						document.getElementById("notify").innerHTML = 'Image transferred. Success!';
-						clearInterval(checkOnPC);
+						
 					}
-				
-				
 				});
 			}
 									
@@ -421,9 +424,12 @@ var app = {
 	     				var fullGet = usingServer + '/check/' + thisFile;
 	     				alert("Full get:" + fullGet);
 	     				
+	     				var nowChecking = {};
 						
-						errorThis.check.loopCnt = 5;
-						errorThis.check.fullGet = fullGet;
+						nowChecking.loopCnt = 5;
+						nowChecking.fullGet = fullGet;
+						checkComplete.push(nowChecking);
+						
 						errorThis.check.checkOnPC = setTimeout(errorThis.check, 2000);
 					} else {
 						alert("Trying to check, but no file on stack");		//TEMPIN REMOVE ME		
