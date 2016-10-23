@@ -424,7 +424,7 @@ var app = {
 	     				alert("Checking:" + thisFile);
 	     				var usingServer = localStorage.getItem("usingServer");
 	     				
-	     				var fullGet = usingServer + '/check=' + thisFile;
+	     				var fullGet = usingServer + '/check=' + encodeURIComponent(thisFile);
 	     				alert("Full get:" + fullGet);
 	     				
 	     				var nowChecking = {};
