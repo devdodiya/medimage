@@ -371,6 +371,7 @@ var app = {
 				//Try a get request to the check
 				//Get the current file data
 			
+				alert("Just before check:" + nowChecking.fullGet)
 				errorThis.get(nowChecking.fullGet, function(url, resp) {
 					alert('url=' + nowChecking.fullGet + 'response=' + resp);
 					if((resp == 'true')||(resp === true)) {
