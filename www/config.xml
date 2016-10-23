@@ -5,8 +5,8 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android   = "http://schemas.android.com/apk/res/android"
         id        = "com.atomjumpbeta.medimage"
-        version   = "1.3.0"
-        versionCode = "355">
+        version   = "1.3.1"
+        versionCode = "356">
 
         
     <!-- When ready add ios|winphone|wp8|android -->    
