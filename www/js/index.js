@@ -370,18 +370,20 @@ var app = {
 			} else {
 				//Try a get request to the check
 				//Get the current file data
+				checkComplete.push(nowChecking);
 			
 				alert("Just before check:" + nowChecking.fullGet)
 				errorThis.get(nowChecking.fullGet, function(url, resp) {
-					alert('url=' + nowChecking.fullGet + 'response=' + resp);
+					alert('url=' + url + 'response=' + resp);
 					if((resp == 'true')||(resp === true)) {
 						//The file exists on the server still - try again in a few moments
 						
 						
-						checkComplete.push(nowChecking);
+						
 						setTimeout(errorThis.check, 2000);
 					} else {
 						//File no longer exists, success!
+						checkComplete.pop();
 						document.getElementById("notify").innerHTML = 'Image transferred. Success!';
 						
 					}
