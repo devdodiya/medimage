@@ -367,7 +367,7 @@ var app = {
 			if(nowChecking.loopCnt <= 0) {
 				//Have finished - remove interval and report back
 				
-				document.getElementById("notify").innerHTML = "When you switch on your PC, your image will appear there. (If it is on already, please check your PC's internet connection)";
+				document.getElementById("notify").innerHTML = "Unable to reach your computer.  Please check it is connected to the internet.  Your image will be delivered when connection occurs.";
 			 
 			} else {
 				//Try a get request to the check
@@ -424,7 +424,7 @@ var app = {
 	     				
 	     				var nowChecking = {};
 						
-						nowChecking.loopCnt = 7; //Max timeout = 7*2 = 14 secs
+						nowChecking.loopCnt = 12; //Max timeout = 12*2 = 24 secs
 						nowChecking.fullGet = fullGet;
 						checkComplete.push(nowChecking);
 						
