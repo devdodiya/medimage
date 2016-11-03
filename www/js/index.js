@@ -217,6 +217,15 @@ var app = {
 				if((tempName == '')||(tempName == null)) {
 					tempName = 'image';
 				}
+				
+				var intialHash = localStorage.getItem("intialHash");
+				if((initialHash)&&(intialHash != null)) {
+					if(initialHash == 'true') {
+						//Prepend the initial hash
+						tempName = "#" + tempName;
+					
+					}
+				}
 
 				var defaultDir = localStorage.getItem("defaultDir");
 				if((defaultDir)&&(defaultDir != null)) {
@@ -1131,18 +1140,11 @@ var app = {
     	if(status == true) {
     		//Show a hash by default    		
     		localStorage.setItem("intialHash", 'true');
- 
- 			if(document.getElementById("id-entered").value == "") {
- 				document.getElementById("id-entered").value = "#";
- 			}
     		
     	} else {
     		//Remove the hash by default
      		localStorage.setItem("intialHash", 'false');
-     		if(document.getElementById("id-entered").value == "#") {
- 				document.getElementById("id-entered").value = "";
- 			}
-     		
+    		
     	}
 
      	
@@ -1156,15 +1158,10 @@ var app = {
     	if((intialHash) && (intialHash != null)) {
     		//Now refresh the current ID field
     		if(intialHash == 'true') {
-    			document.getElementById("id-entered").value = "#";
+    			
     			document.getElementById("always-create-folder").checked = true;
-    		} else {
-    			document.getElementById("id-entered").value = "";
-    		}
-     	} else {
-    	
-    		document.getElementById("id-entered").value = "";
-    	}
+    		} 
+     	} 
     },
     
     
