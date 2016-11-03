@@ -28,7 +28,7 @@
     <gap:plugin name="org.apache.cordova.file-transfer"  source="npm"/> 
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
-    <gap:plugin name="org.apache.cordova.Globalization" />
+    <plugin name="org.apache.cordova.globalization" spec="0.3.4" source="pgb" />
     <plugin source="git" spec="https://github.com/atomjump/cordova-plugin-dialogs.git" />
 
     
