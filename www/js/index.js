@@ -117,12 +117,15 @@ var app = {
         var request = new XMLHttpRequest();
         request.open("GET", url, true);
 
+		alert("Getting:" + url);	 //REMOVEME
         request.onreadystatechange = function() {
             if (request.readyState == 4) {
 
                 if (request.status == 200 || request.status == 0) {
 
-                    cb(url, request.responseText);   // -> request.responseText <- is a result
+					alert("Got" + request.responseText);  //REMOVEME
+                    cb(url, request.responseText);   // -> request.responseText <- is a result		
+                    
                 }
             }
         }
