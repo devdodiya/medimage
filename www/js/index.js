@@ -117,13 +117,11 @@ var app = {
         var request = new XMLHttpRequest();
         request.open("GET", url, true);
 
-		alert("Getting:" + url);	 //REMOVEME
         request.onreadystatechange = function() {
             if (request.readyState == 4) {
 
                 if (request.status == 200 || request.status == 0) {
 
-					alert("Got" + request.responseText);  //REMOVEME
                     cb(url, request.responseText);   // -> request.responseText <- is a result		
                     
                 }
@@ -221,8 +219,8 @@ var app = {
 					tempName = 'image';
 				}
 				
-				var intialHash = localStorage.getItem("intialHash");
-				if((initialHash)&&(intialHash != null)) {
+				var initialHash = localStorage.getItem("initialHash");
+				if((initialHash)&&(initialHash != null)) {
 					if(initialHash == 'true') {
 						//Prepend the initial hash
 						tempName = "#" + tempName;
@@ -1142,11 +1140,11 @@ var app = {
     	//Get existing settings array
     	if(status == true) {
     		//Show a hash by default    		
-    		localStorage.setItem("intialHash", 'true');
+    		localStorage.setItem("initialHash", 'true');
     		
     	} else {
     		//Remove the hash by default
-     		localStorage.setItem("intialHash", 'false');
+     		localStorage.setItem("initialHash", 'false');
     		
     	}
 
@@ -1156,11 +1154,11 @@ var app = {
     
     displayIdInput: function() {
     	//Call this during initialisation on app startup
-    	var intialHash = localStorage.getItem("intialHash");
+    	var initialHash = localStorage.getItem("initialHash");
     	
-    	if((intialHash) && (intialHash != null)) {
+    	if((initialHash) && (initialHash != null)) {
     		//Now refresh the current ID field
-    		if(intialHash == 'true') {
+    		if(initialHash == 'true') {
     			
     			document.getElementById("always-create-folder").checked = true;
     		} 
