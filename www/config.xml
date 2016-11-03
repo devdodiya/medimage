@@ -24,7 +24,7 @@
 
 	
   
-    <gap:plugin name="org.apache.cordova.core.camera" source="npm"/>
+    <gap:plugin name="org.apache.cordova.core.camera" />
     <gap:plugin name="org.apache.cordova.file-transfer"  source="npm"/> 
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
