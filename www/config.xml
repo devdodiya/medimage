@@ -25,7 +25,7 @@
 	
   
     <plugin source="git" spec="https://git-wip-us.apache.org/repos/asf/cordova-plugin-camera.git#r0.3.6">
-        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="AtomJump MedImage would like to access your camera, so that you can take patient photos." />
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="AtomJump MedImage would like to access your camera, so that you can take patient photos." />
     </plugin>
     <gap:plugin name="org.apache.cordova.file-transfer"  source="npm"/> 
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
