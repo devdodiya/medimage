@@ -54,6 +54,7 @@
        <plugin name="cordova-plugin-globalization" spec="1.0.5" />
        <plugin name="cordova-plugin-camera" source="npm" spec="v2.3.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="AtomJump MedImage would like to access your camera, so that you can take patient photos." />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="AtomJump MedImage would like to access your camera, so that you can take patient photos." />
        </plugin>
     
     	<!--<preference name="phonegap-version" />--> <!-- value="cli-5.2.0" worked in Sep 2016. The latest version then had a build error at 30 July 2016 -->
