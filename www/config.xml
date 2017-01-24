@@ -49,7 +49,7 @@
     
     <platform name="ios">
     
-       <plugin source="git" spec="https://github.com/apache/cordova-plugin-camera.git"><!-- r0.3.6 stable for Android -->
+       <plugin name="cordova-plugin-camera" source="npm" spec="v2.3.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="AtomJump MedImage would like to access your camera, so that you can take patient photos." />
        </plugin>
     
