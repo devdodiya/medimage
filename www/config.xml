@@ -27,7 +27,7 @@
     <gap:plugin name="org.apache.cordova.file-transfer"  source="npm"/> 
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
-    <plugin source="git" spec="https://github.com/apache/cordova-plugin-globalization.git#r0.3.4" />
+    
     <plugin source="git" spec="https://github.com/atomjump/cordova-plugin-dialogs.git" /> <!-- AtomJump custom version with mods to text colour -->
 
     
@@ -37,6 +37,7 @@
     <platform name="android">
     
        <plugin source="git" spec="https://git-wip-us.apache.org/repos/asf/cordova-plugin-camera.git#r0.3.6" /><!-- r0.3.6 stable for Android Sep 2016 -->
+       <plugin source="git" spec="https://github.com/apache/cordova-plugin-globalization.git#r0.3.4" />
     
         <preference name="permissions" value="none" />
         <preference name="orientation" value="portrait" />
@@ -49,6 +50,7 @@
     
     <platform name="ios">
     
+       <plugin name="cordova-plugin-globalization" spec="1.0.5" />
        <plugin name="cordova-plugin-camera" source="npm" spec="v2.3.1">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="AtomJump MedImage would like to access your camera, so that you can take patient photos." />
        </plugin>
