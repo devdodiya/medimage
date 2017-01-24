@@ -5,8 +5,8 @@
         xmlns:gap = "http://phonegap.com/ns/1.0"
         xmlns:android   = "http://schemas.android.com/apk/res/android"
         id        = "com.phonegap.medimage"
-        version   = "1.3.4"
-        versionCode = "359">
+        version   = "1.3.5"
+        versionCode = "360">
 
 
 
@@ -36,8 +36,9 @@
     
     <platform name="android">
     
+       <plugin source="git" spec="https://github.com/apache/cordova-plugin-globalization.git#r0.3.4" /><!-- r0.3.4 stable for Android Sep 2016 -->
        <plugin source="git" spec="https://git-wip-us.apache.org/repos/asf/cordova-plugin-camera.git#r0.3.6" /><!-- r0.3.6 stable for Android Sep 2016 -->
-       <plugin source="git" spec="https://github.com/apache/cordova-plugin-globalization.git#r0.3.4" />
+       
     
         <preference name="permissions" value="none" />
         <preference name="orientation" value="portrait" />
