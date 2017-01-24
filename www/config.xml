@@ -36,8 +36,12 @@
     
     <platform name="android">
     
-       <plugin source="git" spec="https://github.com/apache/cordova-plugin-globalization.git#r0.3.4" /><!-- r0.3.4 stable for Android Sep 2016 -->
-       <plugin source="git" spec="https://git-wip-us.apache.org/repos/asf/cordova-plugin-camera.git#r0.3.6" /><!-- r0.3.6 stable for Android Sep 2016 -->
+       <plugin name="cordova-plugin-globalization" spec="1.0.5" />
+       <plugin name="cordova-plugin-camera" source="npm" spec="v2.3.1">
+       
+       <!--
+       <plugin source="git" spec="https://github.com/apache/cordova-plugin-globalization.git#r0.3.4" />--><!-- r0.3.4 stable for Android Sep 2016 -->
+       <!--<plugin source="git" spec="https://git-wip-us.apache.org/repos/asf/cordova-plugin-camera.git#r0.3.6" />--><!-- r0.3.6 stable for Android Sep 2016 -->
        
     
         <preference name="permissions" value="none" />
