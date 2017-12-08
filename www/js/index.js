@@ -18,7 +18,7 @@
  */
 
 var deleteThisFile = {}; //Global object for image taken, to be deleted
-var centralPairingUrl = "https://atomjump.com/med-genid.php";
+var centralPairingUrl = "http://atomjump.org/med-genid.php";		//Redirects to an https connection
 var errorThis = {};  //Used as a global error handler
 var retryIfNeeded = [];	//A global pushable list with the repeat attempts
 var checkComplete = [];	//A global pushable list with the repeat checks to see if image is on PC
