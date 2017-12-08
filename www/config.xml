@@ -24,7 +24,7 @@
 
 	
   
-    <gap:plugin name="org.apache.cordova.file-transfer"  source="npm"/> 
+    <plugin name="cordova-plugin-file-transfer" spec="~1.7.0" />
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
     
