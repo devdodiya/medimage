@@ -22,10 +22,8 @@
     </author>
 
 
-	
-    <preference name='phonegap-version' value='cli-7.0.1' />
-    <plugin name="cordova-plugin-file-transfer" />
-    <!--<gap:plugin name="cordova-plugin-whitelist" source="npm"/>-->
+    <gap:plugin name="cordova-plugin-file-transfer" source="npm"/>
+    <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
     
     <plugin name="cordova-plugin-dialogs" source="npm" spec="~1.3.1" />
