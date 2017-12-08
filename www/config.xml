@@ -33,6 +33,8 @@
     <plugin name="cordova-plugin-camera" source="npm" spec="2.3.0">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="AtomJump MedImage would like to access your camera, so that you can take patient photos." />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="AtomJump MedImage would like to access your camera, so that you can take patient photos." />
+        <variable name="ICON" value="@mipmap/icon" />
+    	<variable name="SMALL_ICON" value="@mipmap/icon" />
     </plugin> 
    
     
