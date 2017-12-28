@@ -31,8 +31,7 @@
     <plugin name="cordova-plugin-dialogs" source="npm" spec="~1.3.1" />
     <plugin name="cordova-plugin-globalization" spec="1.0.5" />
 
-
-    <plugin name="cordova-plugin-camera" source="npm" spec="~4.0.0" >
+	<plugin name="cordova-plugin-dialogs" source="npm" spec="~3.0.0" />
         <variable name="CAMERA_USAGE_DESCRIPTION" value="AtomJump MedImage would like to access your camera, so that you can take patient photos." />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="AtomJump MedImage would like to access your photo library, so that you can see any existing patient photos." />
 	</plugin>
@@ -58,13 +57,23 @@
 
 	    
 	    
-	    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+	    <!--<edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
     		<string>AtomJump MedImage would like to access your camera, so that you can take patient photos.</string>
 		</edit-config>
 	
 		<edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
 			<string>AtomJump MedImage would like to access your photo library, so that you can see any existing patient photos.</string>
-		</edit-config>
+		</edit-config>-->
+		
+		<gap:config-file platform="ios" target="*-Info.plist" parent="NSCameraUsageDescription" overwrite="true">
+  			<string>AtomJump MedImage would like to access your camera, so that you can take patient photos.</string>
+</gap:config-file>
+
+		<gap:config-file platform="ios" target="*-Info.plist" parent="NSPhotoLibraryUsageDescription" overwrite="true">
+					<string>AtomJump MedImage would like to access your photo library, so that you can see any existing patient photos.</string>
+		</gap:config-file>
+		
+		
 	    
         <!-- This line is to remove the encryption message when publishing -->
         <gap:config-file platform="ios" parent="ITSAppUsesNonExemptEncryption" mode="add"><false/></gap:config-file>
