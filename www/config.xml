@@ -46,7 +46,24 @@
         <uses-permission android:name="android.permission.CAMERA" />
          <uses-feature android:name="android.hardware.camera" />
          <uses-feature android:name="android.hardware.camera.autofocus" />
-         <icon src="icon.png" width="128" height="128" />
+         <icon src="res/icon.png" width="128" height="128" />
+         
+          <!--
+            ldpi    : 36x36 px
+            mdpi    : 48x48 px
+            hdpi    : 72x72 px
+            xhdpi   : 96x96 px
+            xxhdpi  : 144x144 px
+            xxxhdpi : 192x192 px
+        -->
+        <icon src="res/mipmap/ldpi.png" density="ldpi" />
+        <icon src="res/mipmap/mdpi.png" density="mdpi" />
+        <icon src="res/mipmap/hdpi.png" density="hdpi" />
+        <icon src="res/mipmap/xhdpi.png" density="xhdpi" />
+        <icon src="res/mipmap/xxhdpi.png" density="xxhdpi" />
+        <icon src="res/mipmap/xxxhdpi.png" density="xxxhdpi" />
+         
+         
     </platform>
     
     <platform name="ios">
