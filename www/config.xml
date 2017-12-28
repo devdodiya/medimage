@@ -38,7 +38,7 @@
 	</edit-config>
 	
 	<edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
-    	<string>AtomJump MedImage would like to access your camera, so that you can take patient photos.</string>
+    	<string>AtomJump MedImage would like to access your photo library, so that you can take patient photos.</string>
 	</edit-config>
     
     
