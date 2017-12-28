@@ -22,7 +22,7 @@
     </author>
 
 	<preference name='phonegap-version' value='cli-7.0.1' />
-	<preference name='pgb-builder-version' value='1' />
+	<preference name='pgb-builder-version' value='2' />
     
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
