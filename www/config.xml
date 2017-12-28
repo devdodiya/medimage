@@ -21,7 +21,8 @@
         AtomJump
     </author>
 
-
+	<preference name='phonegap-version' value='cli-7.0.1' />
+	<preference name='pgb-builder-version' value='1' />
     
     <gap:plugin name="cordova-plugin-whitelist" source="npm"/>
     <gap:plugin name="cordova-plugin-networkinterface" source="npm"/>
@@ -33,13 +34,7 @@
 
     <plugin name="cordova-plugin-camera" source="npm" spec="~3.0.0" />
         
-   	<edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
-    	<string>AtomJump MedImage would like to access your camera, so that you can take patient photos.</string>
-	</edit-config>
-	
-	<edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
-    	<string>AtomJump MedImage would like to access your photo library, so that you can take patient photos.</string>
-	</edit-config>
+   
     
     
     
@@ -59,6 +54,15 @@
         <preference name="orientation" value="portrait" />
         <preference name="BackupWebStorage" value="none" />
 
+	    
+	    
+	    <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
+    		<string>AtomJump MedImage would like to access your camera, so that you can take patient photos.</string>
+		</edit-config>
+	
+		<edit-config target="NSPhotoLibraryUsageDescription" file="*-Info.plist" mode="merge">
+			<string>AtomJump MedImage would like to access your photo library, so that you can see current patient photos.</string>
+		</edit-config>
 	    
         <!-- This line is to remove the encryption message when publishing -->
         <gap:config-file platform="ios" parent="ITSAppUsesNonExemptEncryption" mode="add"><false/></gap:config-file>
