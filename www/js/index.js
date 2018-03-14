@@ -532,6 +532,7 @@ var app = {
 	   					localStorage.removeItem("currentWifiServer");
 	   					
 	   					localStorage.setItem("initialHash", 'true');	//Default to write a folder
+						document.getElementById("always-create-folder").checked = true;
 						
 						
 						//Now refresh the current server display
