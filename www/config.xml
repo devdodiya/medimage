@@ -135,7 +135,7 @@
 		<icon src="icon-50@2x.png" platform="ios" width="100" height="100" />-->
 
 		<!-- iPad Appstore Icon -->
-		<icon src="medimage-appstore-icon-1024.png" platform="ios" width="1024" height="1024" />
+		<icon src="res/ios/medimage-appstore-icon-1024.png" platform="ios" width="1024" height="1024" />
 
 
 		<!--<splash src="img/splash-568h@2x.png" platform="ios" width="640" height="1136" />-->
