@@ -515,6 +515,9 @@ var app = {
     
     factoryReset: function() {
         //We have connected to a server OK
+        
+
+        
         var _this = this;
         
     		navigator.notification.confirm(
@@ -527,6 +530,8 @@ var app = {
 						localStorage.removeItem("defaultDir");		//Init it
 						localStorage.removeItem("currentRemoteServer");
 	   					localStorage.removeItem("currentWifiServer");
+	   					
+	   					localStorage.setItem("initialHash", 'true');	//Default to write a folder
 						
 						
 						//Now refresh the current server display
@@ -1162,7 +1167,12 @@ var app = {
     			
     			document.getElementById("always-create-folder").checked = true;
     		} 
-     	} 
+     	} else {
+     		//If not defined, define it as true (write a folder)
+     		localStorage.setItem("initialHash", 'true');	//Default to write a folder
+     		document.getElementById("always-create-folder").checked = true;
+     		
+     	}
     },
     
     
