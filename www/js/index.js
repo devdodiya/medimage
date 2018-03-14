@@ -46,7 +46,10 @@ var app = {
         //Initialise the id field
         this.displayIdInput();
         
+        
         errorThis = this;
+        
+       
 
     },
     // Bind Event Listeners
@@ -66,12 +69,14 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+        if(parentElement) {
+        	var listeningElement = parentElement.querySelector('.listening');
+        	var receivedElement = parentElement.querySelector('.received');
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-        console.log('Received Event: ' + id);
+        	listeningElement.setAttribute('style', 'display:none;');
+        	receivedElement.setAttribute('style', 'display:block;');
+        	console.log('Received Event: ' + id);
+        } 
     },
 
     takePicture: function() {
@@ -1158,22 +1163,25 @@ var app = {
     },
     
     
-    displayIdInput: function() {
+    displayIdInput: function(cb) {
     	//Call this during initialisation on app startup
     	var initialHash = localStorage.getItem("initialHash");
     	
+    	
     	if((initialHash) && (initialHash != null)) {
     		//Now refresh the current ID field
-    		if(initialHash == 'true') {
-    			
+    		if(initialHash == "true") {
     			document.getElementById("always-create-folder").checked = true;
-    		} 
+    		} else {
+    			document.getElementById("always-create-folder").checked = false;
+    		}
      	} else {
      		//If not defined, define it as true (write a folder)
-     		localStorage.setItem("initialHash", 'true');	//Default to write a folder
+     		localStorage.setItem("initialHash", "true");	//Default to write a folder
      		document.getElementById("always-create-folder").checked = true;
      		
      	}
+     	
     },
     
     

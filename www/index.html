@@ -31,8 +31,17 @@
     	<link rel="stylesheet" type="text/css" href="css/material-design-iconic-font/css/material-design-iconic-font.css">
     	<script src="js/onsenui.js"></script>
 	    <script>
+	      var mySwitch;
 	      ons.ready(function() {
 	        // Init code here
+	        
+	          mySwitch = document.getElementById("always-create-folder");
+        
+			  mySwitch.addEventListener('change', function(event) {
+				errorThis.saveIdInput(document.getElementById("always-create-folder").checked);
+			  });
+	        
+	        
 	      });
 	      
 	      // This event fires when the keyboard will hide
@@ -119,7 +128,7 @@
 						ID writes a folder
 					  </div>
 					  <div class="right">
-						<ons-switch style="color: #7c5599;" id="always-create-folder"></ons-switch>
+						<ons-switch style="color: #7c5599;" id="always-create-folder" checked></ons-switch>
 					  </div>
 					</ons-list-item>
 				  </ons-list>
@@ -137,16 +146,15 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-            app.initialize();
-          </script>
+          app.initialize(function() {
+          	  
           
-          <script>
-          	 var mySwitch = document.getElementById("always-create-folder");
-
-			mySwitch.addEventListener('change', function(event) {
-    			app.saveIdInput(document.getElementById("always-create-folder").checked);
-  			});
-		  </script>
+          });
+          
+          
+          
+		
+		</script>
           
           
      </ons-page>
