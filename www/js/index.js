@@ -69,14 +69,15 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
         var parentElement = document.getElementById(id);
-        if(parentElement) {
-        	var listeningElement = parentElement.querySelector('.listening');
-        	var receivedElement = parentElement.querySelector('.received');
+		if(parentElement) {
+			var listeningElement = parentElement.querySelector('.listening');
+			var receivedElement = parentElement.querySelector('.received');
 
-        	listeningElement.setAttribute('style', 'display:none;');
-        	receivedElement.setAttribute('style', 'display:block;');
-        	console.log('Received Event: ' + id);
-        } 
+			listeningElement.setAttribute('style', 'display:none;');
+			receivedElement.setAttribute('style', 'display:block;');
+		}
+		console.log('Received Event: ' + id);
+        
     },
 
     takePicture: function() {
@@ -1163,13 +1164,14 @@ var app = {
     },
     
     
-    displayIdInput: function(cb) {
+    displayIdInput: function() {
     	//Call this during initialisation on app startup
     	var initialHash = localStorage.getItem("initialHash");
     	
-    	
+    		
     	if((initialHash) && (initialHash != null)) {
     		//Now refresh the current ID field
+    		
     		if(initialHash == "true") {
     			document.getElementById("always-create-folder").checked = true;
     		} else {

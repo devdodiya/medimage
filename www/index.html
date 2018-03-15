@@ -30,17 +30,9 @@
     	<link rel="stylesheet" type="text/css" href="css/ionicons/css/ionicons.css">
     	<link rel="stylesheet" type="text/css" href="css/material-design-iconic-font/css/material-design-iconic-font.css">
     	<script src="js/onsenui.js"></script>
-	    <script>
-	      var mySwitch;
-	      ons.ready(function() {
+		<script>
+		  ons.ready(function() {
 	        // Init code here
-	        
-	          mySwitch = document.getElementById("always-create-folder");
-        
-			  mySwitch.addEventListener('change', function(event) {
-				errorThis.saveIdInput(document.getElementById("always-create-folder").checked);
-			  });
-	        
 	        
 	      });
 	      
@@ -67,9 +59,8 @@
 						document.getElementById('page').style.height = 100 + '%';//device  100% height
 					}, 100);
 			}
-	      
-	    </script>
-	
+			
+		</script>
 
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>MedImage</title>
@@ -146,15 +137,26 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-          app.initialize(function() {
-          	  
-          
-          });
+          app.initialize();
           
           
           
 		
 		</script>
+		<script>
+	      
+	   
+			
+			var mySwitch = document.getElementById("always-create-folder");
+        
+			mySwitch.addEventListener('change', function(event) {
+				app.saveIdInput(document.getElementById("always-create-folder").checked);
+			});
+	      
+	    </script>
+		
+		
+		
           
           
      </ons-page>
