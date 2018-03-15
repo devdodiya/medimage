@@ -230,6 +230,9 @@ var app = {
 						tempName = "#" + tempName;
 					
 					}
+				} else {
+					//Not set, so prepend the initial hash by default
+					tempName = "#" + tempName;
 				}
 
 				var defaultDir = localStorage.getItem("defaultDir");
