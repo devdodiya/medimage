@@ -31,11 +31,7 @@
     	<link rel="stylesheet" type="text/css" href="css/material-design-iconic-font/css/material-design-iconic-font.css">
     	<script src="js/onsenui.js"></script>
 		<script>
-		  ons.ready(function() {
-	        // Init code here
-	        
-	      });
-	      
+		
 	      // This event fires when the keyboard will hide
 			window.addEventListener('native.keyboardshow', keyboardShowHandler);
 
@@ -137,11 +133,13 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
-          app.initialize();
+            ons.ready(function() {
+	        // Init code here
+	        app.initialize();
+	      });
+	      
           
           
-          
-		
 		</script>
 		<script>
 	      

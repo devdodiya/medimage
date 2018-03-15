@@ -36,7 +36,7 @@ var app = {
     // Application Constructor
     initialize: function() {
 
-
+		errorThis = this;
         this.bindEvents();  
         
         
@@ -45,11 +45,6 @@ var app = {
         
         //Initialise the id field
         this.displayIdInput();
-        
-        
-        errorThis = this;
-        
-       
 
     },
     // Bind Event Listeners
@@ -75,8 +70,11 @@ var app = {
 
 			listeningElement.setAttribute('style', 'display:none;');
 			receivedElement.setAttribute('style', 'display:block;');
+			console.log('Received Event: ' + id);
+		} else {
+			console.log('Failed Received Event: ' + id);
 		}
-		console.log('Received Event: ' + id);
+		
         
     },
 
@@ -1152,11 +1150,11 @@ var app = {
     	//Get existing settings array
     	if(status == true) {
     		//Show a hash by default    		
-    		localStorage.setItem("initialHash", 'true');
+    		localStorage.setItem("initialHash", "true");
     		
     	} else {
     		//Remove the hash by default
-     		localStorage.setItem("initialHash", 'false');
+     		localStorage.setItem("initialHash", "false");
     		
     	}
 
@@ -1177,12 +1175,7 @@ var app = {
     		} else {
     			document.getElementById("always-create-folder").checked = false;
     		}
-     	} else {
-     		//If not defined, define it as true (write a folder)
-     		localStorage.setItem("initialHash", "true");	//Default to write a folder
-     		document.getElementById("always-create-folder").checked = true;
-     		
-     	}
+     	} 
      	
     },
     
