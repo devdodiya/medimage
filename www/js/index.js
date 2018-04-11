@@ -1043,7 +1043,7 @@ var app = {
        	localStorage.removeItem("currentRemoteServer");
         localStorage.removeItem("currentWifiServer");
 
-		this.notify("Click above to activate.");			//Clear off old notifications
+		this.notify("Tap above to activate.");			//Clear off old notifications
         
 		//Ask for a name of the current Server:
 		navigator.notification.prompt(
