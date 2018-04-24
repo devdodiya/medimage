@@ -170,7 +170,7 @@ var app = {
 
       } else {
 		  //No lan detected
-         cb(null,'Tap to use remote server.');
+         cb(null,'Local Wifi server not detected.');
       }
     },
 
@@ -625,6 +625,7 @@ var app = {
 										if(err) {
 											//An error finding wifi
 											errorThis.notify(err);
+											errorThis.bigButton();
 										} else {
 											//Ready to take a picture, rerun with this
 											//wifi server
