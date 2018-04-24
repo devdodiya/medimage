@@ -170,7 +170,7 @@ var app = {
 
       } else {
 		  //No lan detected
-         cb(null,'Do you have a 4 digit code?');
+         cb(null,'Tap to use remote server.');
       }
     },
 
