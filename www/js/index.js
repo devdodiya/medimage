@@ -498,10 +498,10 @@ var app = {
                   cb(err);
            }, 5000);
 
-           networkinterface.getIPAddress(function(ip) {
-                _this.ip = ip;
-                var len =  ip.lastIndexOf('\.') + 1;
-                _this.lan = ip.substr(0,len);
+           networkinterface.getWiFiIPAddress(function(ipInfo) {
+                _this.ip = ipInfo.ip;			//note: we could use ipInfo.subnet here but, this could be a 16-bit subnet rather than 24-bit?
+                var len =  ipInfo.ip.lastIndexOf('\.') + 1;
+                _this.lan = ipInfo.ip.substr(0,len);
                 clearTimeout(iptime);
                 cb(null);
            });

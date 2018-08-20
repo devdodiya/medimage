@@ -13,7 +13,7 @@ The desktop system should have the MedImage Server at https://github.com/atomjum
 
 # License
 
-Build tools Copyright (c) 2012-2013 Adobe Systems Incorporated. All rights reserved.
+Build tools copyright (c) 2012-2013 Adobe Systems Incorporated. All rights reserved.
 
 Application source code copyright (c) 2018 AtomJump Ltd. (New Zealand). All rights reserved.
 
