@@ -180,3 +180,9 @@ li {
        border-width:thin;
     }
 }
+
+.ui-autocomplete{
+    z-index: 999;
+    left: 0 !important;
+    width: 75% !important;
+}
