@@ -18,148 +18,167 @@
     under the License.
 -->
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width, viewport-fit=cover" />
-		 <meta http-equiv="Content-Security-Policy" content="default-src data: gap: https://ssl.gstatic.com  'unsafe-inline' *;  style-src 'self' 'unsafe-inline' 'unsafe-eval' *; media-src *; img-src 'self' data: content: *;">
-		 
-	<link rel="stylesheet" href="css/onsenui.css"/>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width, viewport-fit=cover" />
+	<meta http-equiv="Content-Security-Policy" content="default-src data: gap: https://ssl.gstatic.com  'unsafe-inline' *;  style-src 'self' 'unsafe-inline' 'unsafe-eval' *; media-src *; img-src 'self' data: content: *;">
+
+	<link rel="stylesheet" href="css/onsenui.css" />
 	<link rel="stylesheet" href="css/onsen-css-components-purple-theme.css">
-    	
-    	<link rel="stylesheet" type="text/css" href="css/ionicons/css/ionicons.css">
-    	<link rel="stylesheet" type="text/css" href="css/material-design-iconic-font/css/material-design-iconic-font.css">
-    	<script src="js/onsenui.js"></script>
-		<script>
-		
-	      // This event fires when the keyboard will hide
-			window.addEventListener('native.keyboardshow', keyboardShowHandler);
+
+	<link rel="stylesheet" type="text/css" href="css/ionicons/css/ionicons.css">
+	<link rel="stylesheet" type="text/css" href="css/material-design-iconic-font/css/material-design-iconic-font.css">
+	<script src="js/onsenui.js"></script>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script>
+
+		// This event fires when the keyboard will hide
+		window.addEventListener('native.keyboardshow', keyboardShowHandler);
 
 
 
-			function keyboardShowHandler(e){
-				//$("body").addClass("keyboardOn");
-				var deviceHeight = window.innerHeight;
-				var keyboardHeight = e.keyboardHeight;
-				var deviceHeightAdjusted = deviceHeight - keyboardHeight;//device height adjusted
-				deviceHeightAdjusted = deviceHeightAdjusted < 0 ? (deviceHeightAdjusted * -1) : deviceHeightAdjusted;//only positive number
-				document.getElementById('page').style.height = deviceHeightAdjusted + 'px';//set page height
-				document.getElementById('page').setAttribute('keyBoardHeight', keyboardHeight);//save keyboard height
-			}
+		function keyboardShowHandler(e) {
+			//$("body").addClass("keyboardOn");
+			var deviceHeight = window.innerHeight;
+			var keyboardHeight = e.keyboardHeight;
+			var deviceHeightAdjusted = deviceHeight - keyboardHeight;//device height adjusted
+			deviceHeightAdjusted = deviceHeightAdjusted < 0 ? (deviceHeightAdjusted * -1) : deviceHeightAdjusted;//only positive number
+			document.getElementById('page').style.height = deviceHeightAdjusted + 'px';//set page height
+			document.getElementById('page').setAttribute('keyBoardHeight', keyboardHeight);//save keyboard height
+		}
 
-			// This event fires when the keyboard will show
-			window.addEventListener('native.keyboardhide', keyboardHideHandler);
+		// This event fires when the keyboard will show
+		window.addEventListener('native.keyboardhide', keyboardHideHandler);
 
-			function keyboardHideHandler(e){
-				   setTimeout(function () {
-						document.getElementById('page').style.height = 100 + '%';//device  100% height
-					}, 100);
-			}
-			
-		</script>
+		function keyboardHideHandler(e) {
+			setTimeout(function () {
+				document.getElementById('page').style.height = 100 + '%';//device  100% height
+			}, 100);
+		}
 
-        <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <title>MedImage</title>
-    </head>
-    <body>
-    	<style><item name="android:windowTranslucentStatus">true</item></style> <!-- Ensure clicking inside box scrolls down -->
-    	<ons-navigator>
-         <ons-page>
-	        
-		    <ons-fab style="z-index: 800;" position="bottom right" onclick="app.openSettings();">
-		      <ons-icon icon="md-menu" ></ons-icon>
-		    </ons-fab>
-		    
-		
-	
- 
-        <p style="text-align:center;">
-             <span class="big-text" onclick="navigator.notification.alert('Enter a patient or image ID, which names the image folder. The second word names the image file.', function(){}, 'Optional');">Image ID <small >(e.g. NHI) <ons-icon icon="ion-ios-help" size="20px" fixed-width="true"></small><br/></span><input id="id-entered" type="text" size="9" class="resizedTextbox" value="">
-        </p>
+	</script>
 
- 		<div style="text-align:center;">
-            <span id="currentPC"  class="pc-text"></span>
-        </div>
-        <div class="logo" onclick="app.bigButton();">
-			<img  src="img/logo@2x.png" class="logo-img">
-        </div>
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<title>MedImage</title>
+</head>
 
-        <div style="text-align:center;">
-            <span id="notify" class="notify-text"></span>
-            &nbsp;<span id="status" class="notify-text"></span>
-        </div>
-        
-        <br/>
-       
-        
+<body>
+	<style>
+		<item name="android:windowTranslucentStatus">true</item>
+	</style> <!-- Ensure clicking inside box scrolls down -->
+	<ons-navigator>
+		<ons-page>
 
-        
-        <div id="settings-popup" style="display:none;">
-        	<div id="inner-popup">
-        		
-        		<span class="big-text">Settings</span><br/><br/>
-        		
-        		<ons-fab position="top right" onclick="app.closeSettings();">
-		      		<ons-icon icon="md-close" ></ons-icon>
-		    	</ons-fab>
-        		
-        		
-        		<div id="settings"></div>
-        		<p>
-        			<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.newServer();">Add a New PC</ons-button>
-	        	</p>
-	        	
-	        	 <ons-list>
-					<ons-list-item>
-					  <div class="center">
-						ID writes a folder
-					  </div>
-					  <div class="right">
-						<ons-switch style="color: #7c5599;" id="always-create-folder" checked></ons-switch>
-					  </div>
-					</ons-list-item>
-				  </ons-list>
-	        	
-	        	
-				<p>
-					<a class="small-text" href="javascript" onclick="return app.factoryReset();">Reset Factory Settings</a>
-				</p>
+			<ons-fab style="z-index: 800;" position="bottom right" onclick="app.openSettings();">
+				<ons-icon icon="md-menu"></ons-icon>
+			</ons-fab>
+
+
+
+
+			<p style="text-align:center;">
+				<span class="big-text" onclick="navigator.notification.alert('Enter a patient or image ID, which names the image folder. The second word names the image file.', function(){}, 'Optional');">Image
+					ID <small>(e.g. NHI) <ons-icon icon="ion-ios-help" size="20px" fixed-width="true"></small><br /></span>
+					<input id="id-entered" type="text" size="9" class="resizedTextbox" value="">
+			</p>
+			<p style="text-align:center;">
+					<span class="big-text">Keywords</span>
+					<input id="id-keywords" type="text" size="9" class="resizedTextbox" value="">
+			</p>
+
+			<div style="text-align:center;">
+				<span id="currentPC" class="pc-text"></span>
 			</div>
-        </div>
-        
+			<div class="logo" onclick="app.bigButton();">
+				<img src="img/logo@2x.png" class="logo-img">
+			</div>
 
-        
-        
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            ons.ready(function() {
-	        // Init code here
-	        app.initialize();
-	      });
-	      
-          
-          
-		</script>
-		<script>
-	      
-	   
-			
-			var mySwitch = document.getElementById("always-create-folder");
-        
-			mySwitch.addEventListener('change', function(event) {
-				app.saveIdInput(document.getElementById("always-create-folder").checked);
-			});
-	      
-	    </script>
-		
-		
-		
-          
-          
-     </ons-page>
-     
-     
-    </ons-navigator>  
-    </body>
+			<div style="text-align:center;">
+				<span id="notify" class="notify-text"></span>
+				&nbsp;<span id="status" class="notify-text"></span>
+			</div>
+
+			<br />
+
+
+
+
+			<div id="settings-popup" style="display:none;">
+				<div id="inner-popup">
+
+					<span class="big-text">Settings</span><br /><br />
+
+					<ons-fab position="top right" onclick="app.closeSettings();">
+						<ons-icon icon="md-close"></ons-icon>
+					</ons-fab>
+
+
+					<div id="settings"></div>
+					<p>
+						<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.newServer();">Add a
+							New
+							PC</ons-button>
+					</p>
+
+					<ons-list>
+						<ons-list-item>
+							<div class="center">
+								ID writes a folder
+							</div>
+							<div class="right">
+								<ons-switch style="color: #7c5599;" id="always-create-folder" checked></ons-switch>
+							</div>
+						</ons-list-item>
+					</ons-list>
+
+					<p>
+						<ons-button style="background-color: #7c5599; color: white;" modifier="large" onclick="app.updateSettings();">Update
+							Company Settings</ons-button>
+					</p>
+
+					<p>
+						<a class="small-text" href="javascript" onclick="return app.factoryReset();">Reset Factory Settings</a>
+					</p>
+				</div>
+			</div>
+
+
+
+
+			<script type="text/javascript" src="cordova.js"></script>
+			<script type="text/javascript" src="js/index.js"></script>
+			<script type="text/javascript">
+				ons.ready(function () {
+					// Init code here
+					app.initialize();
+				});
+
+
+
+			</script>
+			<script>
+
+
+
+				var mySwitch = document.getElementById("always-create-folder");
+
+				mySwitch.addEventListener('change', function (event) {
+					app.saveIdInput(document.getElementById("always-create-folder").checked);
+				});
+
+			</script>
+
+
+
+
+
+		</ons-page>
+
+
+	</ons-navigator>
+</body>
+
 </html>
