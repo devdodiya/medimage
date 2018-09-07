@@ -1,0 +1,54 @@
+{
+    "keywords" : [
+        {
+            "id" : 1,
+            "name" : "Leg ulcer Venous",
+            "prevalence" : 1
+        },
+        {
+            "id" : 2,
+            "name" : "Leg ulcer Mixed Aetiology",
+            "prevalence" : 2
+        },
+        {
+            "id" : 3,
+            "name" : "Leg ulcer Arterial",
+            "prevalence" : 3
+        },
+        {
+            "id" : 4,
+            "name" : "Leg ulcer Chronic neurogenic",
+            "prevalence" : 4
+        },
+        {
+            "id" : 5,
+            "name" : "Leg ulcer Unknown aetiology",
+            "prevalence" : 5
+        },
+        {
+            "id" : 6,
+            "name" : "Lymphoedema",
+            "prevalence" : 6
+        },
+        {
+            "id" : 7,
+            "name" : "Diabetic foot ulcer",
+            "prevalence" : 7
+        },
+        {
+            "id" : 8,
+            "name" : "Varicose eczema",
+            "prevalence" : 8
+        },
+        {
+            "id" : 9,
+            "name" : "Oedema",
+            "prevalence" : 9
+        },
+        {
+            "id" : 10,
+            "name" : "Pressure injury  Stage 1",
+            "prevalence" : 10
+        }
+    ]
+}
